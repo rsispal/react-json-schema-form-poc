@@ -1,0 +1,141 @@
+[
+  {
+    "id": "Q1",
+    "order": 1,
+    "exclude": false,
+    "field": {
+      "type": "RadioGroup",
+      "prompt": "Do you want guidance from PensionWise?",
+      "properties": {
+        "name": "question1",
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes - I want guidance from PensionWise"
+          },
+          {
+            "value": "NO",
+            "label": "No - Please tell us more"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "equals": "NO",
+          "prompt": "This is a warning because you selected NO!"
+        }
+      ],
+      "dependants": [
+        {
+          "equals": "YES",
+          "child": "question1_1_y"
+        },
+        {
+          "equals": "NO",
+          "child": "q1_1_n"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Q1_1_Y",
+    "order": 2,
+    "exclude": true,
+    "field": {
+      "type": "LinkButton",
+      "prompt": "",
+      "properties": {
+        "name": "question1_1_y",
+        "disabled": false,
+        "label": "Click here to go to resource",
+        "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
+        "target": "_blank"
+      },
+      "warnings": [],
+      "dependants": []
+    }
+  },
+
+  {
+    "id": "Q1_1_N",
+    "order": 2,
+    "exclude": true,
+    "field": {
+      "type": "RadioGroup",
+      "prompt": "",
+      "properties": {
+        "name": "q1_1_n",
+        "disabled": false,
+        "options": [
+          {
+            "value": "A",
+            "label": "I've already received regulated financial advice"
+          },
+          {
+            "value": "B",
+            "label": "I've decided I don't want to speak to PensionWise"
+          },
+          {
+            "value": "C",
+            "label": "I've already received guidance from PensionWise before talking to you"
+          }
+        ]
+      },
+      "warnings": [],
+      "dependants": []
+    }
+  },
+
+  {
+    "id": "Q2",
+    "order": 3,
+    "exclude": false,
+    "field": {
+      "type": "RadioGroup",
+      "prompt": "Have your circumstances changed since you received Pension Wise guidance?",
+      "properties": {
+        "name": "q2",
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes, my circumstances have changed"
+          },
+          {
+            "value": "NO",
+            "label": "No, my circumstances haven't changed"
+          }
+        ]
+      },
+      "warnings": [],
+      "dependants": []
+    }
+  },
+
+  {
+    "id": "Q4",
+    "order": 3,
+    "exclude": false,
+    "field": {
+      "type": "RadioGroup",
+      "prompt": "Have you received personal advice from a regulated Financial Advisor?",
+      "properties": {
+        "name": "q4",
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes - I've received personalised advice"
+          },
+          {
+            "value": "NO",
+            "label": "No - I have not received personal advice"
+          }
+        ]
+      },
+      "warnings": [],
+      "dependants": []
+    }
+  }
+]

@@ -3,7 +3,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import { QuestionForm } from "../../components/QuestionForm";
 import { FormPageProps } from "./Form.types";
 
-import SeedQuestions from "../../__SEED__/data.json";
+import SeedQuestions from "../../__SEED__/basic.json";
 import { Question } from "../../components/QuestionForm/QuestionForm.types";
 
 export const FormPage: FC<FormPageProps> = () => (
