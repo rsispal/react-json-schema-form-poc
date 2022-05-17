@@ -1,6 +1,6 @@
 {
-  "name": "react-json-final-form-solution",
-  "version": "0.1.0",
+  "name": "react-json-schema-form-poc",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.0.0",
@@ -15,6 +15,7 @@
     "@types/react-dom": "^18.0.4",
     "final-form": "^4.20.7",
     "framer-motion": "^6.3.3",
+    "lodash": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-final-form": "^6.5.9",
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182"
   }
 }
