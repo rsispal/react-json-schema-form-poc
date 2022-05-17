@@ -1,20 +1,43 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
+/* Libraries */
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
+
+/* Components */
+import { RouteCard } from "../../components/RouteCard";
+
+/* Constants */
 import { Routes } from "../../constants";
+
+/* Layouts */
+import { PageLayout } from "../../layout/page/Page.layout";
+
+/* Types */
 import { HomePageProps } from "./Home.types";
 
-export const HomePage: FC<HomePageProps> = () => {
-  const navigate = useNavigate();
+export const HomePage: FC<HomePageProps> = () => (
+  <PageLayout title="Home">
+    <Flex>
+      <RouteCard
+        title="Testbed"
+        description="This testbed provides a basic implementation of the form with a basic schema. For development use only."
+        link={Routes.ROUTE__TESTBED}
+        audience="developer"
+      />
 
-  return (
-    <Flex w="100vw" h="100vh" flex={1} flexDirection="column" padding={4}>
-      <Heading>Home Page</Heading>
-      <Flex>
-        <Button size="lg" marginTop={20} onClick={() => navigate(Routes.ROUTE__FORM)}>
-          Go to form
-        </Button>
-      </Flex>
+      <RouteCard
+        title="Risk Form (React Final Form library)"
+        description="The form is loaded with the version 2 risk questions."
+        link={Routes.ROUTE__FORM}
+        audience="public"
+      />
+
+      <RouteCard
+        title="Risk Form (rc-field-form library)"
+        description="The form is loaded with the version 2 risk questions."
+        link={Routes.ROUTE__FORM}
+        audience="unavailable"
+        disabled
+      />
     </Flex>
-  );
-};
+  </PageLayout>
+);
