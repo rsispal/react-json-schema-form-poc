@@ -5,35 +5,35 @@
     "exclude": false,
     "field": {
       "type": "RadioGroup",
-      "prompt": "Do you want guidance from PensionWise?",
+      "prompt": "This is question 1. Yes and No both have linked children",
       "properties": {
-        "name": "question1",
+        "name": "Q1",
         "disabled": false,
         "options": [
           {
             "value": "YES",
-            "label": "Yes - I want guidance from PensionWise"
+            "label": "Yes"
           },
           {
             "value": "NO",
-            "label": "No - Please tell us more"
+            "label": "No"
           }
         ]
       },
       "warnings": [
         {
           "equals": "NO",
-          "prompt": "This is a warning because you selected NO!"
+          "prompt": "This is a warning because you selected NO"
         }
       ],
       "dependants": [
         {
           "equals": "YES",
-          "child": "question1_1_y"
+          "child": "Q1_1_Y"
         },
         {
           "equals": "NO",
-          "child": "q1_1_n"
+          "child": "Q1_1_N"
         }
       ]
     }
@@ -46,10 +46,10 @@
       "type": "LinkButton",
       "prompt": "",
       "properties": {
-        "name": "question1_1_y",
+        "name": "Q1_1_Y",
         "disabled": false,
-        "label": "Click here to go to resource",
-        "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
+        "label": "Go to specific website",
+        "url": "https://www.google.co.uk",
         "target": "_blank"
       },
       "warnings": [],
@@ -65,22 +65,46 @@
       "type": "RadioGroup",
       "prompt": "",
       "properties": {
-        "name": "q1_1_n",
+        "name": "Q1_1_N",
         "disabled": false,
         "options": [
           {
             "value": "A",
-            "label": "I've already received regulated financial advice"
+            "label": "Option A"
           },
           {
             "value": "B",
-            "label": "I've decided I don't want to speak to PensionWise"
+            "label": "Option B"
           },
           {
             "value": "C",
-            "label": "I've already received guidance from PensionWise before talking to you"
+            "label": "Option C"
           }
         ]
+      },
+      "warnings": [],
+      "dependants": [
+        {
+          "equals": "C",
+          "child": "Q1_1_N_C"
+        }
+      ]
+    }
+  },
+
+  {
+    "id": "Q1_1_N_C",
+    "order": 2,
+    "exclude": true,
+    "field": {
+      "type": "LinkButton",
+      "prompt": "",
+      "properties": {
+        "name": "Q1_1_N_C",
+        "disabled": false,
+        "label": "Resource specific to option C",
+        "url": "https://www.google.co.uk",
+        "target": "_blank"
       },
       "warnings": [],
       "dependants": []
@@ -93,18 +117,18 @@
     "exclude": false,
     "field": {
       "type": "RadioGroup",
-      "prompt": "Have your circumstances changed since you received Pension Wise guidance?",
+      "prompt": "Question 2",
       "properties": {
-        "name": "q2",
+        "name": "Q2",
         "disabled": false,
         "options": [
           {
             "value": "YES",
-            "label": "Yes, my circumstances have changed"
+            "label": "Yes"
           },
           {
             "value": "NO",
-            "label": "No, my circumstances haven't changed"
+            "label": "No"
           }
         ]
       },
@@ -114,23 +138,23 @@
   },
 
   {
-    "id": "Q4",
+    "id": "Q3",
     "order": 3,
     "exclude": false,
     "field": {
       "type": "RadioGroup",
-      "prompt": "Have you received personal advice from a regulated Financial Advisor?",
+      "prompt": "Question 3",
       "properties": {
-        "name": "q4",
+        "name": "Q3",
         "disabled": false,
         "options": [
           {
             "value": "YES",
-            "label": "Yes - I've received personalised advice"
+            "label": "Yes"
           },
           {
             "value": "NO",
-            "label": "No - I have not received personal advice"
+            "label": "No"
           }
         ]
       },
