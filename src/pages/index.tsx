@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { BrowserRouter as Router, Routes, Route, RouteProps } from "react-router-dom";
 
-import { ROUTE__FORM, ROUTE__HOME } from "../constants/Routes.constants";
+import { ROUTE__FORM, ROUTE__HOME, ROUTE__TESTBED } from "../constants/Routes.constants";
 
 import { HomePage } from "./home";
 import { FormPage } from "./form";
+import { TestBedPage } from "./testbed";
 
 export interface ApplicationRouterProps {}
 
@@ -16,6 +17,10 @@ const routes: RouteProps[] = [
   {
     path: ROUTE__FORM,
     element: <FormPage />,
+  },
+  {
+    path: ROUTE__TESTBED,
+    element: <TestBedPage />,
   },
 ];
 export const ApplicationRouter: FC<ApplicationRouterProps> = () => (
