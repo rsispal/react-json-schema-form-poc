@@ -28,7 +28,7 @@ export const FormPage: FC<FormPageProps> = () => {
         {...(SeedQuestions as QuestionSchema)}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={(children) => (
-          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6}>
+          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6}>
             {children}
           </Box>
         )}

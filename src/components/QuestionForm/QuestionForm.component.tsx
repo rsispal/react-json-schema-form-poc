@@ -27,9 +27,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       onSubmit={handleSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          {[questions.filter((q) => q.isChildQuestion === false)[0]].map((q, i) =>
-            renderQuestion(<QuestionField key={i} question={q} questions={questions} />)
-          )}
+          {[questions.filter((q) => q.isChildQuestion === false)[0]].map((q, i) => (
+            <QuestionField key={i} question={q} questions={questions} renderQuestion={renderQuestion} />
+          ))}
           {renderSubmitButton()}
         </form>
       )}

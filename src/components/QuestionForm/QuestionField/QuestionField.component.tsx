@@ -15,7 +15,7 @@ import { QuestionFieldProps } from "./QuestionField.types";
 import { TextInput } from "../../fields/TextInput";
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
 
-export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) => {
+export const QuestionField: FC<QuestionFieldProps> = ({ questions, question, renderQuestion }) => {
   const { field } = question;
 
   const form = useForm();
@@ -65,13 +65,17 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
     </Field>
   );
 
-  const generateField = (field: FormField) => {
+  const generateField = (field: FormField, key?: number) => {
     switch (field.type) {
       case SupportedFormField.LinkButton: {
         return (
           <Fragment key={field.properties.name}>
-            {renderLinkButton(field)}
-            {generateWarnings(field)}
+            {renderQuestion(
+              <Fragment>
+                {renderLinkButton(field)}
+                {generateWarnings(field)}
+              </Fragment>
+            )}
             {generateQuestion(undefined, field)}
           </Fragment>
         );
@@ -79,8 +83,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
       case SupportedFormField.RadioGroup: {
         return (
           <Fragment key={field.properties.name}>
-            {renderRadioGroup(field)}
-            {generateWarnings(field)}
+            {renderQuestion(
+              <Fragment>
+                {renderRadioGroup(field)}
+                {generateWarnings(field)}
+              </Fragment>
+            )}
             {generateQuestion(undefined, field)}
           </Fragment>
         );
@@ -88,8 +96,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
       case SupportedFormField.TextInput: {
         return (
           <Fragment key={field.properties.name}>
-            {renderTextInput(field)}
-            {generateWarnings(field)}
+            {renderQuestion(
+              <Fragment>
+                {renderTextInput(field)}
+                {generateWarnings(field)}
+              </Fragment>
+            )}
             {generateQuestion(undefined, field)}
           </Fragment>
         );
@@ -107,11 +119,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
       const currentValue = getFieldValue(subField.properties.name);
       const childQuestions = QuestionFormUtilities.getChildQuestionsForParent(questions, subField.next, currentValue);
 
-      return (
-        <Box marginTop={4} borderTop="1px solid #d8d8d8">
-          {childQuestions.map((q) => generateField(q.field))}
-        </Box>
-      );
+      return <>{childQuestions.map((q) => generateField(q.field))}</>;
     }
     return null;
   };
