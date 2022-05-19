@@ -5,8 +5,15 @@ import { useForm, Field } from "react-final-form";
 import { LinkButton } from "../../fields/LinkButton";
 import { RadioGroup } from "../../fields/RadioGroup";
 
-import { FormField, LinkButtonProperties, RadioGroupProperties, SupportedFormField } from "../QuestionForm.types";
+import {
+  FormField,
+  LinkButtonProperties,
+  RadioGroupProperties,
+  SupportedFormField,
+  TextInputProperties,
+} from "../QuestionForm.types";
 import { QuestionFieldProps } from "./QuestionField.types";
+import { TextInput } from "../../fields/TextInput";
 
 export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) => {
   const { field } = question;
@@ -50,6 +57,17 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
     </Field>
   );
 
+  const renderTextInput = (field: FormField) => (
+    <Field name={field.properties.name}>
+      {({ input }) => (
+        <Stack>
+          <Text>{field.prompt}</Text>
+          <TextInput {...input} {...(field.properties as TextInputProperties)} />
+        </Stack>
+      )}
+    </Field>
+  );
+
   const generateQuestion = (field: FormField | undefined, subField: FormField | undefined, indent?: boolean): ReactElement => {
     //  GENERATE MAIN FIELD
     if (field) {
@@ -72,13 +90,22 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
             </>
           );
         }
+        case SupportedFormField.TextInput: {
+          return (
+            <>
+              {renderTextInput(field)}
+              {generateWarnings(field)}
+              {generateQuestion(undefined, field, true)}
+            </>
+          );
+        }
       }
     }
 
     // GENERATE VALUE-BASED SUBFIELDS
     if (subField) {
       const currentValue = getFieldValue(subField.properties.name);
-      const childQuestions = (subField.dependants || []).filter((q) => q.equals === currentValue).map((f) => f.child);
+      const childQuestions = (subField.next || []).filter((q) => q.equals === currentValue).map((f) => f.child);
       return (
         <Box marginTop={4} borderTop="1px solid #d8d8d8">
           {childQuestions.map((n, i) => {
@@ -99,6 +126,15 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
                   return (
                     <Box key={i}>
                       {renderRadioGroup(field)}
+                      {generateWarnings(field)}
+                      {generateQuestion(undefined, field, false)}
+                    </Box>
+                  );
+                }
+                case SupportedFormField.TextInput: {
+                  return (
+                    <Box key={i}>
+                      {renderTextInput(field)}
                       {generateWarnings(field)}
                       {generateQuestion(undefined, field, false)}
                     </Box>
