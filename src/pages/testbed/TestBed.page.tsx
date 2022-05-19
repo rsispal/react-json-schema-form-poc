@@ -12,7 +12,7 @@ import SeedQuestions from "../../__SEED__/basic.json";
 import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
-import { Question } from "../../components/QuestionForm/QuestionForm.types";
+import { QuestionSchema } from "../../components/QuestionForm/QuestionForm.types";
 import { TestBedPageProps } from "./TestBed.types";
 
 export const TestBedPage: FC<TestBedPageProps> = () => {
@@ -25,7 +25,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
       title="Testbed"
       badge={{ children: "DEVELOPER USE ONLY", colorScheme: "red", ml: "1", fontSize: "0.5em", marginLeft: 2 }}>
       <QuestionForm
-        questions={SeedQuestions as Question[]}
+        {...(SeedQuestions as QuestionSchema)}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={(children) => (
           <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6}>

@@ -1,9 +1,8 @@
 import { Rules } from "async-validator";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 
-export interface QuestionFormProps {
+export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
-  questions: Question[];
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
 }
@@ -71,4 +70,13 @@ export type Question = {
    * @property field {FormField} - field configuration for this question
    */
   field: FormField;
+};
+
+export type QuestionSchema = {
+  __version: 2;
+  formName: string;
+  submitButton: {
+    label: string;
+  };
+  questions: Question[];
 };
