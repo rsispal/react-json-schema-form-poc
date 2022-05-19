@@ -1,5 +1,7 @@
 # Form Solution POC
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cf5fc3c8-504c-47fd-b978-b6a16e1fc2a2/deploy-status)](https://app.netlify.com/sites/shimmering-parfait-6b6525/deploys)
+
 ## Available Scripts
 
 In the project directory, you can run:
