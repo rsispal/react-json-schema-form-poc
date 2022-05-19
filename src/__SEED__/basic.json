@@ -29,11 +29,11 @@
       "next": [
         {
           "equals": "YES",
-          "child": "Q1_1_Y"
+          "question": "Q1_1_Y"
         },
         {
           "equals": "NO",
-          "child": "Q1_1_N"
+          "question": "Q1_1_N"
         }
       ]
     }
@@ -86,15 +86,15 @@
       "next": [
         {
           "equals": "A",
-          "child": "Q2"
+          "question": "Q2"
         },
         {
           "equals": "B",
-          "child": "Q2"
+          "question": "Q2"
         },
         {
           "equals": "C",
-          "child": "Q1_1_N_C"
+          "question": "Q1_1_N_C"
         }
       ]
     }
@@ -144,11 +144,11 @@
       "next": [
         {
           "equals": "YES",
-          "child": "Q3"
+          "question": "Q3"
         },
         {
           "equals": "NO",
-          "child": "Q3"
+          "question": "Q3"
         }
       ]
     }
@@ -179,11 +179,11 @@
       "next": [
         {
           "equals": "YES",
-          "child": "Q4"
+          "question": "Q4"
         },
         {
           "equals": "NO",
-          "child": "Q4"
+          "question": "Q4"
         }
       ]
     }
@@ -205,11 +205,11 @@
       "next": [
         {
           "equals": "YES",
-          "child": "Q4"
+          "question": "Q4"
         },
         {
           "equals": "NO",
-          "child": "Q4"
+          "question": "Q4"
         }
       ]
     }

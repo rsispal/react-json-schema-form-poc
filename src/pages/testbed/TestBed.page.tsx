@@ -28,7 +28,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         questions={SeedQuestions as Question[]}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={(children) => (
-          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl">
+          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6}>
             {children}
           </Box>
         )}

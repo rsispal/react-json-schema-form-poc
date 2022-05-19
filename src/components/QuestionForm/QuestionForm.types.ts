@@ -46,7 +46,7 @@ export type NextFieldTransition = {
   /**
    * @property childQuestionID {string} - the question field to render when the condition is satisfied
    */
-  child: string;
+  question: string;
 };
 
 export type WarningProperties = {

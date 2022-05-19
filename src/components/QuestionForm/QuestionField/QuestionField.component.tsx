@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { FC, Fragment, ReactElement } from "react";
 import { Alert, Stack, Box, Text } from "@chakra-ui/react";
 import { head } from "lodash";
 import { useForm, Field } from "react-final-form";
@@ -14,27 +14,25 @@ import {
 } from "../QuestionForm.types";
 import { QuestionFieldProps } from "./QuestionField.types";
 import { TextInput } from "../../fields/TextInput";
+import { QuestionFormUtilities } from "../QuestionForm.utilities";
 
 export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) => {
   const { field } = question;
 
   const form = useForm();
 
-  const getFieldValue = (fieldName: string) => form.getFieldState(fieldName)?.value;
-
-  const getQuestionByName = (name: string) => head(questions.filter((q) => q.field.properties.name === name));
+  const getFieldValue = (fieldName: string) => form.getFieldState(fieldName)?.value as string | undefined;
 
   const generateWarnings = (field: FormField) => {
     const currentValue = getFieldValue(field.properties.name);
+    const applicableWarnings = QuestionFormUtilities.getWarningsForField(field.warnings, currentValue);
     return (
       <>
-        {(field.warnings || []).map((warning, i) =>
-          warning.equals === currentValue ? (
-            <Alert key={i} status="warning">
-              {warning.prompt}
-            </Alert>
-          ) : null
-        )}
+        {applicableWarnings?.map(({ prompt }, i) => (
+          <Alert key={i} status="warning">
+            {prompt}
+          </Alert>
+        ))}
       </>
     );
   };
@@ -68,91 +66,56 @@ export const QuestionField: FC<QuestionFieldProps> = ({ questions, question }) =
     </Field>
   );
 
-  const generateQuestion = (field: FormField | undefined, subField: FormField | undefined, indent?: boolean): ReactElement => {
+  const generateField = (field: FormField) => {
+    switch (field.type) {
+      case SupportedFormField.LinkButton: {
+        return (
+          <Fragment key={field.properties.name}>
+            {renderLinkButton(field)}
+            {generateWarnings(field)}
+            {generateQuestion(undefined, field)}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.RadioGroup: {
+        return (
+          <Fragment key={field.properties.name}>
+            {renderRadioGroup(field)}
+            {generateWarnings(field)}
+            {generateQuestion(undefined, field)}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.TextInput: {
+        return (
+          <Fragment key={field.properties.name}>
+            {renderTextInput(field)}
+            {generateWarnings(field)}
+            {generateQuestion(undefined, field)}
+          </Fragment>
+        );
+      }
+    }
+  };
+  const generateQuestion = (field: FormField | undefined, subField: FormField | undefined): ReactElement | null => {
     //  GENERATE MAIN FIELD
     if (field) {
-      switch (field.type) {
-        case SupportedFormField.LinkButton: {
-          return (
-            <>
-              {renderLinkButton(field)}
-              {generateWarnings(field)}
-              {generateQuestion(undefined, field, true)}
-            </>
-          );
-        }
-        case SupportedFormField.RadioGroup: {
-          return (
-            <>
-              {renderRadioGroup(field)}
-              {generateWarnings(field)}
-              {generateQuestion(undefined, field, true)}
-            </>
-          );
-        }
-        case SupportedFormField.TextInput: {
-          return (
-            <>
-              {renderTextInput(field)}
-              {generateWarnings(field)}
-              {generateQuestion(undefined, field, true)}
-            </>
-          );
-        }
-      }
+      return generateField(field);
     }
 
     // GENERATE VALUE-BASED SUBFIELDS
     if (subField) {
       const currentValue = getFieldValue(subField.properties.name);
-      const childQuestions = (subField.next || []).filter((q) => q.equals === currentValue).map((f) => f.child);
+      const childQuestions = QuestionFormUtilities.getChildQuestionsForParent(questions, subField.next, currentValue);
+
       return (
         <Box marginTop={4} borderTop="1px solid #d8d8d8">
-          {childQuestions.map((n, i) => {
-            const q = getQuestionByName(n);
-            if (q) {
-              const { field } = q;
-              switch (field.type) {
-                case SupportedFormField.LinkButton: {
-                  return (
-                    <Box key={i}>
-                      {renderLinkButton(field)}
-                      {generateWarnings(field)}
-                      {generateQuestion(undefined, field, false)}
-                    </Box>
-                  );
-                }
-                case SupportedFormField.RadioGroup: {
-                  return (
-                    <Box key={i}>
-                      {renderRadioGroup(field)}
-                      {generateWarnings(field)}
-                      {generateQuestion(undefined, field, false)}
-                    </Box>
-                  );
-                }
-                case SupportedFormField.TextInput: {
-                  return (
-                    <Box key={i}>
-                      {renderTextInput(field)}
-                      {generateWarnings(field)}
-                      {generateQuestion(undefined, field, false)}
-                    </Box>
-                  );
-                }
-              }
-            }
-            return null;
-          })}
+          {childQuestions.map((q) => generateField(q.field))}
         </Box>
       );
     }
-    return <></>;
+    return null;
   };
 
-  return (
-    <Box borderTop="1px solid #d8d8d8" padding={4}>
-      {generateQuestion(field, undefined)}
-    </Box>
-  );
+  return generateQuestion(field, undefined);
 };
