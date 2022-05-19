@@ -13,11 +13,11 @@ const audienceColourMap = {
 export const RouteCard: FC<RouteCardProps> = ({ title, description, link, audience, disabled }) => {
   const renderCard = () => (
     <Box
-      maxW="sm"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       height="200px"
+      width="320px"
       boxShadow="xl"
       marginRight={4}
       opacity={disabled ? 0.5 : 1}
@@ -28,8 +28,7 @@ export const RouteCard: FC<RouteCardProps> = ({ title, description, link, audien
             {audience}
           </Badge>
         </Box>
-
-        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={1}>
+        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={2}>
           {title}
         </Box>
 

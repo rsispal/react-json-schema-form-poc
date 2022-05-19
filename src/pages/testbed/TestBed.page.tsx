@@ -24,18 +24,24 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
     <PageLayout
       title="Testbed"
       badge={{ children: "DEVELOPER USE ONLY", colorScheme: "red", ml: "1", fontSize: "0.5em", marginLeft: 2 }}>
-      <>
-        <QuestionForm questions={SeedQuestions as Question[]} onSubmitCallback={handleFormSubmit} />
-        <Box paddingTop={20}>
-          <Heading>BackOffice Results Preview</Heading>
-          <Text>Visualiser under development</Text>
-          <pre>{JSON.stringify(submission, null, 2)}</pre>
-        </Box>
-        <Box paddingTop={20}>
-          <Heading>Schema</Heading>
-          <pre>{JSON.stringify(SeedQuestions, null, 2)}</pre>
-        </Box>
-      </>
+      <QuestionForm
+        questions={SeedQuestions as Question[]}
+        onSubmitCallback={handleFormSubmit}
+        renderQuestion={(children) => (
+          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl">
+            {children}
+          </Box>
+        )}
+      />
+      <Box paddingTop={20}>
+        <Heading>BackOffice Results Preview</Heading>
+        <Text>Visualiser under development</Text>
+        <pre>{JSON.stringify(submission, null, 2)}</pre>
+      </Box>
+      <Box paddingTop={20}>
+        <Heading>Schema</Heading>
+        <pre>{JSON.stringify(SeedQuestions, null, 2)}</pre>
+      </Box>
     </PageLayout>
   );
 };
