@@ -1,6 +1,8 @@
+import { Rules } from "async-validator";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 
 export interface QuestionFormProps {
+  showAllQuestions?: boolean;
   questions: Question[];
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
@@ -27,7 +29,7 @@ export type FormField = {
   type: SupportedFormField;
   prompt: string;
   properties: LinkButtonProperties | RadioGroupProperties | TextInputProperties;
-  validation?: Record<string, any>[];
+  validation?: Rules;
   next?: NextFieldTransition[];
   warnings?: WarningProperties[];
 };
@@ -62,9 +64,9 @@ export type Question = {
    */
   order: number;
   /**
-   * @property exclude {boolean} - hide the question from rendering independently (ideal for child questions)
+   * @property isChildQuestion {boolean} - hide the question from rendering independently (ideal for child questions)
    */
-  exclude: boolean;
+  isChildQuestion: boolean;
   /**
    * @property field {FormField} - field configuration for this question
    */
