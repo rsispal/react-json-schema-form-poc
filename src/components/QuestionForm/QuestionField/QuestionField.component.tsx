@@ -1,6 +1,5 @@
 import { FC, Fragment, ReactElement } from "react";
 import { Alert, Stack, Box, Text } from "@chakra-ui/react";
-import { head } from "lodash";
 import { useForm, Field } from "react-final-form";
 import { LinkButton } from "../../fields/LinkButton";
 import { RadioGroup } from "../../fields/RadioGroup";
