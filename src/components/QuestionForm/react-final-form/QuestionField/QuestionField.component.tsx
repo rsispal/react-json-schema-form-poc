@@ -1,8 +1,8 @@
 import { FC, Fragment, ReactElement } from "react";
 import { Alert, Stack, Text } from "@chakra-ui/react";
 import { useForm, Field } from "react-final-form";
-import { LinkButton } from "../../fields/LinkButton";
-import { RadioGroup } from "../../fields/RadioGroup";
+import { LinkButton } from "../../../fields/LinkButton";
+import { RadioGroup } from "../../../fields/RadioGroup";
 
 import {
   FormField,
@@ -12,7 +12,7 @@ import {
   TextInputProperties,
 } from "../QuestionForm.types";
 import { QuestionFieldProps } from "./QuestionField.types";
-import { TextInput } from "../../fields/TextInput";
+import { TextInput } from "../../../fields/TextInput";
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
 
 export const QuestionField: FC<QuestionFieldProps> = ({ questions, question, renderQuestion }) => {

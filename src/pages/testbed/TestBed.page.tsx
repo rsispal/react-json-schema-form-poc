@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
 /* Components */
-import { QuestionForm } from "../../components/QuestionForm";
+import { QuestionForm } from "../../components/QuestionForm/rc-field-form";
 
 /* Constants */
 import SeedQuestions from "../../__SEED__/basic.json";
@@ -12,7 +12,7 @@ import SeedQuestions from "../../__SEED__/basic.json";
 import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
-import { QuestionSchema } from "../../components/QuestionForm/QuestionForm.types";
+import { QuestionSchema } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
 import { TestBedPageProps } from "./TestBed.types";
 
 export const TestBedPage: FC<TestBedPageProps> = () => {
@@ -28,7 +28,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         {...(SeedQuestions as QuestionSchema)}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={(children) => (
-          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6}>
+          <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6}>
             {children}
           </Box>
         )}

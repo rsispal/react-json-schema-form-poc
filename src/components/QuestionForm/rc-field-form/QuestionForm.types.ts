@@ -1,4 +1,5 @@
-import { Rules } from "async-validator";
+import { Rule } from "async-validator";
+import { FieldProps } from "rc-field-form/es/Field";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 
 export interface QuestionFormProps extends QuestionSchema {
@@ -28,7 +29,7 @@ export type FormField = {
   type: SupportedFormField;
   prompt: string;
   properties: LinkButtonProperties | RadioGroupProperties | TextInputProperties;
-  validation?: Rules;
+  validation?: FieldProps["rules"];
   next?: NextFieldTransition[];
   warnings?: WarningProperties[];
 };

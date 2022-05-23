@@ -20,22 +20,21 @@ export const HomePage: FC<HomePageProps> = () => (
       <RouteCard
         title="[OPTION 1] Risk Form (React Final Form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
-        link={Routes.ROUTE__FORM}
+        link={`${Routes.ROUTE__FORM_PATH}/react-final-form`}
         audience="public"
       />
 
       <RouteCard
         title="[OPTION 2] Risk Form (rc-field-form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses rc-field-form."
-        link={Routes.ROUTE__FORM}
-        audience="unavailable"
-        disabled
+        link={`${Routes.ROUTE__FORM_PATH}/rc-field-form`}
+        audience="public"
       />
 
       <RouteCard
         title="[OPTION 3] Risk Form (react-jsonschema-form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-jsonschema-form."
-        link={Routes.ROUTE__FORM}
+        link={Routes.ROUTE__FORM_PATH}
         audience="unavailable"
         disabled
       />
