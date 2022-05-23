@@ -1,7 +1,7 @@
 import { FC, Fragment, ReactElement } from "react";
 import { Alert, Stack, Text } from "@chakra-ui/react";
 
-import Form, { Field } from "rc-field-form";
+import { Field } from "rc-field-form";
 
 import { LinkButton } from "../../../fields/LinkButton";
 import { RadioGroup } from "../../../fields/RadioGroup";

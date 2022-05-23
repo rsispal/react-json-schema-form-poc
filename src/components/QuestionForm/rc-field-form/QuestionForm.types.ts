@@ -1,4 +1,3 @@
-import { Rule } from "async-validator";
 import { FieldProps } from "rc-field-form/es/Field";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 

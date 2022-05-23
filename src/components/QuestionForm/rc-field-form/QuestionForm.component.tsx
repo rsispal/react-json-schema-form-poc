@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 
 import { FC, useEffect, useState } from "react";
-import Form, { Field } from "rc-field-form";
+import Form from "rc-field-form";
 
 import { QuestionField } from "./QuestionField";
 import { QuestionFormProps } from "./QuestionForm.types";
@@ -26,6 +26,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   };
   useEffect(() => {
     handleSubmit(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values]);
 
   const initialValues = getInitialValues();
