@@ -1,0 +1,19 @@
+{
+  "editor.suggestSelection": "first",
+  "scm.defaultViewMode": "tree",
+  "git.autofetch": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "explorer.compactFolders": false,
+  "workbench.tree.indent": 22,
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.sideBar.location": "left",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.autoReveal": false,
+  "editor.minimap.enabled": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

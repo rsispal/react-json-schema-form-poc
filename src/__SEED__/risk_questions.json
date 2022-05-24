@@ -11,7 +11,7 @@
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
-        "prompt": "Do you want guidance from PensionWise?",
+        "prompt": "Q1. Do you want guidance from PensionWise?",
         "properties": {
           "name": "Q1",
           "disabled": false,
@@ -59,6 +59,7 @@
       }
     },
 
+
     {
       "id": "Q1_1_N",
       "order": 2,
@@ -88,19 +89,101 @@
         "next": [
           {
             "equals": "A",
-            "question": "Q4"
+            "question":"Q3"
           },
           {
             "equals": "B",
-            "question": "Q2"
+            "question":"Q2"
           },
           {
             "equals": "C",
-            "question": "Q3"
+            "question":"Q1A"
           }
         ]
       }
     },
+
+ 
+
+    {
+      "id": "Q1A",
+      "order": 3,
+      "isChildQuestion": false,
+      "field": {
+        "type": "RadioGroup",
+        "prompt": "Q1A. Have your circumstances changed since you received Pension Wise guidance?",
+        "properties": {
+          "name": "Q1A",
+          "disabled": false,
+          "options": [
+            {
+              "value": "YES",
+              "label": "Yes, my circumstances have changed"
+            },
+            {
+              "value": "NO",
+              "label": "No, my circumstances haven't changed"
+            }
+          ]
+        },
+        "warnings": [],
+        "next": [
+          {
+            "equals": "YES",
+            "question": "Q1A_1"
+          },
+          {
+            "equals": "YES",
+            "question": "Q1A_2"
+          },
+          {
+            "equals": "NO",
+            "question": "Q2"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "Q1A_1",
+      "order": 2,
+      "isChildQuestion": true,
+      "field": {
+        "type": "LinkButton",
+        "prompt": "",
+        "properties": {
+          "name": "Q1A_1",
+          "disabled": false,
+          "label": "Help me book PensionWise appointment",
+          "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
+          "target": "_blank"
+        },
+        "warnings": [],
+        "next": []
+      }
+    },
+    {
+      "id": "Q1A_2",
+      "order": 2,
+      "isChildQuestion": true,
+      "field": {
+        "type": "LinkButton",
+        "prompt": "",
+        "properties": {
+          "name": "Q1A_2",
+          "disabled": false,
+          "label": "I'm happy with my guidance, next question",
+          "url": "",
+          "target": "_parent"
+        },
+        "warnings": [],
+        "next": []
+      }
+    },
+
+
+
+
 
     {
       "id": "Q2",
@@ -108,7 +191,7 @@
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
-        "prompt": "Have you received personal advice from a regulated Financial Advisor?",
+        "prompt": "Q2. Have you received personal advice from a regulated Financial Advisor?",
         "properties": {
           "name": "Q2",
           "disabled": false,
@@ -136,7 +219,6 @@
         ]
       }
     },
-
     {
       "id": "Q2_1_N",
       "order": 3,
@@ -166,11 +248,12 @@
           },
           {
             "equals": "NO",
-            "question": "Q4"
+            "question": "Q3"
           }
         ]
       }
     },
+
     {
       "id": "Q2_1_N_A",
       "order": 2,
@@ -181,85 +264,26 @@
         "properties": {
           "name": "Q2_1_N_A",
           "disabled": false,
-          "label": "[LINK TBC] Tell me more about HL advice",
-          "url": "#",
+          "label": "Tell me more about HL advice",
+          "url": "https://www.hl.co.uk/financial-advice/retirement-advice-service",
           "target": "_blank"
         },
         "warnings": [],
         "next": []
       }
     },
+
+
+
     {
       "id": "Q3",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
-        "prompt": "Have your circumstances changed since you received Pension Wise guidance?",
-        "properties": {
-          "name": "Q3",
-          "disabled": false,
-          "options": [
-            {
-              "value": "YES",
-              "label": "Yes, my circumstances have changed"
-            },
-            {
-              "value": "NO",
-              "label": "No, my circumstances haven't changed"
-            }
-          ]
-        },
-        "warnings": [],
-        "next": [
-          {
-            "equals": "YES",
-            "question": "Q3_1_A"
-          },
-          {
-            "equals": "NO",
-            "question": "Q3_1_A"
-          },
-
-          {
-            "equals": "YES",
-            "question": "Q4"
-          },
-          {
-            "equals": "NO",
-            "question": "Q4"
-          }
-        ]
-      }
-    },
-
-    {
-      "id": "Q3_1_A",
-      "order": 2,
-      "isChildQuestion": true,
-      "field": {
-        "type": "LinkButton",
-        "prompt": "",
-        "properties": {
-          "name": "Q3_1_A",
-          "disabled": false,
-          "label": "HELP ME BOOK PENSIONWISE APPOINTMENT",
-          "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
-          "target": "_blank"
-        },
-        "warnings": [],
-        "next": []
-      }
-    },
-    {
-      "id": "Q4",
-      "order": 3,
-      "isChildQuestion": false,
-      "field": {
-        "type": "RadioGroup",
         "prompt": "Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly?",
         "properties": {
-          "name": "Q4",
+          "name": "Q3",
           "disabled": false,
           "options": [
             {
@@ -281,20 +305,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q5"
+            "question": "Q4"
           }
         ]
       }
     },
     {
-      "id": "Q5",
+      "id": "Q4",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?",
         "properties": {
-          "name": "Q5",
+          "name": "Q4",
           "disabled": false,
           "options": [
             {
@@ -316,20 +340,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q6"
+            "question": "Q5"
           }
         ]
       }
     },
     {
-      "id": "Q6",
+      "id": "Q5",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks?",
         "properties": {
-          "name": "Q6",
+          "name": "Q5",
           "disabled": false,
           "options": [
             {
@@ -356,20 +380,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q7"
+            "question": "Q6"
           }
         ]
       }
     },
     {
-      "id": "Q7",
+      "id": "Q6",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments?",
         "properties": {
-          "name": "Q7",
+          "name": "Q6",
           "disabled": false,
           "options": [
             {
@@ -391,20 +415,20 @@
         "next": [
           {
             "equals": "NO",
-            "question": "Q8"
+            "question": "Q7"
           }
         ]
       }
     },
     {
-      "id": "Q8",
+      "id": "Q7",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Do you understand the tax treatment of income withdrawals?",
         "properties": {
-          "name": "Q8",
+          "name": "Q7",
           "disabled": false,
           "options": [
             {
@@ -426,20 +450,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q9"
+            "question": "Q8"
           }
         ]
       }
     },
     {
-      "id": "Q9",
+      "id": "Q8",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Have you shopped around to compare your retirement options and the services available from different providers?",
         "properties": {
-          "name": "Q9",
+          "name": "Q8",
           "disabled": false,
           "options": [
             {
@@ -461,20 +485,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q10"
+            "question": "Q9"
           }
         ]
       }
     },
     {
-      "id": "Q10",
+      "id": "Q9",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?",
         "properties": {
-          "name": "Q10",
+          "name": "Q9",
           "disabled": false,
           "options": [
             {
@@ -496,20 +520,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q11"
+            "question": "Q10"
           }
         ]
       }
     },
     {
-      "id": "Q11",
+      "id": "Q10",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £4,000 each tax year?",
         "properties": {
-          "name": "Q11",
+          "name": "Q10",
           "disabled": false,
           "options": [
             {
@@ -531,20 +555,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q12"
+            "question": "Q11"
           }
         ]
       }
     },
     {
-      "id": "Q12",
+      "id": "Q11",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?",
         "properties": {
-          "name": "Q12",
+          "name": "Q11",
           "disabled": false,
           "options": [
             {
@@ -570,20 +594,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q13"
+            "question": "Q12"
           }
         ]
       }
     },
     {
-      "id": "Q13",
+      "id": "Q12",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Have you considered the effects of inflation (i.e. rising prices) on your plans?",
         "properties": {
-          "name": "Q13",
+          "name": "Q12",
           "disabled": false,
           "options": [
             {
@@ -605,20 +629,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q14"
+            "question": "Q13"
           }
         ]
       }
     },
     {
-      "id": "Q14",
+      "id": "Q13",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Do you understand how taking your pension could affect any means-tested state benefits you receive?",
         "properties": {
-          "name": "Q14",
+          "name": "Q13",
           "disabled": false,
           "options": [
             {
@@ -648,20 +672,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q15"
+            "question": "Q14"
           }
         ]
       }
     },
     {
-      "id": "Q15",
+      "id": "Q14",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)?",
         "properties": {
-          "name": "Q15",
+          "name": "Q14",
           "disabled": false,
           "options": [
             {
@@ -691,20 +715,20 @@
         "next": [
           {
             "equals": "YES",
-            "question": "Q16"
+            "question": "Q15"
           }
         ]
       }
     },
     {
-      "id": "Q16",
+      "id": "Q15",
       "order": 3,
       "isChildQuestion": false,
       "field": {
         "type": "RadioGroup",
         "prompt": "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?",
         "properties": {
-          "name": "Q16",
+          "name": "Q15",
           "disabled": false,
           "options": [
             {

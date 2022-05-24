@@ -28,6 +28,7 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 - [ ] Submit button should take a component with an onClickCallback, title and description props
 - [ ] Disable submit button when error
 - [ ] LinkButton to go to next question (behaviour needs clarifying)
+- [ ] Need the ability to capture the LinkButton press (styled radio component?)
 - [ ] Warnings require 2 buttons to control transition. When a warning appears, there needs to be two buttons:
 OK, CONTINUE (which will then allow the next question to be visible)
 END RISK QUESTIONS (cancel the form)

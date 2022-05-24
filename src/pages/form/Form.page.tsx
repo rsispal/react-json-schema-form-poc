@@ -17,20 +17,29 @@ import { QuestionSchema as QuestionSchemaRCFieldForm } from "../../components/Qu
 import { QuestionSchema as QuestionSchemaReactFinalForm } from "../../components/QuestionForm/react-final-form/QuestionForm.types";
 import { FormPageProps } from "./Form.types";
 import { useParams } from "react-router-dom";
+import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
 
 export const FormPage: FC<FormPageProps> = () => {
   const { variant } = useParams();
 
-  const [submission, setSubmission] = useState<Record<string, string | undefined>>();
+  const [submission, setSubmission] =
+    useState<Record<string, string | undefined>>();
 
-  const handleFormSubmit = (results: Record<string, string | undefined>) => setSubmission(results);
+  const handleFormSubmit = (results: Record<string, string | undefined>) =>
+    setSubmission(results);
 
   const renderRCFieldFormVariant = () => (
     <QuestionFormRCFieldForm
       {...(SeedQuestions as QuestionSchemaRCFieldForm)}
       onSubmitCallback={handleFormSubmit}
       renderQuestion={(children) => (
-        <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6}>
+        <Box
+          borderWidth="1px"
+          borderRadius="lg"
+          boxShadow="xl"
+          padding={6}
+          margin={6}
+        >
           {children}
         </Box>
       )}
@@ -42,7 +51,13 @@ export const FormPage: FC<FormPageProps> = () => {
       {...(SeedQuestions as QuestionSchemaReactFinalForm)}
       onSubmitCallback={handleFormSubmit}
       renderQuestion={(children) => (
-        <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6}>
+        <Box
+          borderWidth="1px"
+          borderRadius="lg"
+          boxShadow="xl"
+          padding={6}
+          margin={6}
+        >
           {children}
         </Box>
       )}
@@ -61,14 +76,44 @@ export const FormPage: FC<FormPageProps> = () => {
     return <></>;
   };
 
+  const determineBackOfficeResultsToRender = () => {
+    switch (variant) {
+      case "react-final-form": {
+        return (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as QuestionSchemaReactFinalForm}
+            answers={submission}
+          />
+        );
+      }
+      case "rc-field-form": {
+        return (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as QuestionSchemaRCFieldForm}
+            answers={submission}
+          />
+        );
+      }
+    }
+    return <></>;
+  };
+
   return (
     <PageLayout
       title="Form"
-      badge={{ children: "Work-in-progress", colorScheme: "purple", ml: "1", fontSize: "0.5em", marginLeft: 2 }}>
+      badge={{
+        children: "Work-in-progress",
+        colorScheme: "purple",
+        ml: "1",
+        fontSize: "0.5em",
+        marginLeft: 2,
+      }}
+    >
       {determineFormToRender()}
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
         <Text>Visualiser under development</Text>
+        {determineBackOfficeResultsToRender()}
         <pre>{JSON.stringify(submission, null, 2)}</pre>
       </Box>
       <Box paddingTop={20}>

@@ -7,8 +7,16 @@ export interface QuestionFormProps extends QuestionSchema {
   renderQuestion: (children: ReactElement) => ReactElement;
 }
 
-export type RadioGroupProperties = { name: string; disabled: boolean; options: { value: string; label: string }[] };
-export type TextInputProperties = { name: string; disabled: boolean; options: { value: string; placeholder: string }[] };
+export type RadioGroupProperties = {
+  name: string;
+  disabled: boolean;
+  options: { value: string; label: string }[];
+};
+export type TextInputProperties = {
+  name: string;
+  disabled: boolean;
+  options: { value: string; placeholder: string }[];
+};
 
 export type LinkButtonProperties = {
   name: string;
@@ -73,7 +81,7 @@ export type Question = {
 };
 
 export type QuestionSchema = {
-  __version: 2;
+  __version: number;
   formName: string;
   submitButton: {
     label: string;
