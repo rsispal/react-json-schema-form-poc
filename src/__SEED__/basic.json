@@ -31,9 +31,7 @@
             "prompt": "This is a warning because you selected NO"
           }
         ],
-        "validation": [
-          { "type": "enum", "enum": ["YES"], "required": true, "message": "You cannot proceed without selecting Yes" }
-        ],
+        "validation": [],
         "next": [
           {
             "equals": "YES",
