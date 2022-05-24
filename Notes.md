@@ -1,3 +1,5 @@
+LINK: https://shimmering-parfait-6b6525.netlify.app/
+
 # Backlog
 
 - [x] Rewrite visio diagram _cleanly_
@@ -10,17 +12,47 @@
 - [x] Create QuestionForm
 - [x] Recursive field generation for next
 - [x] Question chaining via next (U: the only way to create the quiz-style individual question flow)
-- [ ] Schema documentation (more than type annotation?)
-- [ ] LinkButton to go to next question (behaviour needs clarifying)
+- [ ] Schema documentation (more than type annotation!)
 - [ ] Verify the message warnings for each question and when they actually need to appear
 - [x] Add TextInput field
 - [x] Render questions in a nicer card w shadow - done via render function prop
-- [ ] Create namespace of utility methods
-- [ ] Add ~~formik~~ and rc-field-form implementations
-- [ ] Validation rules? Needs to be like async validator
+- [x] Create namespace of utility methods
+- [x] Add ~~formik~~ and rc-field-form implementations
+- [x] Validation rules? Needs to be like async validator
 - [ ] Backoffice answers visualisation
-- [ ] Cypress e2e tests
+- [x] Cypress e2e tests
 - [x] Netlify/Heroku deploy for testing
+
+## Backlog:: Logic to implement:
+- [ ] Logic for  "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
+- [ ] Submit button should take a component with an onClickCallback, title and description props
+- [ ] Disable submit button when error
+- [ ] LinkButton to go to next question (behaviour needs clarifying)
+- [ ] Warnings require 2 buttons to control transition. When a warning appears, there needs to be two buttons:
+OK, CONTINUE (which will then allow the next question to be visible)
+END RISK QUESTIONS (cancel the form)
+
+- [ ] SCHEMA: Need a new warning-style property that will allow a prompt with navigation buttons to be included (form field perhaps?)
+EXAMPLE:
+Have you received personal advice from a regulated financial adviser?
+YES
+NO
+
+[PROMPT:] What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+
+[Button: I UNDERSTAND, CONTINUE]
+
+
+## Questions for business
+Is there any end-to-end design or even UI/UX resource in HL? I work from a full design  
+Is there any flexibility with how child questions need to render?  
+How important are the 2 sections in the risk questions? Your circumstances  
+Tell me more about HL advice button - link required
+
+
+
+
+
 
 # POC Options
 

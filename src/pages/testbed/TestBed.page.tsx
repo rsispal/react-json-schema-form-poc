@@ -25,7 +25,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
       title="Testbed"
       badge={{ children: "DEVELOPER USE ONLY", colorScheme: "red", ml: "1", fontSize: "0.5em", marginLeft: 2 }}>
       <QuestionForm
-        {...(SeedQuestions as QuestionSchema)}
+        {...(SeedQuestions as unknown as QuestionSchema)}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={(children) => (
           <Box borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6}>

@@ -22,7 +22,7 @@
             },
             {
               "value": "NO",
-              "label": "No - Please tell us more"
+              "label": "No "
             }
           ]
         },
@@ -50,7 +50,7 @@
         "properties": {
           "name": "Q1_1_Y",
           "disabled": false,
-          "label": "Click here to go to resource",
+          "label": "Help me book PensionWise appointment",
           "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
           "target": "_blank"
         },
@@ -65,7 +65,7 @@
       "isChildQuestion": true,
       "field": {
         "type": "RadioGroup",
-        "prompt": "",
+        "prompt": "Please tell us more",
         "properties": {
           "name": "Q1_1_N",
           "disabled": false,
@@ -128,6 +128,10 @@
           {
             "equals": "NO",
             "question": "Q2_1_N"
+          },
+          {
+            "equals": "YES",
+            "question": "Q3"
           }
         ]
       }
@@ -248,25 +252,6 @@
       }
     },
     {
-      "id": "Q3_1_B",
-      "order": 2,
-      "isChildQuestion": true,
-      "field": {
-        "type": "LinkButton",
-        "prompt": "",
-        "properties": {
-          "name": "Q3_1_B",
-          "disabled": false,
-          "label": "[FUNCTION TBC] Continue to risk questions",
-          "url": "#",
-          "target": "_blank"
-        },
-        "warnings": [],
-        "next": []
-      }
-    },
-
-    {
       "id": "Q4",
       "order": 3,
       "isChildQuestion": false,
@@ -289,7 +274,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "With drawdown you'll have to take responsibility for your income and investment decisions, and you'll need to review these regularly. Nobody other than you will be accountable for any decisions you make. How much income you get, and how long your pension lasts, will depend on how much you withdraw (particularly in the early years), the returns you achieve and how long you live. You're choosing to proceed without personal financial advice from Hargreaves Lansdown so you must be confident (and comfortable) making these decisions yourself. If you're still unsure don't continue. Seek personal advice or guidance."
           }
         ],
@@ -324,7 +309,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Your pension remains invested so its value, and your future income, can fall due to weak investment performance. Drawing too much income too early will also reduce its value. In the worst case you could run out of money entirely, leaving you reliant on the State. Unlike an annuity, which provides a secure income for life, your income isn’t guaranteed with drawdown. The value of your pension and income aren’t secure. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -363,13 +348,10 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Unlike an annuity, income from drawdown isn’t secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won’t be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the ‘natural yield’. This generally carries lower risks than selling your investments to create an income, which is known as ‘drawing from capital’. The value of investments and the income they produce can fall as well as rise. If you’re still unsure don’t continue. Seek personal advice or guidance."
-          },
-          {
-            "equals": "NOT_APPLICABLE",
-            "prompt": "N/A - I don’t intend to take income"
           }
+          
         ],
         "next": [
           {
@@ -408,7 +390,7 @@
         ],
         "next": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "question": "Q8"
           }
         ]
@@ -437,7 +419,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "You could pay more tax than you intend to, or more (or less) than you owe. Drawdown providers will deduct tax, where applicable, before income withdrawals are paid out. This income is added to any other income you’ve received in that tax year. So taking large withdrawals could mean you’re pushed into a higher tax bracket. For investors taking an income for the first time, it’s likely emergency tax will be deducted. If you pay too much tax you’ll be able to reclaim this from HMRC directly. The tax you pay and any benefits you receive will depend on your circumstances. Tax rules can change in the future. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -472,7 +454,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "You could find yourself choosing an option which isn’t right for you. Shopping around allows you to compare the different options, including the benefits and risks, and services of different providers. For example drawdown can provide a flexible income but this isn’t secure. Other options, such as annuities, can offer a secure income for life, but they aren’t flexible. Understanding the different options and how these work will help you choose the option that’s right for your circumstances. If you’re still unsure, don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -507,7 +489,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the Terms and Conditions. The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -542,7 +524,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "If you’re still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £4,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don’t flexibly access benefits elsewhere, this restriction won’t apply. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -581,11 +563,7 @@
         },
         "warnings": [
           {
-            "equals": "NOT_APPLICABLE",
-            "prompt": "N/A – I’m not transferring pensions"
-          },
-          {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "You could lose valuable guarantees or allowances (like a higher tax-free cash entitlement – over 25%) which you can’t get back. You could also trigger high exit fees. Before you do anything, you should check all these details with your current pension provider. If you have guarantees we suggest you seek personal advice before applying to transfer. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -620,7 +598,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Retirement might last 30 years or more. Inflation will affect the value of your income in real terms as the cost of living rises. You might find yourself running short of money, even if the amount of income you take stays the same. Prices rise over time. For example, between July 2000 and July 2020, inflation saw the costs of goods and services rise by 73.6%. This means an equivalent range of goods and services costing £1,000 twenty years ago would typically have increased to £1,736. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -663,7 +641,7 @@
             "prompt": "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
           },
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at gov.uk/benefits-calculators. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -706,7 +684,7 @@
             "prompt": "N/A – I don’t have debt"
           },
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "Any money held in a pension may be protected from your creditors if you’re in debt and they take action against you. But once you take it out any protection could be lost. If you get into serious financial trouble, you should take extra care before withdrawing money from your pension. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
@@ -741,7 +719,7 @@
         },
         "warnings": [
           {
-            "equals": "YES",
+            "equals": "NO",
             "prompt": "If you fall victim to these scams you could lose most or all of your money, with no compensation available. Unfortunately investment scams exist and tend to be carried out by firms which aren’t regulated by the Financial Conduct Authority (FCA). Warning signs of a scam often include cold calling or texting, pressure to act quickly, the promise of unique or unusual opportunities, the offer of quick and easy profits, or something that seems too good to be true. You can find out more at fca.org.uk/scamsmart. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
         ],
