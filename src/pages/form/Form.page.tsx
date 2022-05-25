@@ -1,6 +1,6 @@
 /* Libraries */
 import { FC, useState } from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 /* Components */
 import { QuestionForm as QuestionFormRCFieldForm } from "../../components/QuestionForm/rc-field-form";

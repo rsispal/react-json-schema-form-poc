@@ -52,7 +52,6 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
             </Text>
           </Text>
         );
-        return null;
       })}
     </>
   );
