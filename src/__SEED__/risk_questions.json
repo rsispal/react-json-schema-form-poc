@@ -59,7 +59,6 @@
       }
     },
 
-
     {
       "id": "Q1_1_N",
       "order": 2,
@@ -89,21 +88,19 @@
         "next": [
           {
             "equals": "A",
-            "question":"Q3"
+            "question": "Q3"
           },
           {
             "equals": "B",
-            "question":"Q2"
+            "question": "Q2"
           },
           {
             "equals": "C",
-            "question":"Q1A"
+            "question": "Q1A"
           }
         ]
       }
     },
-
- 
 
     {
       "id": "Q1A",
@@ -180,10 +177,6 @@
         "next": []
       }
     },
-
-
-
-
 
     {
       "id": "Q2",
@@ -265,15 +258,13 @@
           "name": "Q2_1_N_A",
           "disabled": false,
           "label": "Tell me more about HL advice",
-          "url": "https://www.hl.co.uk/financial-advice/retirement-advice-service",
+          "url": "https://www.hl.co.uk/financial-advice/retirement-advice-services",
           "target": "_blank"
         },
         "warnings": [],
         "next": []
       }
     },
-
-
 
     {
       "id": "Q3",
@@ -375,7 +366,6 @@
             "equals": "NO",
             "prompt": "Unlike an annuity, income from drawdown isn’t secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won’t be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the ‘natural yield’. This generally carries lower risks than selling your investments to create an income, which is known as ‘drawing from capital’. The value of investments and the income they produce can fall as well as rise. If you’re still unsure don’t continue. Seek personal advice or guidance."
           }
-          
         ],
         "next": [
           {

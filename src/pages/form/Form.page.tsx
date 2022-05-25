@@ -112,7 +112,7 @@ export const FormPage: FC<FormPageProps> = () => {
       {determineFormToRender()}
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
-        <Text>Visualiser under development</Text>
+
         {determineBackOfficeResultsToRender()}
         <pre>{JSON.stringify(submission, null, 2)}</pre>
       </Box>
