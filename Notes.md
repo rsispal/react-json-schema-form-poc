@@ -24,36 +24,32 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 - [x] Netlify/Heroku deploy for testing
 
 ## Backlog:: Logic to implement:
-- [ ] Logic for  "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
+
+- [ ] Logic for "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
 - [ ] Submit button should take a component with an onClickCallback, title and description props
 - [ ] Disable submit button when error
-- [ ] LinkButton to go to next question (behaviour needs clarifying)
-- [ ] Need the ability to capture the LinkButton press (styled radio component?)
+- [x] LinkButton to go to next question
+- [x] Need the ability to capture the LinkButton press (styled radio component?)
 - [ ] Warnings require 2 buttons to control transition. When a warning appears, there needs to be two buttons:
-OK, CONTINUE (which will then allow the next question to be visible)
-END RISK QUESTIONS (cancel the form)
+      OK, CONTINUE (which will then allow the next question to be visible)
+      END RISK QUESTIONS (cancel the form)
 
 - [ ] SCHEMA: Need a new warning-style property that will allow a prompt with navigation buttons to be included (form field perhaps?)
-EXAMPLE:
-Have you received personal advice from a regulated financial adviser?
-YES
-NO
+      EXAMPLE:
+      Have you received personal advice from a regulated financial adviser?
+      YES
+      NO
 
 [PROMPT:] What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
 
 [Button: I UNDERSTAND, CONTINUE]
 
-
 ## Questions for business
+
 Is there any end-to-end design or even UI/UX resource in HL? I work from a full design  
 Is there any flexibility with how child questions need to render?  
 How important are the 2 sections in the risk questions? Your circumstances  
 Tell me more about HL advice button - link required
-
-
-
-
-
 
 # POC Options
 

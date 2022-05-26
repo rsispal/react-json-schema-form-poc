@@ -159,22 +159,26 @@
         "next": []
       }
     },
+
     {
       "id": "Q1A_2",
-      "order": 2,
+      "order": 1,
       "isChildQuestion": true,
       "field": {
-        "type": "LinkButton",
+        "type": "NextQuestionButton",
         "prompt": "",
         "properties": {
           "name": "Q1A_2",
           "disabled": false,
-          "label": "I'm happy with my guidance, next question",
-          "url": "",
-          "target": "_parent"
+          "label": "I'm happy with my guidance, next question"
         },
         "warnings": [],
-        "next": []
+        "next": [
+          {
+            "equals": true,
+            "question": "Q2"
+          }
+        ]
       }
     },
 

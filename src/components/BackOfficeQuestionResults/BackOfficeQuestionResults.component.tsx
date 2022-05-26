@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 import { QuestionFormUtilities } from "../QuestionForm/rc-field-form/QuestionForm.utilities";
 
@@ -27,8 +27,33 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 
         return option?.label;
       }
+      case SupportedFormField.LinkButton: {
+        return Boolean(answers[question.field.properties.name])
+          ? "Link clicked"
+          : "Link not clicked";
+      }
       default: {
         return answers[question.field.properties.name];
+      }
+    }
+  };
+
+  const renderQuestionAndAnswer = (
+    question: Question,
+    answer: string | boolean | undefined
+  ) => {
+    switch (question.field.type) {
+      default: {
+        return (
+          <Box key={question.id}>
+            <Text fontWeight="bold" display="inline">
+              [{question?.field.properties.name}]: {question?.field.prompt}
+            </Text>
+            <Text display="inline" marginLeft={4}>
+              {getAnswerForQuestion(question, answers)}
+            </Text>
+          </Box>
+        );
       }
     }
   };
@@ -42,16 +67,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
         if (!question) {
           return null;
         }
-        return (
-          <Text>
-            <Text fontWeight="bold" display="inline">
-              [{question?.field.properties.name}]: {question?.field.prompt}
-            </Text>
-            <Text display="inline" marginLeft={4}>
-              {getAnswerForQuestion(question, answers)}
-            </Text>
-          </Text>
-        );
+        return renderQuestionAndAnswer(question, answers[name]);
       })}
     </>
   );

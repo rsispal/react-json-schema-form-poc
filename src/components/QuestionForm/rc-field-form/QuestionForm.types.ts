@@ -26,10 +26,17 @@ export type LinkButtonProperties = {
   target: HTMLAttributeAnchorTarget;
 };
 
+export type NextQuestionButtonProperties = {
+  name: string;
+  disabled: boolean;
+  label: string;
+};
+
 export enum SupportedFormField {
   LinkButton = "LinkButton",
   RadioGroup = "RadioGroup",
   TextInput = "TextInput",
+  NextQuestionButton = "NextQuestionButton",
 }
 
 export type FormField = {
@@ -45,7 +52,7 @@ export type NextFieldTransition = {
   /**
    * @property equals {string | string[]} - the value(s) that the parent question needs to equal before satisfying the condition
    */
-  equals?: string | string[];
+  equals?: string | string[] | boolean;
   /**
    * @property valid {boolean} - the parent question response validation state before satisfying the condition
    */

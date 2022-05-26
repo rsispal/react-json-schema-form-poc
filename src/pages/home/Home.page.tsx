@@ -18,10 +18,11 @@ export const HomePage: FC<HomePageProps> = () => (
   <PageLayout title="Home">
     <Flex flexWrap="wrap" alignItems="flex-start" paddingTop={10}>
       <RouteCard
-        title="[OPTION 1] Risk Form (React Final Form library)"
+        title="[OPTION 1: RETIRED] Risk Form (React Final Form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
         link={`${Routes.ROUTE__FORM_PATH}/react-final-form`}
-        audience="public"
+        audience="unavailable"
+        disabled
       />
 
       <RouteCard

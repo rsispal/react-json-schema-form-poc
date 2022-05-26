@@ -5,6 +5,59 @@
   },
   "questions": [
     {
+      "id": "Q0",
+      "order": 3,
+      "isChildQuestion": false,
+      "field": {
+        "type": "RadioGroup",
+        "prompt": "Question 0",
+        "properties": {
+          "name": "Q0",
+          "disabled": false,
+          "options": [
+            {
+              "value": "YES",
+              "label": "Yes"
+            },
+            {
+              "value": "NO",
+              "label": "No"
+            }
+          ]
+        },
+        "warnings": [],
+        "next": [
+          {
+            "equals": "YES",
+            "question": "Q0_NextBtn"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "Q0_NextBtn",
+      "order": 1,
+      "isChildQuestion": false,
+      "field": {
+        "type": "NextQuestionButton",
+        "prompt": "",
+        "properties": {
+          "name": "Q0_NextBtn",
+          "disabled": false,
+          "label": "Next question"
+        },
+        "warnings": [],
+        "next": [
+          {
+            "equals": true,
+            "question": "Q1"
+          }
+        ]
+      }
+    },
+
+    {
       "id": "Q1",
       "order": 1,
       "isChildQuestion": false,
