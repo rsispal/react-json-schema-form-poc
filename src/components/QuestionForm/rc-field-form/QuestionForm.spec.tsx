@@ -30,7 +30,7 @@ describe("<QuestionForm /> Page", () => {
   it("Should be able to submit a testbed form", () => {
     cy.get("p").contains("Question 0").should("exist");
 
-    cy.get(".chakra-radio-group > .chakra-stack > :nth-child(2)").click();
+    // cy.get(".chakra-radio-group > .chakra-stack > :nth-child(2)").click();
     // cy.get(
     //   ":nth-child(2) > :nth-child(1) > .chakra-radio-group > .chakra-stack > :nth-child(2)"
     // ).click();

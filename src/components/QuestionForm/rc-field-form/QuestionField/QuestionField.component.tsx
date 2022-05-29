@@ -274,6 +274,16 @@ export const QuestionField: FC<QuestionFieldProps> = ({
           </Fragment>
         );
       }
+      case SupportedFormField.ButtonGroup: {
+        return (
+          <>
+            <p>Under Construction</p>
+          </>
+        );
+      }
+      default: {
+        return null;
+      }
     }
   };
   const generateQuestion = (

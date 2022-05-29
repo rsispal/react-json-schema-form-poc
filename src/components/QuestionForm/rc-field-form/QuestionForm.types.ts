@@ -37,6 +37,7 @@ export enum SupportedFormField {
   RadioGroup = "RadioGroup",
   TextInput = "TextInput",
   NextQuestionButton = "NextQuestionButton",
+  ButtonGroup = "ButtonGroup",
 }
 
 export type FormField = {

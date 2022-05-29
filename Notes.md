@@ -13,17 +13,22 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 - [x] Recursive field generation for next
 - [x] Question chaining via next (U: the only way to create the quiz-style individual question flow)
 - [ ] Schema documentation (more than type annotation!)
-- [ ] Verify the message warnings for each question and when they actually need to appear
+- [x] Verify the message warnings for each question and when they actually need to appear
 - [x] Add TextInput field
 - [x] Render questions in a nicer card w shadow - done via render function prop
 - [x] Create namespace of utility methods
 - [x] Add ~~formik~~ and rc-field-form implementations
 - [x] Validation rules? Needs to be like async validator
-- [ ] Backoffice answers visualisation
+- [x] Backoffice answers visualisation
 - [x] Cypress e2e tests
 - [x] Netlify/Heroku deploy for testing
 
 ## Backlog:: Logic to implement:
+
+Required components:
+ButtonGroup (Link, Next Question, Submit)
+Warning with ButtonGroup
+NextQuestionButton
 
 - [ ] Logic for "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
 - [ ] Submit button should take a component with an onClickCallback, title and description props
@@ -34,7 +39,7 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
       OK, CONTINUE (which will then allow the next question to be visible)
       END RISK QUESTIONS (cancel the form)
 
-- [ ] SCHEMA: Need a new warning-style property that will allow a prompt with navigation buttons to be included (form field perhaps?)
+- [ ] NextQuestionButton field type
       EXAMPLE:
       Have you received personal advice from a regulated financial adviser?
       YES

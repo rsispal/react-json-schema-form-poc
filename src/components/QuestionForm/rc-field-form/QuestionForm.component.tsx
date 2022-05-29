@@ -17,13 +17,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const [values, setValues] = useState<Record<string, string | undefined>>({});
   const getInitialValues = () => ({});
 
-  const handleSubmit = (values: Record<string, string | undefined>) => onSubmitCallback(values);
+  const handleSubmit = (values: Record<string, string | undefined>) =>
+    onSubmitCallback(values);
 
-  const renderSubmitButton = () => <Button type="submit">{submitButton.label}</Button>;
+  const renderSubmitButton = () => (
+    <Button type="submit">{submitButton.label}</Button>
+  );
 
   const handleChange = () => {
     setValues(form.getFieldsValue());
   };
+
   useEffect(() => {
     handleSubmit(values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,9 +36,21 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const initialValues = getInitialValues();
 
   return (
-    <Form form={form} initialValues={initialValues} onChange={() => handleChange()} onFinish={handleSubmit}>
+    <Form
+      form={form}
+      initialValues={initialValues}
+      onChange={() => handleChange()}
+      onFinish={handleSubmit}
+    >
       {[questions.filter((q) => q.isChildQuestion === false)[0]].map((q, i) => (
-        <QuestionField key={i} question={q} questions={questions} renderQuestion={renderQuestion} values={values} form={form} />
+        <QuestionField
+          key={i}
+          question={q}
+          questions={questions}
+          renderQuestion={renderQuestion}
+          values={values}
+          form={form}
+        />
       ))}
       {renderSubmitButton()}
     </Form>
