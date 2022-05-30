@@ -25,20 +25,16 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 
 ## Backlog:: Logic to implement:
 
-Required components:
-ButtonGroup (Link, Next Question, Submit)
-Warning with ButtonGroup
-NextQuestionButton
-
+- [ ] if I change the answer to a previously answered question, then clear all existing values for questions _after_ this
+- [x] Add a dynamic text component which can generate links. Use in Warning and Button blocks
+- [ ] Determine all existing usage of buttons in the risk questions v1. ButtonGroup may be problematic, so possibly need pre-defined combinations (next q + end form, link button, next q + link button, n link buttons)???
+- [ ] Warning with buttons: Next question, End Risk Questions (what does this do currently?)
+- [ ] Make submit button into form field, based on data shown in risk questions v1 (check any behaviour there too)
 - [ ] Logic for "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
-- [ ] Submit button should take a component with an onClickCallback, title and description props
-- [ ] Disable submit button when error
-- [x] LinkButton to go to next question
-- [x] Need the ability to capture the LinkButton press (styled radio component?)
+- [ ] Create Formik variation (as most popular open source form library)
 - [ ] Warnings require 2 buttons to control transition. When a warning appears, there needs to be two buttons:
       OK, CONTINUE (which will then allow the next question to be visible)
       END RISK QUESTIONS (cancel the form)
-
 - [ ] NextQuestionButton field type
       EXAMPLE:
       Have you received personal advice from a regulated financial adviser?
@@ -48,6 +44,57 @@ NextQuestionButton
 [PROMPT:] What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
 
 [Button: I UNDERSTAND, CONTINUE]
+
+## ButtonGroup Planner
+
+This component likely won't work the way it was intended - I cannot generate child questions within this "field" as it itself is responsible for generating the buttons based on the schema.
+
+Best thing to do is create individual component variations of what is required, and pass the necessary callbacks into those components via a wrapper like the other fields. The button elements can be further componentised and reused (link button, submit button etc)
+
+Problematic schema for a ButtonGroup
+
+```json
+   {
+      "id": "test",
+      "order": 0,
+      "isChildQuestion": false,
+      "field": {
+        "type": "ButtonGroup",
+        "buttons": [
+          {
+            "type": "NextQuestionButton",
+            "prompt": "",
+            "properties": {
+              "name": "Q0_NextBtn",
+              "disabled": false,
+              "label": "Next question"
+            }
+          },
+          {
+            "type": "LinkButton",
+            "prompt": "",
+            "properties": {
+              "name": "Q1_1_Y",
+              "disabled": false,
+              "label": "Go to specific website",
+              "url": "https://www.google.co.uk",
+              "target": "_blank"
+            }
+          },
+          {
+            "type": "End Form Button???"
+          }
+        ],
+        "warnings": [],
+        "next": [
+          {
+            "equals": true,
+            "question": "Q1"
+          }
+        ]
+      }
+    },
+```
 
 ## Questions for business
 
