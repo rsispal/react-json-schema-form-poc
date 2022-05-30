@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import Form from "rc-field-form";
 
 import { QuestionField } from "./QuestionField";
@@ -24,12 +24,32 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     <Button type="submit">{submitButton.label}</Button>
   );
 
-  const handleChange = () => {
-    setValues(form.getFieldsValue());
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // const fieldWithChange = e.target;
+
+    const newValues = form.getFieldsValue();
+    // TODO: Handle specific conditions based on answers
+    handleSpecificCondition(values);
+
+    setValues(newValues);
+  };
+
+  const handleSpecificCondition = (
+    values: Record<string, string | undefined>
+  ) => {
+    const isQ1AnsweredAsYes = values["Q1"];
+    const isQ1_1_YLinkClicked = values["Q1_1_Y"];
+
+    if (isQ1AnsweredAsYes && isQ1_1_YLinkClicked) {
+      console.log(
+        "User has gone to pensionwise via link. Submitting form answers"
+      );
+    }
   };
 
   useEffect(() => {
     handleSubmit(values);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values]);
 
@@ -39,7 +59,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     <Form
       form={form}
       initialValues={initialValues}
-      onChange={() => handleChange()}
+      // @ts-expect-error
+      onChange={handleChange}
       onFinish={handleSubmit}
     >
       {[questions.filter((q) => q.isChildQuestion === false)[0]].map((q, i) => (
