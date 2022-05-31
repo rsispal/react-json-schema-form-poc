@@ -1,10 +1,12 @@
 import { FieldProps } from "rc-field-form/es/Field";
-import { HTMLAttributeAnchorTarget, ReactElement } from "react";
+import { FormEvent, HTMLAttributeAnchorTarget, ReactElement } from "react";
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
+  onChangeCallback?: (results: Record<string, string | undefined>) => void;
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
+  onEndFormClickCallback: () => void;
 }
 
 export enum SupportedFormField {
@@ -13,6 +15,9 @@ export enum SupportedFormField {
   TextInput = "TextInput",
   NextQuestionButton = "NextQuestionButton",
   ButtonGroup = "ButtonGroup",
+  // TODO:
+  // EndFormButton = "EndFormButton",
+  // SubmitButton = "SubmitButton"
 }
 
 export type RadioGroupProperties = {
@@ -88,21 +93,34 @@ export type Question = {
    * @property isChildQuestion {boolean} - hide the question from rendering independently (ideal for child questions)
    */
   isChildQuestion: boolean;
-  // /**
-  //  * @property field {FormField} - field configuration for this question
-  //  */
-  // field: FormField;
-
+  /**
+   * @property type {SupportedFormField} - the kind of field to generate
+   */
   type: SupportedFormField;
+  /**
+   * @property prompt {string} - question/prompt to show for this field (optional)
+   */
   prompt?: string;
+  /**
+   * @property properties - field-specific configuration properties (see instructions)
+   */
   properties:
     | LinkButtonProperties
     | RadioGroupProperties
     | TextInputProperties
     | NextQuestionButtonProperties
     | ButtonGroupProperties;
+  /**
+   * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
+   */
   validation?: FieldProps["rules"];
+  /**
+   * @property next {NextFieldTransition[]} - value-based transition rules for question chaining (must be define for _all_ answers)
+   */
   next?: NextFieldTransition[];
+  /**
+   * @property warnings {WarningProperties} - value-based warnings to display
+   */
   warnings?: WarningProperties[];
 };
 

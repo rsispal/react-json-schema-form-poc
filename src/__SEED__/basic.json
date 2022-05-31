@@ -6,272 +6,254 @@
   "questions": [
     {
       "id": "Q0",
+      "name": "Q0",
       "order": 3,
       "isChildQuestion": false,
-      "field": {
-        "type": "RadioGroup",
-        "prompt": "Question 0",
-        "properties": {
-          "name": "Q0",
-          "disabled": false,
-          "options": [
-            {
-              "value": "YES",
-              "label": "Yes"
-            },
-            {
-              "value": "NO",
-              "label": "No"
-            }
-          ]
-        },
-        "warnings": [],
-        "next": [
+      "type": "RadioGroup",
+      "prompt": "Question 0",
+      "properties": {
+        "disabled": false,
+        "options": [
           {
-            "equals": "YES",
-            "question": "Q0_NextBtn"
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
           }
         ]
-      }
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q0_NextBtn"
+        }
+      ]
     },
 
     {
       "id": "Q0_NextBtn",
+      "name": "Q0_NextBtn",
       "order": 1,
       "isChildQuestion": false,
-      "field": {
-        "type": "NextQuestionButton",
-        "prompt": "",
-        "properties": {
-          "name": "Q0_NextBtn",
-          "disabled": false,
-          "label": "Next question"
-        },
-        "warnings": [],
-        "next": [
-          {
-            "equals": true,
-            "question": "Q1"
-          }
-        ]
-      }
+      "type": "NextQuestionButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Next question"
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q1"
+        }
+      ]
     },
 
     {
       "id": "Q1",
+      "name": "Q1",
       "order": 1,
       "isChildQuestion": false,
-      "field": {
-        "type": "RadioGroup",
-        "prompt": "This is question 1. Yes and No both have linked children",
-        "properties": {
-          "name": "Q1",
-          "disabled": false,
-          "options": [
-            {
-              "value": "YES",
-              "label": "Yes (show a link button)"
-            },
-            {
-              "value": "NO",
-              "label": "No"
-            }
-          ]
-        },
-        "warnings": [
+      "type": "RadioGroup",
+      "prompt": "This is question 1. Yes and No both have linked children",
+      "properties": {
+        "disabled": false,
+        "options": [
           {
-            "equals": "NO",
-            "prompt": "This is a warning because you selected NO"
-          }
-        ],
-        "validation": [],
-        "next": [
-          {
-            "equals": "YES",
-            "question": "Q1_1_Y"
+            "value": "YES",
+            "label": "Yes (show a link button)"
           },
           {
-            "equals": "NO",
-            "question": "Q1_1_N"
+            "value": "NO",
+            "label": "No"
           }
         ]
-      }
+      },
+      "warnings": [
+        {
+          "equals": "NO",
+          "prompt": "This is a warning because you selected NO"
+        }
+      ],
+      "validation": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q1_1_Y"
+        },
+        {
+          "equals": "NO",
+          "question": "Q1_1_N"
+        }
+      ]
     },
     {
       "id": "Q1_1_Y",
+      "name": "Q1_1_Y",
       "order": 2,
       "isChildQuestion": true,
-      "field": {
-        "type": "LinkButton",
-        "prompt": "",
-        "properties": {
-          "name": "Q1_1_Y",
-          "disabled": false,
-          "label": "Go to specific website",
-          "url": "https://www.google.co.uk",
-          "target": "_blank"
-        },
-        "warnings": [],
-        "next": []
-      }
+      "type": "LinkButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Go to specific website",
+        "url": "https://www.google.co.uk",
+        "target": "_blank"
+      },
+      "warnings": [],
+      "next": []
     },
 
     {
       "id": "Q1_1_N",
+      "name": "Q1_1_N",
       "order": 2,
       "isChildQuestion": true,
-      "field": {
-        "type": "RadioGroup",
-        "prompt": "",
-        "properties": {
-          "name": "Q1_1_N",
-          "disabled": false,
-          "options": [
-            {
-              "value": "A",
-              "label": "Option A"
-            },
-            {
-              "value": "B",
-              "label": "Option B"
-            },
-            {
-              "value": "C",
-              "label": "Option C (show a link button)"
-            }
-          ]
-        },
-        "warnings": [],
-        "next": [
+      "type": "RadioGroup",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "options": [
           {
-            "equals": "A",
-            "question": "Q2"
+            "value": "A",
+            "label": "Option A"
           },
           {
-            "equals": "B",
-            "question": "Q2"
+            "value": "B",
+            "label": "Option B"
           },
           {
-            "equals": "C",
-            "question": "Q1_1_N_C"
+            "value": "C",
+            "label": "Option C (show a link button)"
           }
         ]
-      }
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "A",
+          "question": "Q2"
+        },
+        {
+          "equals": "B",
+          "question": "Q2"
+        },
+        {
+          "equals": "C",
+          "question": "Q1_1_N_C"
+        }
+      ]
     },
 
     {
       "id": "Q1_1_N_C",
+      "name": "Q1_1_N_C",
       "order": 2,
       "isChildQuestion": true,
-      "field": {
-        "type": "LinkButton",
-        "prompt": "",
-        "properties": {
-          "name": "Q1_1_N_C",
-          "disabled": false,
-          "label": "Resource specific to option C",
-          "url": "https://www.google.co.uk",
-          "target": "_blank"
-        },
-        "warnings": [],
-        "next": []
-      }
+      "type": "LinkButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Resource specific to option C",
+        "url": "https://www.google.co.uk",
+        "target": "_blank"
+      },
+      "warnings": [],
+      "next": []
     },
 
     {
       "id": "Q2",
+      "name": "Q2",
       "order": 3,
       "isChildQuestion": false,
-      "field": {
-        "type": "RadioGroup",
-        "prompt": "Question 2",
-        "properties": {
-          "name": "Q2",
-          "disabled": false,
-          "options": [
-            {
-              "value": "YES",
-              "label": "Yes"
-            },
-            {
-              "value": "NO",
-              "label": "No"
-            }
-          ]
-        },
-        "warnings": [],
-        "next": [
+      "type": "RadioGroup",
+      "prompt": "Question 2",
+      "properties": {
+        "disabled": false,
+        "options": [
           {
-            "equals": "YES",
-            "question": "Q3"
+            "value": "YES",
+            "label": "Yes"
           },
           {
-            "equals": "NO",
-            "question": "Q3"
+            "value": "NO",
+            "label": "No"
           }
         ]
-      }
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q3"
+        },
+        {
+          "equals": "NO",
+          "question": "Q3"
+        }
+      ]
     },
 
     {
       "id": "Q3",
+      "name": "Q3",
       "order": 3,
       "isChildQuestion": false,
-      "field": {
-        "type": "RadioGroup",
-        "prompt": "Question 3",
-        "properties": {
-          "name": "Q3",
-          "disabled": false,
-          "options": [
-            {
-              "value": "YES",
-              "label": "Yes"
-            },
-            {
-              "value": "NO",
-              "label": "No"
-            }
-          ]
-        },
-        "warnings": [],
-        "next": [
+      "type": "RadioGroup",
+      "prompt": "Question 3",
+      "properties": {
+        "disabled": false,
+        "options": [
           {
-            "equals": "YES",
-            "question": "Q4"
+            "value": "YES",
+            "label": "Yes"
           },
           {
-            "equals": "NO",
-            "question": "Q4"
+            "value": "NO",
+            "label": "No"
           }
         ]
-      }
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q4"
+        },
+        {
+          "equals": "NO",
+          "question": "Q4"
+        }
+      ]
     },
     {
       "id": "Q4",
+      "name": "Q4",
       "order": 4,
       "isChildQuestion": false,
-      "field": {
-        "type": "TextInput",
-        "prompt": "Question 4",
-        "properties": {
-          "name": "Q4",
-          "disabled": false,
-          "placeholder": "Enter a value",
-          "initialValue": null
+      "type": "TextInput",
+      "prompt": "Question 4",
+      "properties": {
+        "disabled": false,
+        "placeholder": "Enter a value",
+        "initialValue": null
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q4"
         },
-        "warnings": [],
-        "next": [
-          {
-            "equals": "YES",
-            "question": "Q4"
-          },
-          {
-            "equals": "NO",
-            "question": "Q4"
-          }
-        ]
-      }
+        {
+          "equals": "NO",
+          "question": "Q4"
+        }
+      ]
     }
   ]
 }

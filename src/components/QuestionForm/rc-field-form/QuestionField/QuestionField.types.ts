@@ -8,4 +8,5 @@ export interface QuestionFieldProps {
   renderQuestion: (children: ReactElement) => ReactElement;
   values: Record<string, string | undefined>;
   form: FormInstance;
+  onEndFormClickCallback: () => void;
 }
