@@ -16,10 +16,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   onEndFormClickCallback,
 }) => {
   const [form] = Form.useForm();
-  const [values, setValues] = useState<Record<string, string | undefined>>({});
+  const [values, setValues] = useState<
+    Record<string, string | boolean | undefined>
+  >({});
   const getInitialValues = () => ({});
 
-  const handleSubmit = (values: Record<string, string | undefined>) =>
+  const handleSubmit = (values: Record<string, string | boolean | undefined>) =>
     onSubmitCallback(values);
 
   const renderSubmitButton = () => (
@@ -36,7 +38,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
   // DEV NOTE: This functionality should be broken out into a HOC that wraps the QuestionForm component
   // const handleSpecificCondition = (
-  //   values: Record<string, string | undefined>
+  //   values: Record<string, string | boolean | undefined>
   // ) => {
   //   const isQ1AnsweredAsYes = values["Q1"] === "YES";
   //   const isQ1_1_YLinkClicked = values["Q1_1_Y"];

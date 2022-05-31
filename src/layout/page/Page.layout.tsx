@@ -18,8 +18,14 @@ export const PageLayout: FC<PageLayoutProps> = ({
   badge,
   goBackRoute,
 }) => (
-  <Flex w="100vw" h="100vh" flex={1} flexDirection="column">
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+  <Flex
+    w="100vw"
+    h="100vh"
+    flex={1}
+    flexDirection="column"
+    bg={useColorModeValue("gray.100", "gray.900")}
+  >
+    <Box bg={useColorModeValue("white", "gray.700")} px={4}>
       <Flex h={16} alignItems={"center"}>
         {goBackRoute && (
           <Box>

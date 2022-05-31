@@ -1,5 +1,5 @@
 /* Libraries */
-import { FC, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 
 /* Components */
@@ -22,26 +22,31 @@ export const FormPage: FC<FormPageProps> = () => {
   const { variant } = useParams();
 
   const [submission, setSubmission] =
-    useState<Record<string, string | undefined>>();
+    useState<Record<string, string | boolean | undefined>>();
 
-  const handleFormSubmit = (results: Record<string, string | undefined>) =>
-    setSubmission(results);
+  const handleFormSubmit = (
+    results: Record<string, string | boolean | undefined>
+  ) => setSubmission(results);
+
+  const renderQuestionField = (children: ReactElement) => (
+    <Box
+      bg="white"
+      borderWidth="1px"
+      borderRadius="lg"
+      boxShadow="xl"
+      padding={6}
+      margin={6}
+    >
+      {children}
+    </Box>
+  );
 
   const renderRCFieldFormVariant = () => (
     <QuestionFormRCFieldForm
       {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
+      onEndFormClickCallback={() => undefined}
       onSubmitCallback={handleFormSubmit}
-      renderQuestion={(children) => (
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          boxShadow="xl"
-          padding={6}
-          margin={6}
-        >
-          {children}
-        </Box>
-      )}
+      renderQuestion={renderQuestionField}
     />
   );
 

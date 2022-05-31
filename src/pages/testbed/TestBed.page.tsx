@@ -1,5 +1,5 @@
 /* Libraries */
-import { FC, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 
 /* Components */
@@ -20,10 +20,24 @@ import { Routes } from "../../constants";
 
 export const TestBedPage: FC<TestBedPageProps> = () => {
   const [submission, setSubmission] =
-    useState<Record<string, string | undefined>>();
+    useState<Record<string, string | boolean | undefined>>();
 
-  const handleFormSubmit = (results: Record<string, string | undefined>) =>
-    setSubmission(results);
+  const handleFormSubmit = (
+    results: Record<string, string | boolean | undefined>
+  ) => setSubmission(results);
+
+  const renderQuestionField = (children: ReactElement) => (
+    <Box
+      bg="white"
+      borderWidth="1px"
+      borderRadius="lg"
+      boxShadow="xl"
+      padding={6}
+      margin={6}
+    >
+      {children}
+    </Box>
+  );
 
   return (
     <PageLayout
@@ -39,18 +53,9 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
     >
       <QuestionForm
         {...(SeedQuestions as unknown as QuestionSchema)}
+        onEndFormClickCallback={() => undefined}
         onSubmitCallback={handleFormSubmit}
-        renderQuestion={(children) => (
-          <Box
-            borderWidth="1px"
-            borderRadius="lg"
-            boxShadow="xl"
-            padding={6}
-            margin={6}
-          >
-            {children}
-          </Box>
-        )}
+        renderQuestion={renderQuestionField}
       />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>

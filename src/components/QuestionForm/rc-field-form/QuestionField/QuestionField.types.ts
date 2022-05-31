@@ -6,7 +6,7 @@ export interface QuestionFieldProps {
   question: Question;
   questions: Question[];
   renderQuestion: (children: ReactElement) => ReactElement;
-  values: Record<string, string | undefined>;
+  values: Record<string, string | boolean | undefined>;
   form: FormInstance;
   onEndFormClickCallback: () => void;
 }

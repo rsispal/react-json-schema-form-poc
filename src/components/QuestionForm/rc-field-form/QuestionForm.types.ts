@@ -1,10 +1,14 @@
 import { FieldProps } from "rc-field-form/es/Field";
-import { FormEvent, HTMLAttributeAnchorTarget, ReactElement } from "react";
+import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
-  onChangeCallback?: (results: Record<string, string | undefined>) => void;
-  onSubmitCallback: (results: Record<string, string | undefined>) => void;
+  onChangeCallback?: (
+    results: Record<string, string | boolean | undefined>
+  ) => void;
+  onSubmitCallback: (
+    results: Record<string, string | boolean | undefined>
+  ) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
   onEndFormClickCallback: () => void;
 }

@@ -7,13 +7,16 @@ import { Box } from "@chakra-ui/react";
 
 describe("<QuestionForm /> Page", () => {
   let onSubmitCallback: typeof cy.stub;
+  let onEndFormClickCallback: typeof cy.stub;
 
   beforeEach(() => {
     onSubmitCallback = cy.stub();
+    onEndFormClickCallback = cy.stub();
     mountWithProps<QuestionFormProps>(QuestionForm, {
       ...(SeedQuestions as unknown as QuestionSchema),
       showAllQuestions: false,
       onSubmitCallback,
+      onEndFormClickCallback,
       renderQuestion: (children) => (
         <Box
           borderWidth="1px"
