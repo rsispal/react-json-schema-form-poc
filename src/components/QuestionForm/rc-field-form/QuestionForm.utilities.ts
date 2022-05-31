@@ -37,7 +37,7 @@ export namespace QuestionFormUtilities {
    * @returns Question | undefined
    */
   export const getQuestionByName = (questions: Question[], name: string) =>
-    questions.filter((q) => q.field.properties.name === name).at(0);
+    questions.filter((q) => q.name === name).at(0);
 
   /**
    * @function getChildQuestionsForParent - get any applicable warnings based on a provided "current" value
@@ -54,7 +54,7 @@ export namespace QuestionFormUtilities {
       (childQuestions || [])
         .filter(({ equals }) => equals === currentValue)
         .map((f) => f.question)
-        .includes(question.field.properties.name)
+        .includes(question.name)
     );
 
   /**
@@ -78,8 +78,8 @@ export namespace QuestionFormUtilities {
     question: Question,
     currentValue: string
   ) => {
-    if (question.field.type === SupportedFormField.RadioGroup) {
-      return (question.field.properties as RadioGroupProperties).options
+    if (question.type === SupportedFormField.RadioGroup) {
+      return (question.properties as RadioGroupProperties).options
         .filter((entry) => entry.value === currentValue)
         .at(0);
     }
