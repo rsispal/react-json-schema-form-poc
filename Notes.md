@@ -54,46 +54,45 @@ Best thing to do is create individual component variations of what is required, 
 Problematic schema for a ButtonGroup
 
 ```json
-   {
-      "id": "test",
+    {
+      "id": "Q0",
+      "name": "Q0_ButtonGroup",
       "order": 0,
       "isChildQuestion": false,
-      "field": {
-        "type": "ButtonGroup",
-        "buttons": [
-          {
-            "type": "NextQuestionButton",
-            "prompt": "",
-            "properties": {
-              "name": "Q0_NextBtn",
-              "disabled": false,
-              "label": "Next question"
-            }
+      "type": "ButtonGroup",
+      "buttons": [
+        {
+          "type": "NextQuestionButton",
+          "name": "Q0_NextBtn",
+          "prompt": "",
+          "properties": {
+            "disabled": false,
+            "label": "Next question"
           },
-          {
-            "type": "LinkButton",
-            "prompt": "",
-            "properties": {
-              "name": "Q1_1_Y",
-              "disabled": false,
-              "label": "Go to specific website",
-              "url": "https://www.google.co.uk",
-              "target": "_blank"
+          "warnings": [],
+          "next": [
+            {
+              "equals": true,
+              "question": "Q1"
             }
+          ]
+        },
+        {
+          "type": "LinkButton",
+          "name": "Q0_LinkButton",
+          "prompt": "",
+          "properties": {
+            "disabled": false,
+            "label": "Go to specific website",
+            "url": "https://www.google.co.uk",
+            "target": "_blank"
           },
-          {
-            "type": "End Form Button???"
-          }
-        ],
-        "warnings": [],
-        "next": [
-          {
-            "equals": true,
-            "question": "Q1"
-          }
-        ]
-      }
+          "warnings": [],
+          "next": []
+        }
+      ]
     },
+
 ```
 
 ## Questions for business
