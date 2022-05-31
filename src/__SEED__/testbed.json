@@ -232,7 +232,7 @@
       "prompt": "Question 4",
       "properties": {
         "disabled": false,
-        "placeholder": "Enter a value",
+        "placeholder": "Enter a value...",
         "initialValue": null
       },
       "warnings": [],
