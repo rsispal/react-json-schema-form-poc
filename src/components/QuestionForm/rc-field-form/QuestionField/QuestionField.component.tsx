@@ -152,6 +152,26 @@ export const QuestionField: FC<QuestionFieldProps> = ({
           </Fragment>
         );
       }
+      case SupportedFormField.ButtonGroup: {
+        /*
+        PROBLEM: Generating the buttons is fine, but how do I generate the next question if it has a transition?
+
+        SPECIAL CASE:
+        - Render a ButtonGroupWrapper (responsible for the actual buttons)
+        - Map over each button entry and pass it to the recursive generateQuestion to load the next transition
+        */
+        return (
+          <Fragment key={question.name}>
+            {renderQuestion(
+              <Fragment>
+                {generateError(question.name)}
+                {renderButtonGroup(question)}
+                {generateWarnings(question)}
+              </Fragment>
+            )}
+          </Fragment>
+        );
+      }
       default: {
         return null;
       }
