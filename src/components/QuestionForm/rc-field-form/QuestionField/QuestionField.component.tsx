@@ -169,6 +169,21 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question)}
               </Fragment>
             )}
+            {(question.properties as ButtonGroupProperties).buttons.map(
+              (button) => {
+                switch (button.type) {
+                  case SupportedFormField.LinkButton: {
+                    return generateQuestion(undefined, button);
+                  }
+                  case SupportedFormField.NextQuestionButton: {
+                    return generateQuestion(undefined, button);
+                  }
+                  default: {
+                    return null;
+                  }
+                }
+              }
+            )}
           </Fragment>
         );
       }
