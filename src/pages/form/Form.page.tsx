@@ -16,6 +16,7 @@ import { QuestionSchema as QuestionSchemaRCFieldForm } from "../../components/Qu
 import { FormPageProps } from "./Form.types";
 import { useParams } from "react-router-dom";
 import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
+import { Routes } from "../../constants";
 
 export const FormPage: FC<FormPageProps> = () => {
   const { variant } = useParams();
@@ -56,12 +57,12 @@ export const FormPage: FC<FormPageProps> = () => {
   const determineBackOfficeResultsToRender = () => {
     switch (variant) {
       case "rc-field-form": {
-        // return (
-        //   <BackOfficeQuestionResults
-        //     schema={SeedQuestions as QuestionSchemaRCFieldForm}
-        //     answers={submission}
-        //   />
-        // );
+        return (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as QuestionSchemaRCFieldForm}
+            answers={submission}
+          />
+        );
       }
     }
     return <></>;
@@ -77,6 +78,7 @@ export const FormPage: FC<FormPageProps> = () => {
         fontSize: "0.5em",
         marginLeft: 2,
       }}
+      goBackRoute={Routes.ROUTE__HOME}
     >
       {determineFormToRender()}
       <Box paddingTop={20}>

@@ -16,6 +16,7 @@ import { PageLayout } from "../../layout/page/Page.layout";
 import { QuestionSchema } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
 import { TestBedPageProps } from "./TestBed.types";
 import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
+import { Routes } from "../../constants";
 
 export const TestBedPage: FC<TestBedPageProps> = () => {
   const [submission, setSubmission] =
@@ -34,6 +35,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         fontSize: "0.5em",
         marginLeft: 2,
       }}
+      goBackRoute={Routes.ROUTE__HOME}
     >
       <QuestionForm
         {...(SeedQuestions as unknown as QuestionSchema)}

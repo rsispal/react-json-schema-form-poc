@@ -31,14 +31,6 @@ export const HomePage: FC<HomePageProps> = () => (
         link={`${Routes.ROUTE__FORM_PATH}/rc-field-form`}
         audience="public"
       />
-
-      <RouteCard
-        title="[OPTION 3] Risk Form (react-jsonschema-form library)"
-        description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-jsonschema-form."
-        link={Routes.ROUTE__FORM_PATH}
-        audience="unavailable"
-        disabled
-      />
     </Flex>
     <Flex
       flexWrap="wrap"
