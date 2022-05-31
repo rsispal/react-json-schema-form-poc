@@ -1,12 +1,11 @@
 import { FC, useRef } from "react";
 import { Button } from "@chakra-ui/react";
-import { FormField, LinkButtonProperties } from "../../QuestionForm.types";
+import { LinkButtonProperties, Question } from "../../QuestionForm.types";
+import { Field } from "rc-field-form";
 
 export const LinkButtonWrapper: FC<{
-  value: boolean;
-  onChange: any;
-  field: FormField;
-}> = ({ value, onChange, field }) => {
+  question: Question;
+}> = ({ question }) => {
   const handleClick = () => {
     if (checkboxRef.current) {
       checkboxRef.current.click();
@@ -16,24 +15,28 @@ export const LinkButtonWrapper: FC<{
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   return (
-    <>
-      <a
-        href={(field.properties as LinkButtonProperties).url}
-        target={(field.properties as LinkButtonProperties).target}
-        onClick={handleClick}
-      >
-        <Button onClick={handleClick} width={"fit-content"}>
-          {(field.properties as LinkButtonProperties).url}
-        </Button>
-      </a>
-      <input
-        hidden
-        name={field.properties.name}
-        ref={checkboxRef}
-        type="checkbox"
-        defaultChecked={value}
-        onChange={() => onChange(true)}
-      />
-    </>
+    <Field name={question.name}>
+      {({ value, onChange }) => (
+        <>
+          <a
+            href={(question.properties as LinkButtonProperties).url}
+            target={(question.properties as LinkButtonProperties).target}
+            onClick={handleClick}
+          >
+            <Button onClick={handleClick} width={"fit-content"}>
+              {(question.properties as LinkButtonProperties).url}
+            </Button>
+          </a>
+          <input
+            hidden
+            name={question.name}
+            ref={checkboxRef}
+            type="checkbox"
+            defaultChecked={value}
+            onChange={() => onChange(true)}
+          />
+        </>
+      )}
+    </Field>
   );
 };
