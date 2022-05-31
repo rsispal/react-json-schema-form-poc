@@ -1,15 +1,18 @@
 import { RadioGroup } from "../../../../fields/RadioGroup";
 import { FC } from "react";
-import { FormField, RadioGroupProperties } from "../../QuestionForm.types";
+import { Question, RadioGroupProperties } from "../../QuestionForm.types";
+import { Field } from "rc-field-form";
 
 export const RadioGroupWrapper: FC<{
-  value: string | undefined;
-  onChange: any;
-  field: FormField;
-}> = ({ value, onChange, field }) => (
-  <RadioGroup
-    {...(field.properties as RadioGroupProperties)}
-    value={value}
-    onChange={onChange}
-  />
+  question: Question;
+}> = ({ question }) => (
+  <Field name={question.name} rules={question.validation}>
+    {({ value, onChange }) => (
+      <RadioGroup
+        {...(question.properties as RadioGroupProperties)}
+        value={value}
+        onChange={onChange}
+      />
+    )}
+  </Field>
 );
