@@ -6,7 +6,8 @@ import { Box, Heading } from "@chakra-ui/react";
 import { QuestionForm } from "../../components/QuestionForm/rc-field-form";
 
 /* Constants */
-import SeedQuestions from "../../__SEED__/basic.json";
+// import SeedQuestions from "../../__SEED__/basic.json";
+import SeedQuestions from "../../__SEED__/testbed.json";
 
 /* Layouts */
 import { PageLayout } from "../../layout/page/Page.layout";
@@ -55,6 +56,9 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
           schema={SeedQuestions as unknown as QuestionSchema}
           answers={submission}
         />
+
+        <br />
+        <p>onChange Results:</p>
         <pre>{JSON.stringify(submission, null, 2)}</pre>
       </Box>
       <Box paddingTop={20}>

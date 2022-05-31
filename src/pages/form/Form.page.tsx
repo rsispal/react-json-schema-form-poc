@@ -4,7 +4,6 @@ import { Box, Heading } from "@chakra-ui/react";
 
 /* Components */
 import { QuestionForm as QuestionFormRCFieldForm } from "../../components/QuestionForm/rc-field-form";
-import { QuestionForm as QuestionFormReactFinalForm } from "../../components/QuestionForm/react-final-form";
 
 /* Constants */
 import SeedQuestions from "../../__SEED__/risk_questions.json";
@@ -14,7 +13,6 @@ import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
 import { QuestionSchema as QuestionSchemaRCFieldForm } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
-import { QuestionSchema as QuestionSchemaReactFinalForm } from "../../components/QuestionForm/react-final-form/QuestionForm.types";
 import { FormPageProps } from "./Form.types";
 import { useParams } from "react-router-dom";
 import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
@@ -30,25 +28,7 @@ export const FormPage: FC<FormPageProps> = () => {
 
   const renderRCFieldFormVariant = () => (
     <QuestionFormRCFieldForm
-      {...(SeedQuestions as QuestionSchemaRCFieldForm)}
-      onSubmitCallback={handleFormSubmit}
-      renderQuestion={(children) => (
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          boxShadow="xl"
-          padding={6}
-          margin={6}
-        >
-          {children}
-        </Box>
-      )}
-    />
-  );
-
-  const renderReactFinalFormVariant = () => (
-    <QuestionFormReactFinalForm
-      {...(SeedQuestions as QuestionSchemaReactFinalForm)}
+      {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
       onSubmitCallback={handleFormSubmit}
       renderQuestion={(children) => (
         <Box
@@ -66,9 +46,6 @@ export const FormPage: FC<FormPageProps> = () => {
 
   const determineFormToRender = () => {
     switch (variant) {
-      case "react-final-form": {
-        return renderReactFinalFormVariant();
-      }
       case "rc-field-form": {
         return renderRCFieldFormVariant();
       }
@@ -78,21 +55,13 @@ export const FormPage: FC<FormPageProps> = () => {
 
   const determineBackOfficeResultsToRender = () => {
     switch (variant) {
-      case "react-final-form": {
-        return (
-          <BackOfficeQuestionResults
-            schema={SeedQuestions as QuestionSchemaReactFinalForm}
-            answers={submission}
-          />
-        );
-      }
       case "rc-field-form": {
-        return (
-          <BackOfficeQuestionResults
-            schema={SeedQuestions as QuestionSchemaRCFieldForm}
-            answers={submission}
-          />
-        );
+        // return (
+        //   <BackOfficeQuestionResults
+        //     schema={SeedQuestions as QuestionSchemaRCFieldForm}
+        //     answers={submission}
+        //   />
+        // );
       }
     }
     return <></>;
