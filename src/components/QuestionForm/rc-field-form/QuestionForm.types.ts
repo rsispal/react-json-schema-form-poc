@@ -7,31 +7,6 @@ export interface QuestionFormProps extends QuestionSchema {
   renderQuestion: (children: ReactElement) => ReactElement;
 }
 
-export type RadioGroupProperties = {
-  name: string;
-  disabled: boolean;
-  options: { value: string; label: string }[];
-};
-export type TextInputProperties = {
-  name: string;
-  disabled: boolean;
-  options: { value: string; placeholder: string }[];
-};
-
-export type LinkButtonProperties = {
-  name: string;
-  disabled: boolean;
-  label: string;
-  url: string;
-  target: HTMLAttributeAnchorTarget;
-};
-
-export type NextQuestionButtonProperties = {
-  name: string;
-  disabled: boolean;
-  label: string;
-};
-
 export enum SupportedFormField {
   LinkButton = "LinkButton",
   RadioGroup = "RadioGroup",
@@ -40,10 +15,40 @@ export enum SupportedFormField {
   ButtonGroup = "ButtonGroup",
 }
 
+export type RadioGroupProperties = {
+  disabled: boolean;
+  options: { value: string; label: string }[];
+};
+export type TextInputProperties = {
+  disabled: boolean;
+  options: { value: string; placeholder: string }[];
+};
+
+export type LinkButtonProperties = {
+  disabled: boolean;
+  label: string;
+  url: string;
+  target: HTMLAttributeAnchorTarget;
+};
+
+export type NextQuestionButtonProperties = {
+  disabled: boolean;
+  label: string;
+};
+
+export type ButtonGroupProperties = {
+  buttons: Question[];
+};
+
 export type FormField = {
   type: SupportedFormField;
-  prompt: string;
-  properties: LinkButtonProperties | RadioGroupProperties | TextInputProperties;
+  prompt?: string;
+  properties:
+    | LinkButtonProperties
+    | RadioGroupProperties
+    | TextInputProperties
+    | NextQuestionButtonProperties
+    | ButtonGroupProperties;
   validation?: FieldProps["rules"];
   next?: NextFieldTransition[];
   warnings?: WarningProperties[];
@@ -74,6 +79,7 @@ export type Question = {
    * @property id {string} - a unique identifier for this question (for reference only - uuidv4 recommended)
    */
   id: string;
+  name: string;
   /**
    * @property order {number} - a numeric value used to order the questions
    */
@@ -82,10 +88,22 @@ export type Question = {
    * @property isChildQuestion {boolean} - hide the question from rendering independently (ideal for child questions)
    */
   isChildQuestion: boolean;
-  /**
-   * @property field {FormField} - field configuration for this question
-   */
-  field: FormField;
+  // /**
+  //  * @property field {FormField} - field configuration for this question
+  //  */
+  // field: FormField;
+
+  type: SupportedFormField;
+  prompt?: string;
+  properties:
+    | LinkButtonProperties
+    | RadioGroupProperties
+    | TextInputProperties
+    | NextQuestionButtonProperties
+    | ButtonGroupProperties;
+  validation?: FieldProps["rules"];
+  next?: NextFieldTransition[];
+  warnings?: WarningProperties[];
 };
 
 export type QuestionSchema = {
