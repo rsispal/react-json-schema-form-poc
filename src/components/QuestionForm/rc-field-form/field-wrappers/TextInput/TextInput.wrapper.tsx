@@ -10,7 +10,7 @@ export const TextInputWrapper: FC<{
     {({ value, onChange }) => (
       <TextInput
         {...(question.properties as TextInputProperties)}
-        value={value}
+        defaultValue={value}
         onChange={onChange}
       />
     )}
