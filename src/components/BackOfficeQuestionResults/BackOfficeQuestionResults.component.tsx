@@ -56,7 +56,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
     answers: Record<string, string | boolean | undefined>
   ) => {
     return (
-      <Tr>
+      <Tr key={question.name}>
         <Td>{question?.name}</Td>
         <Td>{question?.prompt}</Td>
         <Td>{getFormattedAnswerForQuestion(question, answers)}</Td>
