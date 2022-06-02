@@ -6,8 +6,8 @@ import { Box, Heading } from "@chakra-ui/react";
 import { QuestionForm } from "../../components/QuestionForm/rc-field-form";
 
 /* Constants */
-// import SeedQuestions from "../../__SEED__/basic.json";
-import SeedQuestions from "../../__SEED__/testbed.json";
+import SeedQuestions from "../../__SEED__/basic.json";
+// import SeedQuestions from "../../__SEED__/testbed.json";
 
 /* Layouts */
 import { PageLayout } from "../../layout/page/Page.layout";

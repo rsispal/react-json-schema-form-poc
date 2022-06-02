@@ -6,7 +6,7 @@ import { Field } from "rc-field-form";
 export const RadioGroupWrapper: FC<{
   question: Question;
 }> = ({ question }) => (
-  <Field name={question.name} rules={question.validation}>
+  <Field name={question.name}>
     {({ value, onChange }) => (
       <RadioGroup
         {...(question.properties as RadioGroupProperties)}

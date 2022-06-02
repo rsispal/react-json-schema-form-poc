@@ -24,6 +24,9 @@ export const FormPage: FC<FormPageProps> = () => {
   const [submission, setSubmission] =
     useState<Record<string, string | boolean | undefined>>();
 
+  const [changedValues, setChangedValues] =
+    useState<Record<string, string | boolean | undefined>>();
+
   const handleFormSubmit = (
     results: Record<string, string | boolean | undefined>
   ) => setSubmission(results);
@@ -41,38 +44,6 @@ export const FormPage: FC<FormPageProps> = () => {
     </Box>
   );
 
-  const renderRCFieldFormVariant = () => (
-    <QuestionFormRCFieldForm
-      {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
-      onEndFormClickCallback={() => undefined}
-      onSubmitCallback={handleFormSubmit}
-      renderQuestion={renderQuestionField}
-    />
-  );
-
-  const determineFormToRender = () => {
-    switch (variant) {
-      case "rc-field-form": {
-        return renderRCFieldFormVariant();
-      }
-    }
-    return <></>;
-  };
-
-  const determineBackOfficeResultsToRender = () => {
-    switch (variant) {
-      case "rc-field-form": {
-        return (
-          <BackOfficeQuestionResults
-            schema={SeedQuestions as QuestionSchemaRCFieldForm}
-            answers={submission}
-          />
-        );
-      }
-    }
-    return <></>;
-  };
-
   return (
     <PageLayout
       title="Form"
@@ -85,12 +56,21 @@ export const FormPage: FC<FormPageProps> = () => {
       }}
       goBackRoute={Routes.ROUTE__HOME}
     >
-      {determineFormToRender()}
+      <QuestionFormRCFieldForm
+        {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
+        onEndFormClickCallback={() => undefined}
+        onSubmitCallback={handleFormSubmit}
+        onChangeCallback={(values) => setChangedValues(values)}
+        renderQuestion={renderQuestionField}
+      />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
 
-        {determineBackOfficeResultsToRender()}
-        <pre>{JSON.stringify(submission, null, 2)}</pre>
+        <BackOfficeQuestionResults
+          schema={SeedQuestions as QuestionSchemaRCFieldForm}
+          answers={submission}
+        />
+        <pre>{JSON.stringify(submission ?? changedValues, null, 2)}</pre>
       </Box>
       <Box paddingTop={20}>
         <Heading>Schema</Heading>

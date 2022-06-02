@@ -10,9 +10,16 @@ const audienceColourMap = {
   unavailable: "red",
 };
 
-export const RouteCard: FC<RouteCardProps> = ({ title, description, link, audience, disabled }) => {
+export const RouteCard: FC<RouteCardProps> = ({
+  title,
+  description,
+  link,
+  audience,
+  disabled,
+}) => {
   const renderCard = () => (
     <Box
+      bg="white"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -21,14 +28,29 @@ export const RouteCard: FC<RouteCardProps> = ({ title, description, link, audien
       boxShadow="xl"
       marginRight={4}
       opacity={disabled ? 0.5 : 1}
-      _hover={disabled ? {} : { transform: "scale(1.02)", transition: "all 0.6s ease-in-out" }}>
+      _hover={
+        disabled
+          ? {}
+          : { transform: "scale(1.02)", transition: "all 0.6s ease-in-out" }
+      }
+    >
       <Box p="6">
         <Box display="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme={audienceColourMap[audience]}>
+          <Badge
+            borderRadius="full"
+            px="2"
+            colorScheme={audienceColourMap[audience]}
+          >
             {audience}
           </Badge>
         </Box>
-        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={2}>
+        <Box
+          mt="1"
+          fontWeight="semibold"
+          as="h4"
+          lineHeight="tight"
+          noOfLines={2}
+        >
           {title}
         </Box>
 
