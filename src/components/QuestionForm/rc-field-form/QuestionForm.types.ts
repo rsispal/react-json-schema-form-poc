@@ -1,5 +1,6 @@
 import { FieldProps } from "rc-field-form/es/Field";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
+import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
@@ -20,6 +21,7 @@ export enum SupportedFormField {
   NextQuestionButton = "NextQuestionButton",
   ButtonGroup = "ButtonGroup",
   // TODO:
+  Prompt = "Prompt",
   // EndFormButton = "EndFormButton",
   // SubmitButton = "SubmitButton"
 }
@@ -49,6 +51,12 @@ export type ButtonGroupProperties = {
   buttons: Question[];
 };
 
+export type PromptProperties = {
+  prompt: (TextItem | URLItem)[];
+  continueButtonLabel: string;
+  endButtonLabel: string;
+};
+
 export type FormField = {
   type: SupportedFormField;
   prompt?: string;
@@ -57,7 +65,8 @@ export type FormField = {
     | RadioGroupProperties
     | TextInputProperties
     | NextQuestionButtonProperties
-    | ButtonGroupProperties;
+    | ButtonGroupProperties
+    | PromptProperties;
   validation?: FieldProps["rules"];
   next?: NextFieldTransition[];
   warnings?: WarningProperties[];
@@ -80,7 +89,7 @@ export type NextFieldTransition = {
 
 export type WarningProperties = {
   equals: string;
-  prompt: string;
+  prompt: (TextItem | URLItem)[];
 };
 
 export type Question = {
@@ -113,7 +122,8 @@ export type Question = {
     | RadioGroupProperties
     | TextInputProperties
     | NextQuestionButtonProperties
-    | ButtonGroupProperties;
+    | ButtonGroupProperties
+    | PromptProperties;
   /**
    * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
    */
