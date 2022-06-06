@@ -92,27 +92,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     const values = form.getFieldsValue();
     onChangeCallback && onChangeCallback(values);
     runAsyncValidator(values);
-    // setValues(values);
+    setValues(values);
   };
-
-  // DEV NOTE: This functionality should be broken out into a HOC that wraps the QuestionForm component
-  // const handleSpecificCondition = (
-  //   values: Record<string, string | boolean | undefined>
-  // ) => {
-  //   const isQ1AnsweredAsYes = values["Q1"] === "YES";
-  //   const isQ1_1_YLinkClicked = values["Q1_1_Y"];
-  //   if (isQ1AnsweredAsYes && isQ1_1_YLinkClicked) {
-  //     console.log(
-  //       "User has gone to pensionwise via link. Submitting form answers"
-  //     );
-  //   }
-  // };
-
-  // useEffect(() => {
-  // handleSpecificCondition(values);
-  // onChangeCallback && onChangeCallback(values);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [values]);
 
   const renderSubmitButton = () => (
     <Button type="submit">{submitButton.label}</Button>

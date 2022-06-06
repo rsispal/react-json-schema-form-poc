@@ -20,10 +20,10 @@ export enum SupportedFormField {
   TextInput = "TextInput",
   NextQuestionButton = "NextQuestionButton",
   ButtonGroup = "ButtonGroup",
-  // TODO:
   Prompt = "Prompt",
-  // EndFormButton = "EndFormButton",
-  // SubmitButton = "SubmitButton"
+  Warning = "Warning",
+  // TODO:
+  SubmitButton = "SubmitButton",
 }
 
 export type RadioGroupProperties = {
@@ -57,6 +57,12 @@ export type PromptProperties = {
   endButtonLabel: string;
 };
 
+export type WarningProperties = {
+  prompt: (TextItem | URLItem)[];
+  continueButtonLabel: string;
+  endButtonLabel: string;
+};
+
 export type FormField = {
   type: SupportedFormField;
   prompt?: string;
@@ -69,7 +75,7 @@ export type FormField = {
     | PromptProperties;
   validation?: FieldProps["rules"];
   next?: NextFieldTransition[];
-  warnings?: WarningProperties[];
+  warnings?: NextFieldTransition[];
 };
 
 export type NextFieldTransition = {
@@ -78,18 +84,9 @@ export type NextFieldTransition = {
    */
   equals?: string | string[] | boolean;
   /**
-   * @property valid {boolean} - the parent question response validation state before satisfying the condition
-   */
-  valid?: boolean;
-  /**
    * @property childQuestionID {string} - the question field to render when the condition is satisfied
    */
   question: string;
-};
-
-export type WarningProperties = {
-  equals: string;
-  prompt: (TextItem | URLItem)[];
 };
 
 export type Question = {
@@ -135,7 +132,7 @@ export type Question = {
   /**
    * @property warnings {WarningProperties} - value-based warnings to display
    */
-  warnings?: WarningProperties[];
+  warnings?: NextFieldTransition[];
 };
 
 export type QuestionSchema = {
