@@ -1,5 +1,5 @@
-import { FC, Fragment, ReactElement } from "react";
-import { Alert, Stack, Text } from "@chakra-ui/react";
+import { FC, Fragment, ReactElement, useEffect, useState } from "react";
+import { Stack, Text } from "@chakra-ui/react";
 
 /* Field Wrappers */
 import { ButtonGroupWrapper } from "../field-wrappers/ButtonGroup/ButtonGroup.wrapper";
@@ -7,6 +7,8 @@ import { LinkButtonWrapper } from "../field-wrappers/LinkButton/LinkButton.wrapp
 import { NextQuestionButtonWrapper } from "../field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
 import { RadioGroupWrapper } from "../field-wrappers/RadioGroup/RadioGroup.wrapper";
 import { TextInputWrapper } from "../field-wrappers/TextInput/TextInput.wrapper";
+import { PromptWrapper } from "../field-wrappers/Prompt/Prompt.wrapper";
+import { WarningWrapper } from "../field-wrappers/Warning/Warning.wrapper";
 
 /* Utilities */
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
@@ -24,39 +26,44 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   question,
   renderQuestion,
   values,
+  errors,
   form,
+  onEndFormClickCallback,
 }) => {
   const getFieldValue = (fieldName: string) =>
-    values[fieldName] as string | undefined; //form.getFieldState(fieldName)?.value as string | undefined;
+    form.getFieldValue(fieldName) as string | undefined;
 
-  const getFieldError = (fieldName: string) => form.getFieldError(fieldName);
-
-  const generateError = (fieldName: string) => {
-    const errors = getFieldError(fieldName);
-    return (
-      <>
-        {errors.map((error, i) => (
+  const generateError = (fieldName: string) => (
+    <>
+      {QuestionFormUtilities.getFieldErrorsByFieldName(fieldName, errors).map(
+        (error, i) => (
           <Text key={i} color="red">
-            {error}
+            {error.message}
           </Text>
-        ))}
-      </>
-    );
-  };
+        )
+      )}
+    </>
+  );
+
   const generateWarnings = (question: Question) => {
     const currentValue = getFieldValue(question.name);
-    const applicableWarnings = QuestionFormUtilities.getWarningsForField(
+
+    const warnings = QuestionFormUtilities.getWarningQuestionsForParent(
+      questions,
       question.warnings,
       currentValue
     );
+
     return (
-      <>
-        {applicableWarnings?.map(({ prompt }, i) => (
-          <Alert key={i} status="warning">
-            {prompt}
-          </Alert>
+      <Fragment>
+        {warnings.map((q, i) => (
+          <WarningWrapper
+            key={i}
+            question={q}
+            onEndFormClickCallback={onEndFormClickCallback}
+          />
         ))}
-      </>
+      </Fragment>
     );
   };
 
@@ -88,12 +95,46 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     </Stack>
   );
 
-  const renderButtonGroup = (question: Question) => {
-    return <ButtonGroupWrapper question={question} />;
-  };
+  const renderButtonGroup = (question: Question) => (
+    <ButtonGroupWrapper question={question} />
+  );
+
+  const renderPrompt = (question: Question) => (
+    <PromptWrapper
+      question={question}
+      onEndFormClickCallback={onEndFormClickCallback}
+    />
+  );
+
+  const renderWarning = (question: Question) => (
+    <WarningWrapper
+      question={question}
+      onEndFormClickCallback={onEndFormClickCallback}
+    />
+  );
 
   const generateField = (question: Question, key?: number) => {
-    const doesFieldHaveError = getFieldError(question.name).length > 0;
+    const currentValue = getFieldValue(question.name);
+    const doesFieldHaveError =
+      QuestionFormUtilities.getFieldErrorsByFieldName(question.name, errors)
+        .length > 0;
+    const doesFieldHaveWarnings =
+      QuestionFormUtilities.getWarningsForField(question.warnings, currentValue)
+        .length > 0;
+
+    const areWarningsAcknowledged =
+      QuestionFormUtilities.haveWarningsForQuestionBeenAcknowledged(
+        question,
+        currentValue,
+        values,
+        questions
+      );
+
+    const canShowNextQuestion = QuestionFormUtilities.canShowNextField(
+      doesFieldHaveError,
+      doesFieldHaveWarnings,
+      areWarningsAcknowledged
+    );
 
     switch (question.type) {
       case SupportedFormField.LinkButton: {
@@ -106,7 +147,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question)}
               </Fragment>
             )}
-            {!doesFieldHaveError && generateQuestion(undefined, question)}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
           </Fragment>
         );
       }
@@ -120,7 +161,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question)}
               </Fragment>
             )}
-            {!doesFieldHaveError && generateQuestion(undefined, question)}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
           </Fragment>
         );
       }
@@ -134,7 +175,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question)}
               </Fragment>
             )}
-            {!doesFieldHaveError && generateQuestion(undefined, question)}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
           </Fragment>
         );
       }
@@ -148,7 +189,35 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question)}
               </Fragment>
             )}
-            {!doesFieldHaveError && generateQuestion(undefined, question)}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.Prompt: {
+        return (
+          <Fragment key={question.name}>
+            {renderQuestion(
+              <Fragment>
+                {generateError(question.name)}
+                {renderPrompt(question)}
+                {generateWarnings(question)}
+              </Fragment>
+            )}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.Warning: {
+        return (
+          <Fragment key={question.name}>
+            {renderQuestion(
+              <Fragment>
+                {generateError(question.name)}
+                {renderWarning(question)}
+                {generateWarnings(question)}
+              </Fragment>
+            )}
+            {canShowNextQuestion && generateQuestion(undefined, question)}
           </Fragment>
         );
       }
