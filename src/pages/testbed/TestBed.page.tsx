@@ -22,6 +22,9 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
   const [submission, setSubmission] =
     useState<Record<string, string | boolean | undefined>>();
 
+  const [changedValues, setChangedValues] =
+    useState<Record<string, string | boolean | undefined>>();
+
   const handleFormSubmit = (
     results: Record<string, string | boolean | undefined>
   ) => setSubmission(results);
@@ -55,6 +58,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         {...(SeedQuestions as unknown as QuestionSchema)}
         onEndFormClickCallback={() => undefined}
         onSubmitCallback={handleFormSubmit}
+        onChangeCallback={(values) => setChangedValues(values)}
         renderQuestion={renderQuestionField}
       />
       <Box paddingTop={20}>
@@ -66,7 +70,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
 
         <br />
         <p>onChange Results:</p>
-        <pre>{JSON.stringify(submission, null, 2)}</pre>
+        <pre>{JSON.stringify(changedValues, null, 2)}</pre>
       </Box>
       <Box paddingTop={20}>
         <Heading>Schema</Heading>

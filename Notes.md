@@ -25,12 +25,10 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 
 ## Backlog:: Logic to implement:
 
-- [ ] if I change the answer to a previously answered question, then clear all existing values for questions _after_ this
+- [ ] I understand block (same as warning, but has the links for text and no button)
+- [x] if I change the answer to a previously answered question, then clear all existing values for questions _after_ this
 - [x] Add a dynamic text component which can generate links. Use in Warning and Button blocks
-- [ ] Determine all existing usage of buttons in the risk questions v1. ButtonGroup may be problematic, so possibly need pre-defined combinations (next q + end form, link button, next q + link button, n link buttons)???
-- [ ] Warning with buttons: Next question, End Risk Questions (what does this do currently?)
 - [ ] Make submit button into form field, based on data shown in risk questions v1 (check any behaviour there too)
-- [ ] Logic for "Have your circumstances changed since you received Pension Wise guidance?" question - two buttons need to be shown before the next question
 - [ ] Create Formik variation (as most popular open source form library)
 - [ ] Warnings require 2 buttons to control transition. When a warning appears, there needs to be two buttons:
       OK, CONTINUE (which will then allow the next question to be visible)
