@@ -1,17 +1,15 @@
 import { Button } from "@chakra-ui/react";
 
-import { FormEvent, FC, useEffect, useState } from "react";
+import { FormEvent, FC, useState } from "react";
 import Form from "rc-field-form";
 
 import { QuestionField } from "./QuestionField";
 import { QuestionFormProps } from "./QuestionForm.types";
-import { FieldError, ValidateErrorEntity } from "rc-field-form/es/interface";
 import Schema, {
   Rule,
   Rules,
   ValidateError,
   ValidateFieldsError,
-  Values,
 } from "async-validator";
 
 export const QuestionForm: FC<QuestionFormProps> = ({

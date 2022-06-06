@@ -19,7 +19,8 @@ import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionRe
 import { Routes } from "../../constants";
 
 export const FormPage: FC<FormPageProps> = () => {
-  const { variant } = useParams();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { variant } = useParams(); // will use for Formik variant
 
   const [submission, setSubmission] =
     useState<Record<string, string | boolean | undefined>>();

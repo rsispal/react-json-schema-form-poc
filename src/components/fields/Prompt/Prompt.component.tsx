@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Alert, Button, HStack, Stack } from "@chakra-ui/react";
+import { Button, HStack, Stack } from "@chakra-ui/react";
 import { DynamicText } from "../../DynamicText";
 import { PromptProps } from "./Prompt.types";
 
