@@ -4,7 +4,6 @@ import {
   Question,
   RadioGroupProperties,
   SupportedFormField,
-  WarningProperties,
 } from "./QuestionForm.types";
 
 export namespace QuestionFormUtilities {
@@ -140,7 +139,7 @@ export namespace QuestionFormUtilities {
       currentValue
     );
 
-    warnings.map((warning) => {
+    warnings.forEach((warning) => {
       if (values[warning.name] === true) {
         haveWarningsBeenAcknowledged = true;
       }
