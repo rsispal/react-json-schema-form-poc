@@ -1,8 +1,5 @@
 {
   "formName": "Testbed Form",
-  "submitButton": {
-    "label": "Submit testbed form"
-  },
   "questions": [
     {
       "id": "Q0",
@@ -346,6 +343,25 @@
         "defaultValue": null
       },
       "validation": [{ "required": true, "message": "You must enter a value" }],
+      "warnings": [],
+      "next": [
+        {
+          "valid": true,
+          "question": "Q5_SubmitButton"
+        }
+      ]
+    },
+    {
+      "id": "Q5_SubmitButton",
+      "name": "Q5_SubmitButton",
+      "order": 1,
+      "isChildQuestion": false,
+      "type": "SubmitButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Submit this form"
+      },
       "warnings": [],
       "next": []
     }

@@ -1,8 +1,5 @@
 {
   "formName": "Testbed Form",
-  "submitButton": {
-    "label": "Submit testbed form"
-  },
   "questions": [
     {
       "id": "Q0",

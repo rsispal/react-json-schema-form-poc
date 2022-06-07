@@ -1,5 +1,3 @@
-import { Button } from "@chakra-ui/react";
-
 import { FormEvent, FC, useState } from "react";
 import Form from "rc-field-form";
 
@@ -14,7 +12,6 @@ import Schema, {
 
 export const QuestionForm: FC<QuestionFormProps> = ({
   showAllQuestions,
-  submitButton,
   questions,
   onChangeCallback,
   onSubmitCallback,
@@ -93,10 +90,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     setValues(values);
   };
 
-  const renderSubmitButton = () => (
-    <Button type="submit">{submitButton.label}</Button>
-  );
-
   const initialValues = getInitialValues();
 
   return (
@@ -118,7 +111,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
           onEndFormClickCallback={onEndFormClickCallback}
         />
       ))}
-      {renderSubmitButton()}
     </Form>
   );
 };

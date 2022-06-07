@@ -1,5 +1,5 @@
-import { FieldProps } from "rc-field-form/es/Field";
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
+import { FieldProps } from "rc-field-form/es/Field";
 import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
 
 export interface QuestionFormProps extends QuestionSchema {
@@ -22,7 +22,6 @@ export enum SupportedFormField {
   ButtonGroup = "ButtonGroup",
   Prompt = "Prompt",
   Warning = "Warning",
-  // TODO:
   SubmitButton = "SubmitButton",
 }
 
@@ -63,6 +62,11 @@ export type WarningProperties = {
   endButtonLabel: string;
 };
 
+export type SubmitButtonProperties = {
+  disabled: boolean;
+  label: string;
+};
+
 export type FormField = {
   type: SupportedFormField;
   prompt?: string;
@@ -72,7 +76,8 @@ export type FormField = {
     | TextInputProperties
     | NextQuestionButtonProperties
     | ButtonGroupProperties
-    | PromptProperties;
+    | PromptProperties
+    | SubmitButtonProperties;
   validation?: FieldProps["rules"];
   next?: NextFieldTransition[];
   warnings?: NextFieldTransition[];
@@ -83,6 +88,10 @@ export type NextFieldTransition = {
    * @property equals {string | string[]} - the value(s) that the parent question needs to equal before satisfying the condition
    */
   equals?: string | string[] | boolean;
+  /**
+   * @property valid {boolean} - the parent question response validation state before satisfying the condition
+   */
+  valid?: boolean;
   /**
    * @property childQuestionID {string} - the question field to render when the condition is satisfied
    */
@@ -138,8 +147,5 @@ export type Question = {
 export type QuestionSchema = {
   __version: number;
   formName: string;
-  submitButton: {
-    label: string;
-  };
   questions: Question[];
 };

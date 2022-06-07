@@ -9,6 +9,7 @@ import { RadioGroupWrapper } from "../field-wrappers/RadioGroup/RadioGroup.wrapp
 import { TextInputWrapper } from "../field-wrappers/TextInput/TextInput.wrapper";
 import { PromptWrapper } from "../field-wrappers/Prompt/Prompt.wrapper";
 import { WarningWrapper } from "../field-wrappers/Warning/Warning.wrapper";
+import { SubmitButtonWrapper } from "../field-wrappers/SubmitButton/SubmitButton.wrapper";
 
 /* Utilities */
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
@@ -111,6 +112,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       question={question}
       onEndFormClickCallback={onEndFormClickCallback}
     />
+  );
+
+  const renderSubmitButton = (question: Question) => (
+    <Stack>
+      <Text>{question.prompt}</Text>
+      <SubmitButtonWrapper question={question} />
+    </Stack>
   );
 
   const generateField = (question: Question, key?: number) => {
@@ -252,6 +260,24 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                   }
                 }
               }
+            )}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.SubmitButton: {
+        /* 
+        SPECIAL CASE:
+        - Submit buttons cannot have any next question transitions
+
+        */
+        return (
+          <Fragment key={question.name}>
+            {renderQuestion(
+              <Fragment>
+                {generateError(question.name)}
+                {renderSubmitButton(question)}
+                {generateWarnings(question)}
+              </Fragment>
             )}
           </Fragment>
         );
