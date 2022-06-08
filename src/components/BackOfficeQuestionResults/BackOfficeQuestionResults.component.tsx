@@ -15,9 +15,14 @@ import { QuestionFormUtilities } from "../QuestionForm/rc-field-form/QuestionFor
 
 import { BackOfficeQuestionResultsProps } from "./BackOfficeQuestionResults.types";
 import {
+  LinkButtonProperties,
+  NextQuestionButtonProperties,
+  PromptProperties,
   Question,
   SupportedFormField,
+  WarningProperties,
 } from "../QuestionForm/rc-field-form/QuestionForm.types";
+import { DynamicText } from "../DynamicText";
 
 export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
   answers = {},
@@ -25,7 +30,71 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 }) => {
   const tableBg = useColorModeValue("white", "gray.700");
 
-  const getFormattedAnswerForQuestion = (
+  const getQuestionType = (question: Question) => {
+    switch (question.type) {
+      case SupportedFormField.RadioGroup: {
+        return "Radio Group";
+      }
+      case SupportedFormField.LinkButton: {
+        return "Link Button";
+      }
+      case SupportedFormField.TextInput: {
+        return "Text Input";
+      }
+      case SupportedFormField.Prompt: {
+        return "Prompt";
+      }
+      case SupportedFormField.Warning: {
+        return "Warning";
+      }
+      case SupportedFormField.NextQuestionButton: {
+        return "Next Question Button";
+      }
+      case SupportedFormField.SubmitButton: {
+        return "Submit Button";
+      }
+      case SupportedFormField.ButtonGroup: {
+        return "Button Group";
+      }
+      default: {
+        return "Unknown";
+      }
+    }
+  };
+
+  const getQuestionPrompt = (question: Question) => {
+    switch (question.type) {
+      case SupportedFormField.RadioGroup:
+      case SupportedFormField.TextInput: {
+        return question.prompt ?? "";
+      }
+      case SupportedFormField.LinkButton: {
+        const { label, url } = question.properties as LinkButtonProperties;
+        return `${label} (${url})`;
+      }
+
+      case SupportedFormField.NextQuestionButton: {
+        return (question.properties as NextQuestionButtonProperties).label;
+      }
+
+      case SupportedFormField.Prompt:
+      case SupportedFormField.Warning: {
+        return (
+          <DynamicText
+            data={
+              (question.properties as WarningProperties | PromptProperties)
+                .prompt
+            }
+          />
+        );
+      }
+      default: {
+        return "-";
+      }
+    }
+  };
+
+  const getAnswer = (
     question: Question,
     answers: BackOfficeQuestionResultsProps["answers"] = {}
   ) => {
@@ -45,6 +114,12 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
           ? "Link clicked"
           : "Link not clicked";
       }
+      case SupportedFormField.Prompt:
+      case SupportedFormField.Warning: {
+        return Boolean(answers[question.name])
+          ? "User acknowledged"
+          : "User didn't acknowledge";
+      }
       default: {
         return answers[question.name];
       }
@@ -55,11 +130,16 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
     question: Question,
     answers: Record<string, string | boolean | undefined>
   ) => {
+    const name = question.name;
+    const type = getQuestionType(question);
+    const prompt = getQuestionPrompt(question);
+    const answer = getAnswer(question, answers);
     return (
-      <Tr key={question.name}>
-        <Td>{question?.name}</Td>
-        <Td>{question?.prompt}</Td>
-        <Td>{getFormattedAnswerForQuestion(question, answers)}</Td>
+      <Tr key={name}>
+        <Td>{name}</Td>
+        <Td>{type}</Td>
+        <Td>{prompt}</Td>
+        <Td>{answer}</Td>
       </Tr>
     );
   };
@@ -71,8 +151,9 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
         <Thead>
           <Tr>
             <Th width={"fit-content"}>#</Th>
-            <Th>Question</Th>
-            <Th>Answer</Th>
+            <Th width={"fit-content"}>Type</Th>
+            <Th width={"fit-content"}>Question</Th>
+            <Th width={"fit-content"}>Answer</Th>
           </Tr>
         </Thead>
         <Tbody>
