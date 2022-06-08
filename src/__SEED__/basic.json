@@ -115,7 +115,8 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions"
+        "endButtonLabel": "End risk questions",
+        "showEndFormButton": true
       },
       "warnings": [],
       "next": [

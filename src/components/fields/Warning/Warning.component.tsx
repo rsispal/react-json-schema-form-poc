@@ -7,13 +7,22 @@ export const Warning: FC<WarningProps> = ({
   prompt,
   onContinueClick,
   onEndFormClick,
+  continueButtonLabel,
+  endFormButtonLabel,
+  showEndFormButton,
 }) => (
   <Alert status="warning">
     <Stack>
       <DynamicText data={prompt} />
       <HStack>
-        <Button onClick={onContinueClick}>Ok, continue</Button>
-        <Button onClick={onEndFormClick}>End Risk Questions</Button>
+        <Button onClick={onContinueClick}>
+          {continueButtonLabel ?? "Continue"}
+        </Button>
+        {showEndFormButton && (
+          <Button onClick={onEndFormClick}>
+            {endFormButtonLabel ?? "End Form"}
+          </Button>
+        )}
       </HStack>
     </Stack>
   </Alert>

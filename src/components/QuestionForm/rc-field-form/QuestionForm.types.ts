@@ -53,34 +53,20 @@ export type ButtonGroupProperties = {
 export type PromptProperties = {
   prompt: (TextItem | URLItem)[];
   continueButtonLabel: string;
-  endButtonLabel: string;
+  endFormButtonLabel: string;
+  showEndFormButton: boolean;
 };
 
 export type WarningProperties = {
   prompt: (TextItem | URLItem)[];
   continueButtonLabel: string;
-  endButtonLabel: string;
+  endFormButtonLabel: string;
+  showEndFormButton: boolean;
 };
 
 export type SubmitButtonProperties = {
   disabled: boolean;
   label: string;
-};
-
-export type FormField = {
-  type: SupportedFormField;
-  prompt?: string;
-  properties:
-    | LinkButtonProperties
-    | RadioGroupProperties
-    | TextInputProperties
-    | NextQuestionButtonProperties
-    | ButtonGroupProperties
-    | PromptProperties
-    | SubmitButtonProperties;
-  validation?: FieldProps["rules"];
-  next?: NextFieldTransition[];
-  warnings?: NextFieldTransition[];
 };
 
 export type NextFieldTransition = {
@@ -124,12 +110,14 @@ export type Question = {
    * @property properties - field-specific configuration properties (see instructions)
    */
   properties:
-    | LinkButtonProperties
     | RadioGroupProperties
     | TextInputProperties
+    | LinkButtonProperties
     | NextQuestionButtonProperties
     | ButtonGroupProperties
-    | PromptProperties;
+    | PromptProperties
+    | WarningProperties
+    | SubmitButtonProperties;
   /**
    * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
    */
