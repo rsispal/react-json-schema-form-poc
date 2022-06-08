@@ -6,5 +6,8 @@ export interface RiskQuestionFormProps {
   onSubmitCallback: (
     results: Record<string, string | boolean | undefined>
   ) => void;
+  onEndFormCallback: (
+    results: Record<string, string | boolean | undefined>
+  ) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
 }

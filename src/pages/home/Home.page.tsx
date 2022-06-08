@@ -18,6 +18,14 @@ export const HomePage: FC<HomePageProps> = () => (
   <PageLayout title="Home">
     <Flex flexWrap="wrap" alignItems="flex-start" paddingTop={10}>
       <RouteCard
+        title="Risk Questions POC"
+        description="The latest implementation of the Risk Questions form"
+        link={`${Routes.ROUTE__RISK_QUESTIONS}`}
+        audience="public"
+      />
+    </Flex>
+    <Flex flexWrap="wrap" alignItems="flex-start" paddingTop={10}>
+      <RouteCard
         title="[OPTION 1: RETIRED] Risk Form (React Final Form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
         link={`${Routes.ROUTE__FORM_PATH}/react-final-form`}
@@ -30,6 +38,13 @@ export const HomePage: FC<HomePageProps> = () => (
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses rc-field-form."
         link={`${Routes.ROUTE__FORM_PATH}/rc-field-form`}
         audience="public"
+      />
+      <RouteCard
+        title="[OPTION 3: WIP] Risk Form (Formik library)"
+        description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
+        link={`${Routes.ROUTE__FORM_PATH}/formik`}
+        audience="unavailable"
+        disabled
       />
     </Flex>
     <Flex
