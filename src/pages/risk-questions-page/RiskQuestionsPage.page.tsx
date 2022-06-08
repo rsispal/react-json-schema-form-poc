@@ -24,7 +24,6 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
   const handleFormSubmit = (
     results: Record<string, string | boolean | undefined>
   ) => {
-    alert();
     setSubmission(results);
   };
 
@@ -43,7 +42,7 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
 
   return (
     <PageLayout
-      title="Form"
+      title="Risk Questions"
       badge={{
         children: "Work-in-progress",
         colorScheme: "purple",
