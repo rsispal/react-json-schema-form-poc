@@ -8,14 +8,23 @@ describe("<SubmitButton /> Component", () => {
       label: "Test Button",
       disabled: false,
     });
-    cy.get("a").contains("Test Button").should("exist");
+    cy.get("button").contains("Test Button").should("exist");
+  });
+
+  it("Should have submit role", () => {
+    mountWithProps<SubmitButtonProps>(SubmitButton, {
+      label: "Test Button",
+      disabled: false,
+    });
+    const button = cy.get("button").contains("Test Button");
+    button.should("have.attr", "type", "submit");
   });
   it("Should have disabled attribute", () => {
     mountWithProps<SubmitButtonProps>(SubmitButton, {
       label: "Test Button",
       disabled: true,
     });
-    const button = cy.get("a").contains("Test Button");
+    const button = cy.get("button").contains("Test Button");
     button.should("have.attr", "disabled");
   });
 });

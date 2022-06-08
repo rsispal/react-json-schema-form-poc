@@ -52,7 +52,8 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     const warnings = QuestionFormUtilities.getWarningQuestionsForParent(
       questions,
       question.warnings,
-      currentValue
+      currentValue,
+      errors
     );
 
     return (
@@ -208,7 +209,6 @@ export const QuestionField: FC<QuestionFieldProps> = ({
               <Fragment>
                 {generateError(question.name)}
                 {renderPrompt(question)}
-                {generateWarnings(question)}
               </Fragment>
             )}
             {canShowNextQuestion && generateQuestion(undefined, question)}
@@ -222,7 +222,6 @@ export const QuestionField: FC<QuestionFieldProps> = ({
               <Fragment>
                 {generateError(question.name)}
                 {renderWarning(question)}
-                {generateWarnings(question)}
               </Fragment>
             )}
             {canShowNextQuestion && generateQuestion(undefined, question)}
@@ -304,7 +303,8 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       const childQuestions = QuestionFormUtilities.getChildQuestionsForParent(
         questions,
         subQuestion.next,
-        currentValue
+        currentValue,
+        errors
       );
       return <Fragment>{childQuestions.map((q) => generateField(q))}</Fragment>;
     }

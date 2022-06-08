@@ -41,38 +41,78 @@ export namespace QuestionFormUtilities {
 
   /**
    * @function getChildQuestionsForParent - get any applicable warnings based on a provided "current" value
-   * @param warnings {WarningProperties[] | undefined} - warnings array
+   * @param questions {Question[]} - array of questions
+   * @param transitions {NextFieldTransition[] | undefined} - array of transitions to another question
    * @param currentValue {string | undefined} - current value to compare against
+   * @param errors  {ValidateError[]} - async validator errors
    * @returns Question[]
    */
   export const getChildQuestionsForParent = (
     questions: Question[],
-    childQuestions: NextFieldTransition[] | undefined,
-    currentValue: string | undefined
+    transitions: NextFieldTransition[] | undefined,
+    currentValue: string | undefined,
+    errors: ValidateError[]
   ) =>
     questions.filter((question) =>
-      (childQuestions || [])
-        .filter(({ equals }) => equals === currentValue)
+      (transitions || [])
+        .filter((transition) => {
+          if (currentValue !== null && currentValue !== undefined) {
+            if (transition.hasOwnProperty("equals")) {
+              if (currentValue === transition.equals) {
+                return true;
+              }
+            }
+            if (transition.hasOwnProperty("valid")) {
+              // TODO: check error block
+              if (getFieldErrorsByFieldName(question.name, errors).length > 0) {
+                return false;
+              }
+              return true;
+            }
+          }
+          return false;
+        })
         .map((f) => f.question)
         .includes(question.name)
     );
 
   /**
    * @function getWarningQuestionsForParent - get any applicable warnings question objects based on a provided "current" value
-   * @param warnings {WarningProperties[] | undefined} - warnings array
+   * @param questions {Question[]} - array of questions
+   * @param transitions {NextFieldTransition[] | undefined} - array of transitions to another question
    * @param currentValue {string | undefined} - current value to compare against
+   * @param errors  {ValidateError[]} - async validator errors
    * @returns Question[]
    */
   export const getWarningQuestionsForParent = (
     questions: Question[],
     childQuestions: NextFieldTransition[] | undefined,
-    currentValue: string | undefined
+    currentValue: string | undefined,
+    errors: ValidateError[]
   ) =>
     questions.filter(
       (question) =>
         question.type === SupportedFormField.Warning &&
         (childQuestions || [])
-          .filter(({ equals }) => equals === currentValue)
+          .filter((transition) => {
+            if (currentValue !== null && currentValue !== undefined) {
+              if (transition.hasOwnProperty("equals")) {
+                if (currentValue === transition.equals) {
+                  return true;
+                }
+              }
+              if (transition.hasOwnProperty("valid")) {
+                // TODO: check error block
+                if (
+                  getFieldErrorsByFieldName(question.name, errors).length > 0
+                ) {
+                  return false;
+                }
+                return true;
+              }
+            }
+            return false;
+          })
           .map((f) => f.question)
           .includes(question.name)
     );
@@ -133,10 +173,11 @@ export namespace QuestionFormUtilities {
   ) => {
     let haveWarningsBeenAcknowledged = false;
 
-    const warnings = getChildQuestionsForParent(
+    const warnings = getWarningQuestionsForParent(
       questions,
       question.warnings,
-      currentValue
+      currentValue,
+      []
     );
 
     warnings.forEach((warning) => {

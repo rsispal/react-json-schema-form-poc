@@ -346,7 +346,7 @@
       "warnings": [],
       "next": [
         {
-          "valid": true,
+          "equals": "any value",
           "question": "Q5_SubmitButton"
         }
       ]
