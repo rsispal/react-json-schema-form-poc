@@ -24,7 +24,13 @@ export const HomePage: FC<HomePageProps> = () => (
         audience="public"
       />
     </Flex>
-    <Flex flexWrap="wrap" alignItems="flex-start" paddingTop={10}>
+    <Flex
+      flexWrap="wrap"
+      alignItems="flex-start"
+      borderTop="1px solid #d8d8d8"
+      marginTop={20}
+      paddingTop={10}
+    >
       <RouteCard
         title="[OPTION 1: RETIRED] Risk Form (React Final Form library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
