@@ -58,6 +58,7 @@ describe("<LinkButton /> Component", () => {
       onClickCallback,
     });
     const button = cy.get("a").contains("Test Button");
+    button.click();
     cy.wrap(onClickCallback).should("be.called");
   });
 });

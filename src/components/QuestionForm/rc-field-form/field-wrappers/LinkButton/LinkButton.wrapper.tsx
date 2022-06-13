@@ -1,5 +1,4 @@
 import { FC, useRef } from "react";
-import { Button } from "@chakra-ui/react";
 import { LinkButtonProperties, Question } from "../../QuestionForm.types";
 import { Field } from "rc-field-form";
 import { LinkButton } from "../../../../fields/LinkButton";

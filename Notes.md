@@ -2,7 +2,7 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 
 ## OUTSTANDING:
 
--[ ] Do we need to record the view HL advice button?  
+-[ ] Do we need to record the view HL advice button? - leave for now if complex  
 -[ ] If a user changes a previously answered question that has child-questions (i.e. I change Q1A but have already filled Q2,3,4,5,6..), answer the subsequent questions, and then change my choice back to the original - is it an issue if those previous answers were restored? The submission _only_ happens when you click submit after the Q15.  
 -[ ] Should we have an "I confirm my answers are correct ..." checkbox before the submit button? Puts onus on user to fill correctly
 
