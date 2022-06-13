@@ -248,11 +248,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
             {(question.properties as ButtonGroupProperties).buttons.map(
               (button) => {
                 switch (button.type) {
-                  case SupportedFormField.LinkButton: {
-                    return generateQuestion(undefined, button);
-                  }
+                  case SupportedFormField.LinkButton:
                   case SupportedFormField.NextQuestionButton: {
-                    return generateQuestion(undefined, button);
+                    return (
+                      <Fragment key={button.name}>
+                        {generateQuestion(undefined, button)}
+                      </Fragment>
+                    );
                   }
                   default: {
                     return null;

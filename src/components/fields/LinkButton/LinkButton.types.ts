@@ -5,4 +5,5 @@ export interface LinkButtonProps {
   url: string;
   target: HTMLAttributeAnchorTarget;
   disabled?: boolean;
+  onClickCallback: (url: string) => void;
 }

@@ -2,6 +2,7 @@ import { FC, useRef } from "react";
 import { Button } from "@chakra-ui/react";
 import { LinkButtonProperties, Question } from "../../QuestionForm.types";
 import { Field } from "rc-field-form";
+import { LinkButton } from "../../../../fields/LinkButton";
 
 export const LinkButtonWrapper: FC<{
   question: Question;
@@ -18,15 +19,11 @@ export const LinkButtonWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <>
-          <a
-            href={(question.properties as LinkButtonProperties).url}
-            target={(question.properties as LinkButtonProperties).target}
-            onClick={handleClick}
-          >
-            <Button onClick={handleClick} width={"fit-content"}>
-              {(question.properties as LinkButtonProperties).url}
-            </Button>
-          </a>
+          <LinkButton
+            {...(question.properties as LinkButtonProperties)}
+            onClickCallback={handleClick}
+          />
+
           <input
             hidden
             name={question.name}
