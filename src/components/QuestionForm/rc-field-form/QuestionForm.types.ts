@@ -2,6 +2,7 @@ import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 import { FieldProps } from "rc-field-form/es/Field";
 import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
 import { QuestionFieldRenderProps } from "./QuestionField/QuestionField.types";
+import { ValidateError } from "async-validator";
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
@@ -34,6 +35,7 @@ export interface QuestionFormProps extends QuestionSchema {
   renderWarningField: (
     props: QuestionFieldRenderProps<WarningProperties>
   ) => ReactElement;
+  renderFieldErrorMessage: (error: ValidateError) => ReactElement;
   renderSubmitButtonField: (
     props: QuestionFieldRenderProps<SubmitButtonProperties>
   ) => ReactElement;

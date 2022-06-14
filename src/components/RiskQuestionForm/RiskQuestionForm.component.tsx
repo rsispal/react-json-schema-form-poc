@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { QuestionForm } from "../QuestionForm/rc-field-form";
 
@@ -85,6 +85,9 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
       renderPromptField={(props) => <PromptWrapper {...props} />}
       renderWarningField={(props) => <WarningWrapper {...props} />}
       renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
+      renderFieldErrorMessage={(error) => (
+        <Text color="red">{error.message}</Text>
+      )}
       {...schema}
     />
   );

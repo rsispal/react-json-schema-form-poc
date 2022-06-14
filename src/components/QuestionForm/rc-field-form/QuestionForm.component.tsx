@@ -24,6 +24,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   renderButtonGroupField,
   renderPromptField,
   renderWarningField,
+  renderFieldErrorMessage,
   renderSubmitButtonField,
 }) => {
   const [form] = Form.useForm();
@@ -124,6 +125,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
           renderButtonGroupField={renderButtonGroupField}
           renderPromptField={renderPromptField}
           renderWarningField={renderWarningField}
+          renderFieldErrorMessage={renderFieldErrorMessage}
           renderSubmitButtonField={renderSubmitButtonField}
         />
       ))}

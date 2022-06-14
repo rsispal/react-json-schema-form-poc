@@ -47,6 +47,7 @@ export interface QuestionFieldProps {
   renderWarningField: (
     props: QuestionFieldRenderProps<WarningProperties>
   ) => ReactElement;
+  renderFieldErrorMessage: (error: ValidateError) => ReactElement;
   renderSubmitButtonField: (
     props: QuestionFieldRenderProps<SubmitButtonProperties>
   ) => ReactElement;

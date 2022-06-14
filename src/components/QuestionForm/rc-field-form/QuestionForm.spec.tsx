@@ -1,9 +1,6 @@
+import { Box, Text } from "@chakra-ui/react";
 import { mountWithProps } from "../../cypress-component-wrapper";
 import { QuestionForm } from "./QuestionForm.component";
-import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
-
-import SeedQuestions from "../../../__SEED__/basic.json";
-import { Box } from "@chakra-ui/react";
 
 import { ButtonGroupWrapper } from "./field-wrappers/ButtonGroup/ButtonGroup.wrapper";
 import { LinkButtonWrapper } from "./field-wrappers/LinkButton/LinkButton.wrapper";
@@ -13,6 +10,10 @@ import { RadioGroupWrapper } from "./field-wrappers/RadioGroup/RadioGroup.wrappe
 import { SubmitButtonWrapper } from "./field-wrappers/SubmitButton/SubmitButton.wrapper";
 import { TextInputWrapper } from "./field-wrappers/TextInput/TextInput.wrapper";
 import { WarningWrapper } from "./field-wrappers/Warning/Warning.wrapper";
+
+import SeedQuestions from "../../../__SEED__/basic.json";
+
+import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
 
 describe("<QuestionForm /> Page", () => {
   let onSubmitCallback: typeof cy.stub;
@@ -46,6 +47,9 @@ describe("<QuestionForm /> Page", () => {
       renderButtonGroupField: (props) => <ButtonGroupWrapper {...props} />,
       renderPromptField: (props) => <PromptWrapper {...props} />,
       renderWarningField: (props) => <WarningWrapper {...props} />,
+      renderFieldErrorMessage: (error) => (
+        <Text color="red">{error.message}</Text>
+      ),
       renderSubmitButtonField: (props) => <SubmitButtonWrapper {...props} />,
     });
   });

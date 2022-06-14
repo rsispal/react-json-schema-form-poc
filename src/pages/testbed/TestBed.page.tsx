@@ -1,6 +1,6 @@
 /* Libraries */
 import { FC, ReactElement, useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 /* Components */
 import { QuestionForm } from "../../components/QuestionForm/rc-field-form";
@@ -78,6 +78,9 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
         renderPromptField={(props) => <PromptWrapper {...props} />}
         renderWarningField={(props) => <WarningWrapper {...props} />}
+        renderFieldErrorMessage={(error) => (
+          <Text color="red">{error.message}</Text>
+        )}
         renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
       />
       <Box paddingTop={20}>

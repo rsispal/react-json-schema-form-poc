@@ -1,5 +1,4 @@
 import { FC, Fragment, ReactElement } from "react";
-import { Text } from "@chakra-ui/react";
 
 /* Utilities */
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
@@ -35,22 +34,18 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   renderButtonGroupField,
   renderPromptField,
   renderWarningField,
+  renderFieldErrorMessage,
   renderSubmitButtonField,
 }) => {
   const getFieldValue = (fieldName: string) =>
     form.getFieldValue(fieldName) as string | undefined;
 
-  const generateError = (fieldName: string) => (
-    <>
-      {QuestionFormUtilities.getFieldErrorsByFieldName(fieldName, errors).map(
-        (error, i) => (
-          <Text key={i} color="red">
-            {error.message}
-          </Text>
-        )
-      )}
-    </>
-  );
+  const generateError = (fieldName: string) =>
+    QuestionFormUtilities.getFieldErrorsByFieldName(fieldName, errors).map(
+      (error, i) => (
+        <Fragment key={i}>{renderFieldErrorMessage(error)}</Fragment>
+      )
+    );
 
   const generateWarnings = (question: Question<QuestionFieldType>) => {
     const currentValue = getFieldValue(question.name);
