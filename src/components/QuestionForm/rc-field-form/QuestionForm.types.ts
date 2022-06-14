@@ -47,7 +47,9 @@ export type NextQuestionButtonProperties = {
 };
 
 export type ButtonGroupProperties = {
-  buttons: Question[];
+  buttons: Question<
+    LinkButtonProperties | NextQuestionButtonProperties | SubmitButtonProperties
+  >[];
 };
 
 export type PromptProperties = {
@@ -69,6 +71,16 @@ export type SubmitButtonProperties = {
   label: string;
 };
 
+export type QuestionFieldType =
+  | RadioGroupProperties
+  | TextInputProperties
+  | LinkButtonProperties
+  | NextQuestionButtonProperties
+  | ButtonGroupProperties
+  | PromptProperties
+  | WarningProperties
+  | SubmitButtonProperties;
+
 export type NextFieldTransition = {
   /**
    * @property equals {string | string[]} - the value(s) that the parent question needs to equal before satisfying the condition
@@ -84,7 +96,7 @@ export type NextFieldTransition = {
   question: string;
 };
 
-export type Question = {
+export type Question<T> = {
   /**
    * @property id {string} - a unique identifier for this question (for reference only - uuidv4 recommended)
    */
@@ -109,15 +121,7 @@ export type Question = {
   /**
    * @property properties - field-specific configuration properties (see instructions)
    */
-  properties:
-    | RadioGroupProperties
-    | TextInputProperties
-    | LinkButtonProperties
-    | NextQuestionButtonProperties
-    | ButtonGroupProperties
-    | PromptProperties
-    | WarningProperties
-    | SubmitButtonProperties;
+  properties: T;
   /**
    * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
    */
@@ -135,5 +139,5 @@ export type Question = {
 export type QuestionSchema = {
   __version: number;
   formName: string;
-  questions: Question[];
+  questions: Question<QuestionFieldType>[];
 };

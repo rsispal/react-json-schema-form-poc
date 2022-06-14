@@ -4,7 +4,7 @@ import { Field } from "rc-field-form";
 import { LinkButton } from "../../../../fields/LinkButton";
 
 export const LinkButtonWrapper: FC<{
-  question: Question;
+  question: Question<LinkButtonProperties>;
 }> = ({ question }) => {
   const handleClick = () => {
     if (checkboxRef.current) {
@@ -18,10 +18,7 @@ export const LinkButtonWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <>
-          <LinkButton
-            {...(question.properties as LinkButtonProperties)}
-            onClickCallback={handleClick}
-          />
+          <LinkButton {...question.properties} onClickCallback={handleClick} />
 
           <input
             hidden

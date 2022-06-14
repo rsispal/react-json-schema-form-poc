@@ -4,7 +4,7 @@ import { Warning } from "../../../../fields/Warning";
 import { Question, WarningProperties } from "../../QuestionForm.types";
 
 export const WarningWrapper: FC<{
-  question: Question;
+  question: Question<WarningProperties>;
   onEndFormClickCallback: () => void;
 }> = ({ question, onEndFormClickCallback }) => {
   const handleClick = () => {
@@ -22,7 +22,7 @@ export const WarningWrapper: FC<{
           <Warning
             onContinueClick={handleClick}
             onEndFormClick={onEndFormClickCallback}
-            {...(question.properties as WarningProperties)}
+            {...question.properties}
           />
           <input
             hidden

@@ -7,7 +7,7 @@ import {
 } from "../../QuestionForm.types";
 
 export const NextQuestionButtonWrapper: FC<{
-  question: Question;
+  question: Question<NextQuestionButtonProperties>;
 }> = ({ question }) => {
   const handleClick = () => {
     if (checkboxRef.current) {
@@ -22,7 +22,7 @@ export const NextQuestionButtonWrapper: FC<{
       {({ value, onChange }) => (
         <>
           <Button onClick={handleClick} width={"fit-content"}>
-            {(question.properties as NextQuestionButtonProperties).label}
+            {question.properties.label}
           </Button>
           <input
             hidden

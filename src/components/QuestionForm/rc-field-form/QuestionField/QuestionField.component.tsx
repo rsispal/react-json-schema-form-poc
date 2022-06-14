@@ -17,8 +17,16 @@ import { QuestionFormUtilities } from "../QuestionForm.utilities";
 /* Types */
 import {
   ButtonGroupProperties,
+  LinkButtonProperties,
+  NextQuestionButtonProperties,
+  PromptProperties,
   Question,
+  QuestionFieldType,
+  RadioGroupProperties,
+  SubmitButtonProperties,
   SupportedFormField,
+  TextInputProperties,
+  WarningProperties,
 } from "../QuestionForm.types";
 import { QuestionFieldProps } from "./QuestionField.types";
 
@@ -46,7 +54,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     </>
   );
 
-  const generateWarnings = (question: Question) => {
+  const generateWarnings = (question: Question<QuestionFieldType>) => {
     const currentValue = getFieldValue(question.name);
 
     const warnings = QuestionFormUtilities.getWarningQuestionsForParent(
@@ -69,60 +77,62 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     );
   };
 
-  const renderLinkButton = (question: Question) => (
+  const renderLinkButton = (question: Question<LinkButtonProperties>) => (
     <Stack>
       <Text>{question.prompt}</Text>
       <LinkButtonWrapper question={question} />
     </Stack>
   );
 
-  const renderRadioGroup = (question: Question) => (
+  const renderRadioGroup = (question: Question<RadioGroupProperties>) => (
     <Stack>
       <Text>{question.prompt}</Text>
       <RadioGroupWrapper question={question} />
     </Stack>
   );
 
-  const renderTextInput = (question: Question) => (
+  const renderTextInput = (question: Question<TextInputProperties>) => (
     <Stack>
       <Text>{question.prompt}</Text>
       <TextInputWrapper question={question} />
     </Stack>
   );
 
-  const renderNextQuestionButton = (question: Question) => (
+  const renderNextQuestionButton = (
+    question: Question<NextQuestionButtonProperties>
+  ) => (
     <Stack>
       <Text>{question.prompt}</Text>
       <NextQuestionButtonWrapper question={question} />
     </Stack>
   );
 
-  const renderButtonGroup = (question: Question) => (
+  const renderButtonGroup = (question: Question<ButtonGroupProperties>) => (
     <ButtonGroupWrapper question={question} />
   );
 
-  const renderPrompt = (question: Question) => (
+  const renderPrompt = (question: Question<PromptProperties>) => (
     <PromptWrapper
       question={question}
       onEndFormClickCallback={onEndFormClickCallback}
     />
   );
 
-  const renderWarning = (question: Question) => (
+  const renderWarning = (question: Question<WarningProperties>) => (
     <WarningWrapper
       question={question}
       onEndFormClickCallback={onEndFormClickCallback}
     />
   );
 
-  const renderSubmitButton = (question: Question) => (
+  const renderSubmitButton = (question: Question<SubmitButtonProperties>) => (
     <Stack>
       <Text>{question.prompt}</Text>
       <SubmitButtonWrapper question={question} />
     </Stack>
   );
 
-  const generateField = (question: Question, key?: number) => {
+  const generateField = (question: Question<QuestionFieldType>) => {
     const currentValue = getFieldValue(question.name);
     const doesFieldHaveError =
       QuestionFormUtilities.getFieldErrorsByFieldName(question.name, errors)
@@ -146,82 +156,52 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     );
 
     switch (question.type) {
-      case SupportedFormField.LinkButton: {
+      case SupportedFormField.LinkButton:
+      case SupportedFormField.RadioGroup:
+      case SupportedFormField.TextInput:
+      case SupportedFormField.NextQuestionButton:
+      case SupportedFormField.Prompt:
+      case SupportedFormField.Warning:
+      case SupportedFormField.SubmitButton: {
         return (
-          <Fragment key={question.name}>
+          <Fragment key={question.id}>
             {renderQuestion(
               <Fragment>
                 {generateError(question.name)}
-                {renderLinkButton(question)}
-                {generateWarnings(question)}
-              </Fragment>
-            )}
-            {canShowNextQuestion && generateQuestion(undefined, question)}
-          </Fragment>
-        );
-      }
-      case SupportedFormField.RadioGroup: {
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderRadioGroup(question)}
-                {generateWarnings(question)}
-              </Fragment>
-            )}
-            {canShowNextQuestion && generateQuestion(undefined, question)}
-          </Fragment>
-        );
-      }
-      case SupportedFormField.TextInput: {
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderTextInput(question)}
-                {generateWarnings(question)}
-              </Fragment>
-            )}
-            {canShowNextQuestion && generateQuestion(undefined, question)}
-          </Fragment>
-        );
-      }
-      case SupportedFormField.NextQuestionButton: {
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderNextQuestionButton(question)}
-                {generateWarnings(question)}
-              </Fragment>
-            )}
-            {canShowNextQuestion && generateQuestion(undefined, question)}
-          </Fragment>
-        );
-      }
-      case SupportedFormField.Prompt: {
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderPrompt(question)}
-              </Fragment>
-            )}
-            {canShowNextQuestion && generateQuestion(undefined, question)}
-          </Fragment>
-        );
-      }
-      case SupportedFormField.Warning: {
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderWarning(question)}
+
+                {/* LINK BUTTON */}
+                {question.type === SupportedFormField.LinkButton &&
+                  renderLinkButton(question as Question<LinkButtonProperties>)}
+
+                {/* RADIO GROUP */}
+                {question.type === SupportedFormField.RadioGroup &&
+                  renderRadioGroup(question as Question<RadioGroupProperties>)}
+
+                {/* TEXT INPUT */}
+                {question.type === SupportedFormField.TextInput &&
+                  renderTextInput(question as Question<TextInputProperties>)}
+
+                {/* NEXT QUESTION BUTTON */}
+                {question.type === SupportedFormField.NextQuestionButton &&
+                  renderNextQuestionButton(
+                    question as Question<NextQuestionButtonProperties>
+                  )}
+
+                {/* PROMPT */}
+                {question.type === SupportedFormField.Prompt &&
+                  renderPrompt(question as Question<PromptProperties>)}
+
+                {/* WARNING */}
+                {question.type === SupportedFormField.Warning &&
+                  renderWarning(question as Question<WarningProperties>)}
+
+                {/* SUBMIT BUTTON */}
+                {question.type === SupportedFormField.SubmitButton &&
+                  renderSubmitButton(
+                    question as Question<SubmitButtonProperties>
+                  )}
+
+                {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
             )}
             {canShowNextQuestion && generateQuestion(undefined, question)}
@@ -237,12 +217,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({
         - Map over each button entry and pass it to the recursive generateQuestion to load the next transition
         */
         return (
-          <Fragment key={question.name}>
+          <Fragment key={question.id}>
             {renderQuestion(
               <Fragment>
                 {generateError(question.name)}
-                {renderButtonGroup(question)}
-                {generateWarnings(question)}
+                {renderButtonGroup(question as Question<ButtonGroupProperties>)}
+                {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
             )}
             {(question.properties as ButtonGroupProperties).buttons.map(
@@ -251,7 +231,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                   case SupportedFormField.LinkButton:
                   case SupportedFormField.NextQuestionButton: {
                     return (
-                      <Fragment key={button.name}>
+                      <Fragment key={button.id}>
                         {generateQuestion(undefined, button)}
                       </Fragment>
                     );
@@ -265,24 +245,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
           </Fragment>
         );
       }
-      case SupportedFormField.SubmitButton: {
-        /* 
-        SPECIAL CASE:
-        - Submit buttons cannot have any next question transitions
 
-        */
-        return (
-          <Fragment key={question.name}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderSubmitButton(question)}
-                {generateWarnings(question)}
-              </Fragment>
-            )}
-          </Fragment>
-        );
-      }
       default: {
         return null;
       }
@@ -290,8 +253,8 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   };
 
   const generateQuestion = (
-    question: Question | undefined,
-    subQuestion: Question | undefined
+    question: Question<QuestionFieldType> | undefined,
+    subQuestion: Question<QuestionFieldType> | undefined
   ): ReactElement | null => {
     //  GENERATE MAIN FIELD
     if (question) {

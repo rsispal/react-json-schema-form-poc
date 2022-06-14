@@ -20,7 +20,8 @@ export const PageLayout: FC<PageLayoutProps> = ({
 }) => (
   <Flex
     w="100vw"
-    h="100vh"
+    minH="100vh"
+    h="max-content"
     flex={1}
     flexDirection="column"
     bg={useColorModeValue("gray.100", "gray.900")}

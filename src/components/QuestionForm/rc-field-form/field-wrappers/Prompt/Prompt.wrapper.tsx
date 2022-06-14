@@ -4,7 +4,7 @@ import { Prompt } from "../../../../fields/Prompt";
 import { Question, PromptProperties } from "../../QuestionForm.types";
 
 export const PromptWrapper: FC<{
-  question: Question;
+  question: Question<PromptProperties>;
   onEndFormClickCallback: () => void;
 }> = ({ question, onEndFormClickCallback }) => {
   const handleClick = () => {
@@ -22,7 +22,7 @@ export const PromptWrapper: FC<{
           <Prompt
             onContinueClick={handleClick}
             onEndFormClick={onEndFormClickCallback}
-            {...(question.properties as PromptProperties)}
+            {...question.properties}
           />
           <input
             hidden

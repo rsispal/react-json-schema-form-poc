@@ -36,6 +36,9 @@ LINK: https://shimmering-parfait-6b6525.netlify.app/
 - [x] Prompt with continue and end button (can be used for an "i understand" style question block)
 - [x] Warning with continue and end button
 - [x] Submit button field type
+- [x] Make Question type generic so it can include a sub-type for the properties
+- [ ] Utilise render function props from QuestionForm for each field type, applying the relevant type to the prop parameters (negating the switch statement)
+- [x] Utilise `id` property
 
 # POC Options
 

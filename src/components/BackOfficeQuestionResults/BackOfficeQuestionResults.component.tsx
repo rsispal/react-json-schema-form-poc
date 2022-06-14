@@ -19,6 +19,7 @@ import {
   NextQuestionButtonProperties,
   PromptProperties,
   Question,
+  QuestionFieldType,
   SupportedFormField,
   WarningProperties,
 } from "../QuestionForm/rc-field-form/QuestionForm.types";
@@ -30,7 +31,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 }) => {
   const tableBg = useColorModeValue("white", "gray.700");
 
-  const getQuestionType = (question: Question) => {
+  const getQuestionType = (question: Question<QuestionFieldType>) => {
     switch (question.type) {
       case SupportedFormField.RadioGroup: {
         return "Radio Group";
@@ -62,7 +63,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
     }
   };
 
-  const getQuestionPrompt = (question: Question) => {
+  const getQuestionPrompt = (question: Question<QuestionFieldType>) => {
     switch (question.type) {
       case SupportedFormField.RadioGroup:
       case SupportedFormField.TextInput: {
@@ -95,7 +96,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
   };
 
   const getAnswer = (
-    question: Question,
+    question: Question<QuestionFieldType>,
     answers: BackOfficeQuestionResultsProps["answers"] = {}
   ) => {
     switch (question.type) {
@@ -127,7 +128,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
   };
 
   const renderQuestionAndAnswer = (
-    question: Question,
+    question: Question<QuestionFieldType>,
     answers: Record<string, string | boolean | undefined>
   ) => {
     const name = question.name;
