@@ -1,3 +1,4 @@
+import { Stack, Text } from "@chakra-ui/react";
 import { Field } from "rc-field-form";
 import { FC, useRef } from "react";
 import { Prompt } from "../../../../fields/Prompt";
@@ -18,7 +19,8 @@ export const PromptWrapper: FC<{
   return (
     <Field name={question.name}>
       {({ value, onChange }) => (
-        <>
+        <Stack>
+          <Text>{question.prompt}</Text>
           <Prompt
             onContinueClick={handleClick}
             onEndFormClick={onEndFormClickCallback}
@@ -32,7 +34,7 @@ export const PromptWrapper: FC<{
             defaultChecked={value}
             onChange={() => onChange(true)}
           />
-        </>
+        </Stack>
       )}
     </Field>
   );

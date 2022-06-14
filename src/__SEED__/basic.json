@@ -197,7 +197,7 @@
       "order": 2,
       "isChildQuestion": true,
       "type": "LinkButton",
-      "prompt": "",
+      "prompt": "You can click the button below to access a specific website resource",
       "properties": {
         "disabled": false,
         "label": "Go to specific website",
@@ -347,7 +347,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": "any value",
+          "valid": true,
           "question": "Q5_SubmitButton"
         }
       ]

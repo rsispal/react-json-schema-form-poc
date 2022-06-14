@@ -63,6 +63,14 @@ export const FormPage: FC<FormPageProps> = () => {
         onSubmitCallback={handleFormSubmit}
         onChangeCallback={(values) => setChangedValues(values)}
         renderQuestion={renderQuestionField}
+        renderLinkButtonField={(props) => <></>}
+        renderRadioGroupField={(props) => <></>}
+        renderTextInputField={(props) => <></>}
+        renderNextQuestionButtonField={(props) => <></>}
+        renderButtonGroupField={(props) => <></>}
+        renderPromptField={(props) => <></>}
+        renderWarningField={(props) => <></>}
+        renderSubmitButtonField={(props) => <></>}
       />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>

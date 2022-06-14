@@ -2,6 +2,7 @@ import { FC, useRef } from "react";
 import { LinkButtonProperties, Question } from "../../QuestionForm.types";
 import { Field } from "rc-field-form";
 import { LinkButton } from "../../../../fields/LinkButton";
+import { Stack, Text } from "@chakra-ui/react";
 
 export const LinkButtonWrapper: FC<{
   question: Question<LinkButtonProperties>;
@@ -17,7 +18,8 @@ export const LinkButtonWrapper: FC<{
   return (
     <Field name={question.name}>
       {({ value, onChange }) => (
-        <>
+        <Stack>
+          <Text>{question.prompt}</Text>
           <LinkButton {...question.properties} onClickCallback={handleClick} />
 
           <input
@@ -28,7 +30,7 @@ export const LinkButtonWrapper: FC<{
             defaultChecked={value}
             onChange={() => onChange(true)}
           />
-        </>
+        </Stack>
       )}
     </Field>
   );

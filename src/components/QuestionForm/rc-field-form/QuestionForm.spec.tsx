@@ -5,6 +5,15 @@ import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
 import SeedQuestions from "../../../__SEED__/basic.json";
 import { Box } from "@chakra-ui/react";
 
+import { ButtonGroupWrapper } from "./field-wrappers/ButtonGroup/ButtonGroup.wrapper";
+import { LinkButtonWrapper } from "./field-wrappers/LinkButton/LinkButton.wrapper";
+import { NextQuestionButtonWrapper } from "./field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
+import { PromptWrapper } from "./field-wrappers/Prompt/Prompt.wrapper";
+import { RadioGroupWrapper } from "./field-wrappers/RadioGroup/RadioGroup.wrapper";
+import { SubmitButtonWrapper } from "./field-wrappers/SubmitButton/SubmitButton.wrapper";
+import { TextInputWrapper } from "./field-wrappers/TextInput/TextInput.wrapper";
+import { WarningWrapper } from "./field-wrappers/Warning/Warning.wrapper";
+
 describe("<QuestionForm /> Page", () => {
   let onSubmitCallback: typeof cy.stub;
   let onEndFormClickCallback: typeof cy.stub;
@@ -28,6 +37,16 @@ describe("<QuestionForm /> Page", () => {
           {children}
         </Box>
       ),
+      renderLinkButtonField: (props) => <LinkButtonWrapper {...props} />,
+      renderRadioGroupField: (props) => <RadioGroupWrapper {...props} />,
+      renderTextInputField: (props) => <TextInputWrapper {...props} />,
+      renderNextQuestionButtonField: (props) => (
+        <NextQuestionButtonWrapper {...props} />
+      ),
+      renderButtonGroupField: (props) => <ButtonGroupWrapper {...props} />,
+      renderPromptField: (props) => <PromptWrapper {...props} />,
+      renderWarningField: (props) => <WarningWrapper {...props} />,
+      renderSubmitButtonField: (props) => <SubmitButtonWrapper {...props} />,
     });
   });
   it("Should be able to submit a testbed form", () => {

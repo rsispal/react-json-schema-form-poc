@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Text, Stack } from "@chakra-ui/react";
 import { Field } from "rc-field-form";
 import { FC, useRef } from "react";
 import {
@@ -20,7 +20,8 @@ export const NextQuestionButtonWrapper: FC<{
   return (
     <Field name={question.name}>
       {({ value, onChange }) => (
-        <>
+        <Stack>
+          <Text>{question.prompt}</Text>
           <Button onClick={handleClick} width={"fit-content"}>
             {question.properties.label}
           </Button>
@@ -32,7 +33,7 @@ export const NextQuestionButtonWrapper: FC<{
             defaultChecked={value}
             onChange={() => onChange(true)}
           />
-        </>
+        </Stack>
       )}
     </Field>
   );

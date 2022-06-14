@@ -17,6 +17,14 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   onSubmitCallback,
   renderQuestion,
   onEndFormClickCallback,
+  renderLinkButtonField,
+  renderRadioGroupField,
+  renderTextInputField,
+  renderNextQuestionButtonField,
+  renderButtonGroupField,
+  renderPromptField,
+  renderWarningField,
+  renderSubmitButtonField,
 }) => {
   const [form] = Form.useForm();
   const [values, setValues] = useState<
@@ -109,6 +117,14 @@ export const QuestionForm: FC<QuestionFormProps> = ({
           errors={errors}
           form={form}
           onEndFormClickCallback={onEndFormClickCallback}
+          renderLinkButtonField={renderLinkButtonField}
+          renderRadioGroupField={renderRadioGroupField}
+          renderTextInputField={renderTextInputField}
+          renderNextQuestionButtonField={renderNextQuestionButtonField}
+          renderButtonGroupField={renderButtonGroupField}
+          renderPromptField={renderPromptField}
+          renderWarningField={renderWarningField}
+          renderSubmitButtonField={renderSubmitButtonField}
         />
       ))}
     </Form>

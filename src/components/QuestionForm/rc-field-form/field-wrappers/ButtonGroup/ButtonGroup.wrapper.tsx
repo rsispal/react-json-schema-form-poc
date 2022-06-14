@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 import {
   ButtonGroupProperties,
   LinkButtonProperties,
@@ -15,43 +15,46 @@ import { SubmitButtonWrapper } from "../SubmitButton/SubmitButton.wrapper";
 export const ButtonGroupWrapper: FC<{
   question: Question<ButtonGroupProperties>;
 }> = ({ question }) => (
-  <Flex
-    flex={1}
-    width={"100%"}
-    flexDirection="row"
-    alignItems={"space-evenly"}
-    justifyContent={"space-evenly"}
-  >
-    {question.properties.buttons.map((btn, i) => {
-      switch (btn.type) {
-        case SupportedFormField.LinkButton: {
-          return (
-            <LinkButtonWrapper
-              key={i}
-              question={btn as Question<LinkButtonProperties>}
-            />
-          );
+  <Stack>
+    <Text>{question.prompt}</Text>
+    <Flex
+      flex={1}
+      width={"100%"}
+      flexDirection="row"
+      alignItems={"space-evenly"}
+      justifyContent={"space-evenly"}
+    >
+      {question.properties.buttons.map((btn, i) => {
+        switch (btn.type) {
+          case SupportedFormField.LinkButton: {
+            return (
+              <LinkButtonWrapper
+                key={i}
+                question={btn as Question<LinkButtonProperties>}
+              />
+            );
+          }
+          case SupportedFormField.NextQuestionButton: {
+            return (
+              <NextQuestionButtonWrapper
+                key={i}
+                question={btn as Question<NextQuestionButtonProperties>}
+              />
+            );
+          }
+          case SupportedFormField.SubmitButton: {
+            return (
+              <SubmitButtonWrapper
+                key={i}
+                question={btn as Question<SubmitButtonProperties>}
+              />
+            );
+          }
+          default: {
+            return null;
+          }
         }
-        case SupportedFormField.NextQuestionButton: {
-          return (
-            <NextQuestionButtonWrapper
-              key={i}
-              question={btn as Question<NextQuestionButtonProperties>}
-            />
-          );
-        }
-        case SupportedFormField.SubmitButton: {
-          return (
-            <SubmitButtonWrapper
-              key={i}
-              question={btn as Question<SubmitButtonProperties>}
-            />
-          );
-        }
-        default: {
-          return null;
-        }
-      }
-    })}
-  </Flex>
+      })}
+    </Flex>
+  </Stack>
 );

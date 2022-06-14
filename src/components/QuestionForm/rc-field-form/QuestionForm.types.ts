@@ -1,6 +1,7 @@
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 import { FieldProps } from "rc-field-form/es/Field";
 import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
+import { QuestionFieldRenderProps } from "./QuestionField/QuestionField.types";
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
@@ -12,6 +13,30 @@ export interface QuestionFormProps extends QuestionSchema {
   ) => void;
   renderQuestion: (children: ReactElement) => ReactElement;
   onEndFormClickCallback: () => void;
+  renderLinkButtonField: (
+    props: QuestionFieldRenderProps<LinkButtonProperties>
+  ) => ReactElement;
+  renderRadioGroupField: (
+    props: QuestionFieldRenderProps<RadioGroupProperties>
+  ) => ReactElement;
+  renderTextInputField: (
+    props: QuestionFieldRenderProps<TextInputProperties>
+  ) => ReactElement;
+  renderNextQuestionButtonField: (
+    props: QuestionFieldRenderProps<NextQuestionButtonProperties>
+  ) => ReactElement;
+  renderButtonGroupField: (
+    props: QuestionFieldRenderProps<ButtonGroupProperties>
+  ) => ReactElement;
+  renderPromptField: (
+    props: QuestionFieldRenderProps<PromptProperties>
+  ) => ReactElement;
+  renderWarningField: (
+    props: QuestionFieldRenderProps<WarningProperties>
+  ) => ReactElement;
+  renderSubmitButtonField: (
+    props: QuestionFieldRenderProps<SubmitButtonProperties>
+  ) => ReactElement;
 }
 
 export enum SupportedFormField {

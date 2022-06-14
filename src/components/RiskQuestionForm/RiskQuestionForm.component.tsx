@@ -1,6 +1,16 @@
 import { Box } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { QuestionForm } from "../QuestionForm/rc-field-form";
+
+import { ButtonGroupWrapper } from "../QuestionForm/rc-field-form/field-wrappers/ButtonGroup/ButtonGroup.wrapper";
+import { LinkButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/LinkButton/LinkButton.wrapper";
+import { NextQuestionButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
+import { PromptWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Prompt/Prompt.wrapper";
+import { RadioGroupWrapper } from "../QuestionForm/rc-field-form/field-wrappers/RadioGroup/RadioGroup.wrapper";
+import { SubmitButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/SubmitButton/SubmitButton.wrapper";
+import { TextInputWrapper } from "../QuestionForm/rc-field-form/field-wrappers/TextInput/TextInput.wrapper";
+import { WarningWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Warning/Warning.wrapper";
+
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
@@ -65,6 +75,16 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
       onSubmitCallback={handleSubmit}
       onChangeCallback={handleFormChange}
       onEndFormClickCallback={handleEndFormClick}
+      renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
+      renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
+      renderTextInputField={(props) => <TextInputWrapper {...props} />}
+      renderNextQuestionButtonField={(props) => (
+        <NextQuestionButtonWrapper {...props} />
+      )}
+      renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
+      renderPromptField={(props) => <PromptWrapper {...props} />}
+      renderWarningField={(props) => <WarningWrapper {...props} />}
+      renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
       {...schema}
     />
   );

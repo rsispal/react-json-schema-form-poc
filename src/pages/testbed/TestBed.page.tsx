@@ -18,6 +18,15 @@ import { TestBedPageProps } from "./TestBed.types";
 import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
 import { Routes } from "../../constants";
 
+import { ButtonGroupWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/ButtonGroup/ButtonGroup.wrapper";
+import { LinkButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/LinkButton/LinkButton.wrapper";
+import { NextQuestionButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
+import { PromptWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Prompt/Prompt.wrapper";
+import { RadioGroupWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/RadioGroup/RadioGroup.wrapper";
+import { SubmitButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/SubmitButton/SubmitButton.wrapper";
+import { TextInputWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/TextInput/TextInput.wrapper";
+import { WarningWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Warning/Warning.wrapper";
+
 export const TestBedPage: FC<TestBedPageProps> = () => {
   const [submission, setSubmission] =
     useState<Record<string, string | boolean | undefined>>();
@@ -60,6 +69,16 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
         onSubmitCallback={handleFormSubmit}
         onChangeCallback={(values) => setChangedValues(values)}
         renderQuestion={renderQuestionField}
+        renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
+        renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
+        renderTextInputField={(props) => <TextInputWrapper {...props} />}
+        renderNextQuestionButtonField={(props) => (
+          <NextQuestionButtonWrapper {...props} />
+        )}
+        renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
+        renderPromptField={(props) => <PromptWrapper {...props} />}
+        renderWarningField={(props) => <WarningWrapper {...props} />}
+        renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
       />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>

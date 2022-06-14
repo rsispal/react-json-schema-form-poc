@@ -2,6 +2,7 @@
   "editor.suggestSelection": "first",
   "scm.defaultViewMode": "tree",
   "git.autofetch": true,
+  "git.autorefresh": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,

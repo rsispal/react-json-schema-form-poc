@@ -1,15 +1,5 @@
 import { FC, Fragment, ReactElement } from "react";
-import { Stack, Text } from "@chakra-ui/react";
-
-/* Field Wrappers */
-import { ButtonGroupWrapper } from "../field-wrappers/ButtonGroup/ButtonGroup.wrapper";
-import { LinkButtonWrapper } from "../field-wrappers/LinkButton/LinkButton.wrapper";
-import { NextQuestionButtonWrapper } from "../field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
-import { RadioGroupWrapper } from "../field-wrappers/RadioGroup/RadioGroup.wrapper";
-import { TextInputWrapper } from "../field-wrappers/TextInput/TextInput.wrapper";
-import { PromptWrapper } from "../field-wrappers/Prompt/Prompt.wrapper";
-import { WarningWrapper } from "../field-wrappers/Warning/Warning.wrapper";
-import { SubmitButtonWrapper } from "../field-wrappers/SubmitButton/SubmitButton.wrapper";
+import { Text } from "@chakra-ui/react";
 
 /* Utilities */
 import { QuestionFormUtilities } from "../QuestionForm.utilities";
@@ -38,6 +28,14 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   errors,
   form,
   onEndFormClickCallback,
+  renderLinkButtonField,
+  renderRadioGroupField,
+  renderTextInputField,
+  renderNextQuestionButtonField,
+  renderButtonGroupField,
+  renderPromptField,
+  renderWarningField,
+  renderSubmitButtonField,
 }) => {
   const getFieldValue = (fieldName: string) =>
     form.getFieldValue(fieldName) as string | undefined;
@@ -64,73 +62,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       errors
     );
 
-    return (
-      <Fragment>
-        {warnings.map((q, i) => (
-          <WarningWrapper
-            key={i}
-            question={q}
-            onEndFormClickCallback={onEndFormClickCallback}
-          />
-        ))}
+    return warnings.map((question, i) => (
+      <Fragment key={i}>
+        {renderWarningField({ question, onEndFormClickCallback })}
       </Fragment>
-    );
+    ));
   };
-
-  const renderLinkButton = (question: Question<LinkButtonProperties>) => (
-    <Stack>
-      <Text>{question.prompt}</Text>
-      <LinkButtonWrapper question={question} />
-    </Stack>
-  );
-
-  const renderRadioGroup = (question: Question<RadioGroupProperties>) => (
-    <Stack>
-      <Text>{question.prompt}</Text>
-      <RadioGroupWrapper question={question} />
-    </Stack>
-  );
-
-  const renderTextInput = (question: Question<TextInputProperties>) => (
-    <Stack>
-      <Text>{question.prompt}</Text>
-      <TextInputWrapper question={question} />
-    </Stack>
-  );
-
-  const renderNextQuestionButton = (
-    question: Question<NextQuestionButtonProperties>
-  ) => (
-    <Stack>
-      <Text>{question.prompt}</Text>
-      <NextQuestionButtonWrapper question={question} />
-    </Stack>
-  );
-
-  const renderButtonGroup = (question: Question<ButtonGroupProperties>) => (
-    <ButtonGroupWrapper question={question} />
-  );
-
-  const renderPrompt = (question: Question<PromptProperties>) => (
-    <PromptWrapper
-      question={question}
-      onEndFormClickCallback={onEndFormClickCallback}
-    />
-  );
-
-  const renderWarning = (question: Question<WarningProperties>) => (
-    <WarningWrapper
-      question={question}
-      onEndFormClickCallback={onEndFormClickCallback}
-    />
-  );
-
-  const renderSubmitButton = (question: Question<SubmitButtonProperties>) => (
-    <Stack>
-      <Text>{question.prompt}</Text>
-      <SubmitButtonWrapper question={question} />
-    </Stack>
-  );
 
   const generateField = (question: Question<QuestionFieldType>) => {
     const currentValue = getFieldValue(question.name);
@@ -171,35 +108,53 @@ export const QuestionField: FC<QuestionFieldProps> = ({
 
                 {/* LINK BUTTON */}
                 {question.type === SupportedFormField.LinkButton &&
-                  renderLinkButton(question as Question<LinkButtonProperties>)}
+                  renderLinkButtonField({
+                    question: question as Question<LinkButtonProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* RADIO GROUP */}
                 {question.type === SupportedFormField.RadioGroup &&
-                  renderRadioGroup(question as Question<RadioGroupProperties>)}
+                  renderRadioGroupField({
+                    question: question as Question<RadioGroupProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* TEXT INPUT */}
                 {question.type === SupportedFormField.TextInput &&
-                  renderTextInput(question as Question<TextInputProperties>)}
+                  renderTextInputField({
+                    question: question as Question<TextInputProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* NEXT QUESTION BUTTON */}
                 {question.type === SupportedFormField.NextQuestionButton &&
-                  renderNextQuestionButton(
-                    question as Question<NextQuestionButtonProperties>
-                  )}
+                  renderNextQuestionButtonField({
+                    question:
+                      question as Question<NextQuestionButtonProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* PROMPT */}
                 {question.type === SupportedFormField.Prompt &&
-                  renderPrompt(question as Question<PromptProperties>)}
+                  renderPromptField({
+                    question: question as Question<PromptProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* WARNING */}
                 {question.type === SupportedFormField.Warning &&
-                  renderWarning(question as Question<WarningProperties>)}
+                  renderWarningField({
+                    question: question as Question<WarningProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {/* SUBMIT BUTTON */}
                 {question.type === SupportedFormField.SubmitButton &&
-                  renderSubmitButton(
-                    question as Question<SubmitButtonProperties>
-                  )}
+                  renderSubmitButtonField({
+                    question: question as Question<SubmitButtonProperties>,
+                    onEndFormClickCallback,
+                  })}
 
                 {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
@@ -221,7 +176,10 @@ export const QuestionField: FC<QuestionFieldProps> = ({
             {renderQuestion(
               <Fragment>
                 {generateError(question.name)}
-                {renderButtonGroup(question as Question<ButtonGroupProperties>)}
+                {renderButtonGroupField({
+                  question: question as Question<ButtonGroupProperties>,
+                  onEndFormClickCallback,
+                })}
                 {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
             )}
