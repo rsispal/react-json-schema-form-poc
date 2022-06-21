@@ -58,7 +58,8 @@ export type RadioGroupProperties = {
 };
 export type TextInputProperties = {
   disabled: boolean;
-  options: { value: string; placeholder: string }[];
+  placeholder?: string;
+  initialValue?: string | null;
 };
 
 export type LinkButtonProperties = {
@@ -125,9 +126,12 @@ export type NextFieldTransition = {
 
 export type Question<T> = {
   /**
-   * @property id {string} - a unique identifier for this question (for reference only - uuidv4 recommended)
+   * @property id {string} - a unique identifier for this question (for business reference, and used as React node key - uuidv4 recommended)
    */
   id: string;
+  /**
+   * @property name {string} - the name of the field which the value will be stored against
+   */
   name: string;
   /**
    * @property order {number} - a numeric value used to order the questions
@@ -150,7 +154,7 @@ export type Question<T> = {
    */
   properties: T;
   /**
-   * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
+   * @property validation {FieldProps["rules"] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
    */
   validation?: FieldProps["rules"];
   /**

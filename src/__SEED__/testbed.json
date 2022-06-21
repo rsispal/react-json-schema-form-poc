@@ -233,13 +233,10 @@
         "initialValue": null
       },
       "warnings": [],
+      "validation": [{ "required": true, "message": "You must enter a value" }],
       "next": [
         {
-          "equals": "YES",
-          "question": "Q4"
-        },
-        {
-          "equals": "NO",
+          "valid": true,
           "question": "Q4"
         }
       ]
