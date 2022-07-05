@@ -99,9 +99,9 @@ In this current version, the following fields are able to be used within a schem
 
 ### Additional Components Used
 
-| Supported Field Type |       Properties        |                                                      Description                                                       |
-| :------------------: | :---------------------: | :--------------------------------------------------------------------------------------------------------------------: |
-|     Dynamic Text     | `(TextItem \| URLItem)` | This component allows complex text strings to be generated which can include inline links (see below for instructions) |
+| Supported Field Type |       Properties       |                                                      Description                                                       |
+| :------------------: | :--------------------: | :--------------------------------------------------------------------------------------------------------------------: |
+|     Dynamic Text     | `DynamicTextParagraph` | This component allows complex text strings to be generated which can include inline links (see below for instructions) |
 
 Below, are details on how to implement each type of Field, as well as information on creating transitions (NextFieldTransition) and warnings.
 
@@ -380,12 +380,12 @@ Below is a complete example with the above field properties in use
 
 ### 1.6 Prompt
 
-|      Property       |           Type            | Description                                                                                                 |
-| :-----------------: | :-----------------------: | :---------------------------------------------------------------------------------------------------------- |
-|       prompt        | `(TextItem \| URLItem)[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
-| continueButtonLabel |         `string`          | Label to display on continue button                                                                         |
-| endFormButtonLabel  |         `string`          | Label to display on end form button                                                                         |
-|  showEndFormButton  |         `boolean`         | Set to true to hide the end form button                                                                     |
+|      Property       |           Type           | Description                                                                                                 |
+| :-----------------: | :----------------------: | :---------------------------------------------------------------------------------------------------------- |
+|       prompt        | `DynamicTextParagraph[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
+| continueButtonLabel |         `string`         | Label to display on continue button                                                                         |
+| endFormButtonLabel  |         `string`         | Label to display on end form button                                                                         |
+|  showEndFormButton  |        `boolean`         | Set to true to hide the end form button                                                                     |
 
 Note: Warnings and validation properties have no effect on this field type.
 
@@ -437,12 +437,12 @@ Below is a complete example with the above field properties in use
 
 ### 1.7 Warning
 
-|      Property       |           Type            | Description                                                                                                 |
-| :-----------------: | :-----------------------: | :---------------------------------------------------------------------------------------------------------- |
-|       prompt        | `(TextItem \| URLItem)[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
-| continueButtonLabel |         `string`          | Label to display on continue button                                                                         |
-| endFormButtonLabel  |         `string`          | Label to display on end form button                                                                         |
-|  showEndFormButton  |         `boolean`         | Set to true to hide the end form button                                                                     |
+|      Property       |           Type           | Description                                                                                                 |
+| :-----------------: | :----------------------: | :---------------------------------------------------------------------------------------------------------- |
+|       prompt        | `DynamicTextParagraph[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
+| continueButtonLabel |         `string`         | Label to display on continue button                                                                         |
+| endFormButtonLabel  |         `string`         | Label to display on end form button                                                                         |
+|  showEndFormButton  |        `boolean`         | Set to true to hide the end form button                                                                     |
 
 Note: Warnings and validation properties have no effect on this field type.
 
@@ -513,9 +513,9 @@ Below is a complete example with the above field properties in use
 
 ### Dynamic Text
 
-| Property |           Type            | Description                                                     |
-| :------: | :-----------------------: | :-------------------------------------------------------------- |
-|   data   | `(TextItem \| URLItem)[]` | DynamicText text or URL objects to render as the prompt message |
+| Property |           Type           | Description                                                     |
+| :------: | :----------------------: | :-------------------------------------------------------------- |
+|   data   | `DynamicTextParagraph[]` | DynamicText text or URL objects to render as the prompt message |
 
 #### TextItem:
 
@@ -536,20 +536,42 @@ Below is a complete example with the above field properties in use
 #### Example
 
 ```tsx
-const text: (TextItem | URLItem)[] = [
+const text: DynamicTextParagraph[] = [
   {
-    type: "text",
-    value: "This is some text, and ",
+    type: paragraph,
+    value: [
+      {
+        type: "text",
+        value: "Paragraph 1. This is some text. ",
+      },
+      {
+        type: "url",
+        url: "https://google.co.uk",
+        label: "This is a URL",
+      },
+      {
+        type: "text",
+        value: ". This is some more text",
+      },
+    ],
   },
   {
-    type: "url",
-    label: "this is a link",
-    url: "https://www.pensionwise.gov.uk/",
-  },
-  {
-    type: "text",
-    value:
-      ". You can use either, by defining the objects as described in this documentation.",
+    type: paragraph,
+    value: [
+      {
+        type: "text",
+        value: "Paragraph 2. This is some text. ",
+      },
+      {
+        type: "url",
+        url: "https://google.co.uk",
+        label: "This is a URL",
+      },
+      {
+        type: "text",
+        value: ". This is some more text",
+      },
+    ],
   },
 ];
 

@@ -67,8 +67,13 @@
       "properties": {
         "prompt": [
           {
-            "type": "text",
-            "value": "This is a warning because you selected no"
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "This is a warning because you selected no"
+              }
+            ]
           }
         ],
         "continueButtonLabel": "I agree, continue",
@@ -92,26 +97,31 @@
       "properties": {
         "prompt": [
           {
-            "type": "text",
-            "value": "What you do with your pension is an important decision. If you haven't received "
-          },
-          {
-            "type": "url",
-            "label": "Pension Wise",
-            "url": "https://www.pensionwise.gov.uk/"
-          },
-          {
-            "type": "text",
-            "value": " guidance or "
-          },
-          {
-            "type": "url",
-            "label": "personal advice",
-            "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
-          },
-          {
-            "type": "text",
-            "value": ", we strongly suggest you do this before proceeding."
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "What you do with your pension is an important decision. If you haven't received "
+              },
+              {
+                "type": "url",
+                "label": "Pension Wise",
+                "url": "https://www.pensionwise.gov.uk/"
+              },
+              {
+                "type": "text",
+                "value": " guidance or "
+              },
+              {
+                "type": "url",
+                "label": "personal advice",
+                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
+              },
+              {
+                "type": "text",
+                "value": ", we strongly suggest you do this before proceeding."
+              }
+            ]
           }
         ],
         "continueButtonLabel": "I agree, continue",
@@ -175,8 +185,13 @@
       "properties": {
         "prompt": [
           {
-            "type": "text",
-            "value": "This is a warning because you selected no"
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "This is a warning because you selected no"
+              }
+            ]
           }
         ],
         "continueButtonLabel": "I agree, continue",
