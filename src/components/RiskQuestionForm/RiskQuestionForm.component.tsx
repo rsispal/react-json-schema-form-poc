@@ -1,5 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
+
+import { DynamicText } from "../DynamicText";
+import { DynamicTextParagraph } from "../DynamicText/DynamicText.types";
 import { QuestionForm } from "../QuestionForm/rc-field-form";
 
 import { ButtonGroupWrapper } from "../QuestionForm/rc-field-form/field-wrappers/ButtonGroup/ButtonGroup.wrapper";
@@ -13,6 +16,24 @@ import { WarningWrapper } from "../QuestionForm/rc-field-form/field-wrappers/War
 
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
+const bottomPrompt: DynamicTextParagraph[] = [
+  {
+    type: "paragraph",
+    content: [
+      {
+        type: "text",
+        value:
+          "If you don't already have an HL SIPP, you will need to transfer your pension from your existing pension provider first. Once the transfer is complete you can then apply to move money from the HL SIPP into drawdown.",
+      },
+      {
+        type: "url",
+        url: "https://qa.hl.co.uk/pensions/transfer-to-the-sipp",
+        label: "How to transfer a pension to the HL SIPP.",
+        target: "_blank",
+      },
+    ],
+  },
+];
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   schema,
   onSubmitCallback,
@@ -64,31 +85,37 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
       boxShadow="xl"
       padding={6}
       margin={6}
+      width={800}
     >
       {children}
     </Box>
   );
 
   return (
-    <QuestionForm
-      renderQuestion={generateQuestionFieldCard}
-      onSubmitCallback={handleSubmit}
-      onChangeCallback={handleFormChange}
-      onEndFormClickCallback={handleEndFormClick}
-      renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
-      renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
-      renderTextInputField={(props) => <TextInputWrapper {...props} />}
-      renderNextQuestionButtonField={(props) => (
-        <NextQuestionButtonWrapper {...props} />
-      )}
-      renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
-      renderPromptField={(props) => <PromptWrapper {...props} />}
-      renderWarningField={(props) => <WarningWrapper {...props} />}
-      renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
-      renderFieldErrorMessage={(error) => (
-        <Text color="red">{error.message}</Text>
-      )}
-      {...schema}
-    />
+    <Flex flex={1} flexDir="column" alignItems="center">
+      <QuestionForm
+        renderQuestion={generateQuestionFieldCard}
+        onSubmitCallback={handleSubmit}
+        onChangeCallback={handleFormChange}
+        onEndFormClickCallback={handleEndFormClick}
+        renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
+        renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
+        renderTextInputField={(props) => <TextInputWrapper {...props} />}
+        renderNextQuestionButtonField={(props) => (
+          <NextQuestionButtonWrapper {...props} />
+        )}
+        renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
+        renderPromptField={(props) => <PromptWrapper {...props} />}
+        renderWarningField={(props) => <WarningWrapper {...props} />}
+        renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
+        renderFieldErrorMessage={(error) => (
+          <Text color="red">{error.message}</Text>
+        )}
+        {...schema}
+      />
+      <Box width={800}>
+        <DynamicText data={bottomPrompt} />
+      </Box>
+    </Flex>
   );
 };
