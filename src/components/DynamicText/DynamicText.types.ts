@@ -12,6 +12,11 @@ export type URLItem = {
   target: HTMLAttributeAnchorTarget;
 };
 
+export type DynamicTextParagraph = {
+  type: "paragraph";
+  content: (TextItem | URLItem)[];
+};
+
 export interface DynamicTextProps {
-  data: (TextItem | URLItem)[];
+  data: DynamicTextParagraph[];
 }

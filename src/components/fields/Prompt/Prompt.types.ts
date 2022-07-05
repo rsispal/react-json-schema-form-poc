@@ -1,7 +1,7 @@
-import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
+import { DynamicTextParagraph } from "../../DynamicText/DynamicText.types";
 
 export interface PromptProps {
-  prompt: (TextItem | URLItem)[];
+  prompt: DynamicTextParagraph[];
   continueButtonLabel: string;
   endFormButtonLabel: string;
   showEndFormButton: boolean;

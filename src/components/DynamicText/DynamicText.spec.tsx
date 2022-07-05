@@ -1,32 +1,50 @@
-import { DynamicTextProps, TextItem, URLItem } from "./DynamicText.types";
+import {
+  DynamicTextParagraph,
+  DynamicTextProps,
+  TextItem,
+  URLItem,
+} from "./DynamicText.types";
 import { DynamicText } from "./DynamicText.component";
 import { mountWithProps } from "../cypress-component-wrapper";
 
-const sampleData: (TextItem | URLItem)[] = [
+const sampleData: DynamicTextParagraph[] = [
   {
-    type: "text",
-    value:
-      "What you do with your pension is an important decision. If you haven't received ",
+    type: "paragraph",
+    content: [
+      {
+        type: "text",
+        value: "Paragraph 1. This is some text. ",
+      },
+      {
+        type: "url",
+        url: "https://google.co.uk",
+        label: "This is a URL",
+        target: "_blank",
+      },
+      {
+        type: "text",
+        value: ". This is some more text",
+      },
+    ],
   },
   {
-    type: "url",
-    label: "Pension Wise ",
-    url: "#",
-    target: "blank",
-  },
-  {
-    type: "text",
-    value: "guidance or ",
-  },
-  {
-    type: "url",
-    label: "personal advice ",
-    url: "#",
-    target: "blank",
-  },
-  {
-    type: "text",
-    value: "we strongly suggest you do this before proceeding. ",
+    type: "paragraph",
+    content: [
+      {
+        type: "text",
+        value: "Paragraph 2. This is some text. ",
+      },
+      {
+        type: "url",
+        url: "https://google.co.uk",
+        label: "This is a URL",
+        target: "_blank",
+      },
+      {
+        type: "text",
+        value: ". This is some more text",
+      },
+    ],
   },
 ];
 

@@ -1,6 +1,6 @@
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 import { FieldProps } from "rc-field-form/es/Field";
-import { TextItem, URLItem } from "../../DynamicText/DynamicText.types";
+import { DynamicTextParagraph } from "../../DynamicText/DynamicText.types";
 import { QuestionFieldRenderProps } from "./QuestionField/QuestionField.types";
 import { ValidateError } from "async-validator";
 
@@ -81,14 +81,14 @@ export type ButtonGroupProperties = {
 };
 
 export type PromptProperties = {
-  prompt: (TextItem | URLItem)[];
+  prompt: DynamicTextParagraph[];
   continueButtonLabel: string;
   endFormButtonLabel: string;
   showEndFormButton: boolean;
 };
 
 export type WarningProperties = {
-  prompt: (TextItem | URLItem)[];
+  prompt: DynamicTextParagraph[];
   continueButtonLabel: string;
   endFormButtonLabel: string;
   showEndFormButton: boolean;
@@ -152,7 +152,7 @@ export type Question<T> = {
   /**
    * @property prompt {string} - question/prompt to show for this field (optional)
    */
-  description?: (TextItem | URLItem)[];
+  description?: DynamicTextParagraph[];
   /**
    * @property properties - field-specific configuration properties (see instructions)
    */
