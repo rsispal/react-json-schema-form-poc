@@ -8,7 +8,7 @@ export const SubmitButtonWrapper: FC<{
   question: Question<SubmitButtonProperties>;
 }> = ({ question }) => (
   <Stack>
-    =<Text fontWeight={600}>{question.prompt}</Text>
+    <Text fontWeight={600}>{question.prompt}</Text>
     {question.description && <DynamicText data={question.description} />}
     <SubmitButton {...question.properties} />
   </Stack>

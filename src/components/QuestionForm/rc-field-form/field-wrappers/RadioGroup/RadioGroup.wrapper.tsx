@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Question, RadioGroupProperties } from "../../QuestionForm.types";
 import { Field } from "rc-field-form";
 import { Stack, Text } from "@chakra-ui/react";
+import { DynamicText } from "../../../../DynamicText/";
 
 export const RadioGroupWrapper: FC<{
   question: Question<RadioGroupProperties>;
@@ -10,7 +11,10 @@ export const RadioGroupWrapper: FC<{
   <Field name={question.name}>
     {({ value, onChange }) => (
       <Stack>
-        <Text>{question.prompt}</Text>
+        <Text fontWeight={600} fontSize="larger">
+          {question.prompt}
+        </Text>
+        {question.description && <DynamicText data={question.description} />}
         <RadioGroup
           {...question.properties}
           value={value}

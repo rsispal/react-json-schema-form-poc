@@ -21,7 +21,7 @@ export const PromptWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <Stack>
-          =<Text fontWeight={600}>{question.prompt}</Text>
+          <Text fontWeight={600}>{question.prompt}</Text>
           {question.description && <DynamicText data={question.description} />}
           <Prompt
             onContinueClick={handleClick}
