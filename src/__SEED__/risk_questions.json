@@ -206,7 +206,7 @@
       "order": 3,
       "isChildQuestion": false,
       "type": "RadioGroup",
-      "prompt": "Q2. Have you received personal advice from a regulated Financial Advisor?",
+      "prompt": "Have you received personal advice from a regulated Financial Advisor?",
       "description": [
         {
           "type": "paragraph",
