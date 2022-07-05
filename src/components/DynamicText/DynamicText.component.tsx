@@ -1,11 +1,6 @@
 import { Box, Link, Text } from "@chakra-ui/react";
 import { FC } from "react";
-import {
-  DynamicTextParagraph,
-  DynamicTextProps,
-  TextItem,
-  URLItem,
-} from "./DynamicText.types";
+import { DynamicTextProps, TextItem, URLItem } from "./DynamicText.types";
 
 export const DynamicText: FC<DynamicTextProps> = ({ data }) => {
   const renderItem = (item: TextItem | URLItem, key: number) => {
@@ -28,14 +23,7 @@ export const DynamicText: FC<DynamicTextProps> = ({ data }) => {
         );
       }
     }
-    return null;
   };
-
-  const renderParagraph = (paragraph: DynamicTextParagraph, key: number) => (
-    <Text key={key} display="inline">
-      {paragraph.content.map((item, key) => renderItem(item, key))}
-    </Text>
-  );
 
   return (
     <Box>
@@ -47,3 +35,5 @@ export const DynamicText: FC<DynamicTextProps> = ({ data }) => {
     </Box>
   );
 };
+
+export default DynamicText;

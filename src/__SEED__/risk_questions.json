@@ -52,7 +52,7 @@
         "disabled": false,
         "label": "Help me book PensionWise appointment",
         "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
-        "target": "_blank"
+        "target": "_parent"
       },
       "warnings": [],
       "next": []
@@ -171,7 +171,7 @@
               "disabled": false,
               "label": "Help me book PensionWise appointment",
               "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
-              "target": "_blank"
+              "target": "_parent"
             },
             "warnings": [],
             "next": []
@@ -501,7 +501,7 @@
           },
           {
             "value": "NOT_APPLICABLE",
-            "label": "N/A - I don’t intend to take income"
+            "label": "N/A - I don't intend to take income"
           }
         ]
       },

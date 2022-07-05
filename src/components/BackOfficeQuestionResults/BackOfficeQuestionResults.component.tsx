@@ -80,14 +80,10 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 
       case SupportedFormField.Prompt:
       case SupportedFormField.Warning: {
-        return (
-          <DynamicText
-            data={
-              (question.properties as WarningProperties | PromptProperties)
-                .prompt
-            }
-          />
-        );
+        const data = (
+          question.properties as WarningProperties | PromptProperties
+        ).prompt;
+        return <DynamicText data={data} />;
       }
       default: {
         return "-";
