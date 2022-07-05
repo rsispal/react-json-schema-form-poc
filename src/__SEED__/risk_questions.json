@@ -768,26 +768,6 @@
       "isChildQuestion": false,
       "type": "RadioGroup",
       "prompt": "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?",
-      "description": [
-        {
-          "type": "paragraph",
-          "content": [
-            {
-              "type": "text",
-              "value": "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the "
-            },
-            {
-              "type": "url",
-              "url": "https://www.hl.co.uk/__data/assets/pdf_file/0015/37122/Online-Ts-and-Cs.pdf",
-              "label": "Terms and Conditions"
-            },
-            {
-              "type": "text",
-              "value": ". The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
-            }
-          ]
-        }
-      ],
       "properties": {
         "disabled": false,
         "options": [
@@ -831,7 +811,16 @@
             "content": [
               {
                 "type": "text",
-                "value": "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the Terms and Conditions. The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
+                "value": "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the "
+              },
+              {
+                "type": "url",
+                "url": "https://www.hl.co.uk/__data/assets/pdf_file/0015/37122/Online-Ts-and-Cs.pdf",
+                "label": "Terms and Conditions"
+              },
+              {
+                "type": "text",
+                "value": ". The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
               }
             ]
           }
@@ -990,17 +979,6 @@
       "isChildQuestion": false,
       "type": "RadioGroup",
       "prompt": "Have you considered the effects of inflation (i.e. rising prices) on your plans?",
-      "description": [
-        {
-          "type": "paragraph",
-          "content": [
-            {
-              "type": "text",
-              "value": "Retirement might last 30 years or more. Inflation will affect the value of your income in real terms as the cost-of-living rises. You might find yourself running short of money, even if the amount of income you take stays the same. Prices rise over time. For example, between March 2002 and March 2022, inflation (as measured by the Retail Price Index) saw the cost of goods and services risk by 85.4%. This means an equivalent range of goods costing £1,000 twenty years ago would typically have increased to £1,854. This means you might find yourself running short of money, even if the amount of income you take stays the same. If you’re unsure about this you should seek personal advice or guidance."
-            }
-          ]
-        }
-      ],
       "properties": {
         "disabled": false,
         "options": [
@@ -1044,7 +1022,7 @@
             "content": [
               {
                 "type": "text",
-                "value": "Retirement might last 30 years or more. Inflation will affect the value of your income in real terms as the cost of living rises. You might find yourself running short of money, even if the amount of income you take stays the same. Prices rise over time. For example, between July 2000 and July 2020, inflation saw the costs of goods and services rise by 73.6%. This means an equivalent range of goods and services costing £1,000 twenty years ago would typically have increased to £1,736. If you’re still unsure don’t continue. Seek personal advice or guidance."
+                "value": "Prices rise over time. For example, between March 2002 and March 2022, inflation (as measured by the Retail Price Index) saw the cost of goods and services risk by 85.4%. This means an equivalent range of goods costing £1,000 twenty years ago would typically have increased to £1,854. This means you might find yourself running short of money, even if the amount of income you take stays the same. If you’re unsure about this you should seek personal advice or guidance."
               }
             ]
           }
@@ -1064,26 +1042,6 @@
       "isChildQuestion": false,
       "type": "RadioGroup",
       "prompt": "Do you understand how taking your pension could affect any means-tested state benefits you receive?",
-      "description": [
-        {
-          "type": "paragraph",
-          "content": [
-            {
-              "type": "text",
-              "value": "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at "
-            },
-            {
-              "type": "url",
-              "url": "https://www.gov.uk/benefits-calculators",
-              "label": "gov.uk/benefits-calculators"
-            },
-            {
-              "type": "text",
-              "value": ". If you’re still unsure don’t continue. Seek personal advice or guidance."
-            }
-          ]
-        }
-      ],
       "properties": {
         "disabled": false,
         "options": [
@@ -1164,7 +1122,16 @@
             "content": [
               {
                 "type": "text",
-                "value": "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at gov.uk/benefits-calculators. If you’re still unsure don’t continue. Seek personal advice or guidance."
+                "value": "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at "
+              },
+              {
+                "type": "url",
+                "url": "https://www.gov.uk/benefits-calculators",
+                "label": "gov.uk/benefits-calculators"
+              },
+              {
+                "type": "text",
+                "value": ". If you’re still unsure don’t continue. Seek personal advice or guidance."
               }
             ]
           }
@@ -1184,17 +1151,6 @@
       "isChildQuestion": false,
       "type": "RadioGroup",
       "prompt": "Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)?",
-      "description": [
-        {
-          "type": "paragraph",
-          "content": [
-            {
-              "type": "text",
-              "value": "If you're in debt and your creditors take action against you, any money held in a pension may be protected. Once you take it out any protection could be lost. If you get into serious financial trouble, you should take extra care before withdrawing money from your pension. You can get help and support around debt management from the government's Money Helper service. If you're still unsure do not continue. You should seek personal financial advice or guidance."
-            }
-          ]
-        }
-      ],
       "properties": {
         "disabled": false,
         "options": [
@@ -1276,7 +1232,17 @@
             "content": [
               {
                 "type": "text",
-                "value": "Any money held in a pension may be protected from your creditors if you’re in debt and they take action against you. But once you take it out any protection could be lost. If you get into serious financial trouble, you should take extra care before withdrawing money from your pension. If you’re still unsure don’t continue. Seek personal advice or guidance."
+                "value": "If you're in debt and your creditors take action against you, any money held in a pension may be protected. Once you take it out any protection could be lost. If you get into serious financial trouble, you should take extra care before withdrawing money from your pension. You can get help and support around debt management from the government's "
+              },
+              {
+                "type": "url",
+                "url": "https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt",
+                "label": "Money Helper service",
+                "target": "_parent"
+              },
+              {
+                "type": "text",
+                "value": ". If you're still unsure do not continue. You should seek personal financial advice or guidance."
               }
             ]
           }
