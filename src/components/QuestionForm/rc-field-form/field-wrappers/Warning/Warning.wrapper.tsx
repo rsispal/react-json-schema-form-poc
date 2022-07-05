@@ -1,6 +1,7 @@
 import { Stack, Text } from "@chakra-ui/react";
 import { Field } from "rc-field-form";
 import { FC, useRef } from "react";
+import { DynamicText } from "../../../../DynamicText";
 import { Warning } from "../../../../fields/Warning";
 import { Question, WarningProperties } from "../../QuestionForm.types";
 
@@ -20,7 +21,8 @@ export const WarningWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <Stack>
-          <Text>{question.prompt}</Text>
+          =<Text fontWeight={600}>{question.prompt}</Text>
+          {question.description && <DynamicText data={question.description} />}
           <Warning
             onContinueClick={handleClick}
             onEndFormClick={onEndFormClickCallback}

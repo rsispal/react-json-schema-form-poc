@@ -11,12 +11,14 @@ import {
 import { NextQuestionButtonWrapper } from "../NextQuestionButton/NextQuestionButton.wrapper";
 import { LinkButtonWrapper } from "../LinkButton/LinkButton.wrapper";
 import { SubmitButtonWrapper } from "../SubmitButton/SubmitButton.wrapper";
+import { DynamicText } from "../../../../DynamicText";
 
 export const ButtonGroupWrapper: FC<{
   question: Question<ButtonGroupProperties>;
 }> = ({ question }) => (
   <Stack>
-    <Text>{question.prompt}</Text>
+    <Text fontWeight={600}>{question.prompt}</Text>
+    {question.description && <DynamicText data={question.description} />}
     <Flex
       flex={1}
       width={"100%"}

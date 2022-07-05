@@ -3,6 +3,7 @@ import { LinkButtonProperties, Question } from "../../QuestionForm.types";
 import { Field } from "rc-field-form";
 import { LinkButton } from "../../../../fields/LinkButton";
 import { Stack, Text } from "@chakra-ui/react";
+import { DynamicText } from "../../../../DynamicText";
 
 export const LinkButtonWrapper: FC<{
   question: Question<LinkButtonProperties>;
@@ -20,6 +21,7 @@ export const LinkButtonWrapper: FC<{
       {({ value, onChange }) => (
         <Stack>
           <Text>{question.prompt}</Text>
+          {question.description && <DynamicText data={question.description} />}
           <LinkButton {...question.properties} onClickCallback={handleClick} />
 
           <input

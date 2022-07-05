@@ -150,6 +150,10 @@ export type Question<T> = {
    */
   prompt?: string;
   /**
+   * @property prompt {string} - question/prompt to show for this field (optional)
+   */
+  description?: (TextItem | URLItem)[];
+  /**
    * @property properties - field-specific configuration properties (see instructions)
    */
   properties: T;

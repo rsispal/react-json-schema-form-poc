@@ -1,6 +1,7 @@
 import { Button, Text, Stack } from "@chakra-ui/react";
 import { Field } from "rc-field-form";
 import { FC, useRef } from "react";
+import { DynamicText } from "../../../../DynamicText";
 import {
   NextQuestionButtonProperties,
   Question,
@@ -22,6 +23,7 @@ export const NextQuestionButtonWrapper: FC<{
       {({ value, onChange }) => (
         <Stack>
           <Text>{question.prompt}</Text>
+          {question.description && <DynamicText data={question.description} />}
           <Button onClick={handleClick} width={"fit-content"}>
             {question.properties.label}
           </Button>
