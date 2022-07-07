@@ -509,10 +509,6 @@
         {
           "equals": "NO",
           "question": "Q5_Warning"
-        },
-        {
-          "equals": "NOT_APPLICABLE",
-          "question": "Q5_Warning"
         }
       ],
       "next": [
@@ -522,6 +518,10 @@
         },
         {
           "equals": "NO",
+          "question": "Q6"
+        },
+        {
+          "equals": "NOT_APPLICABLE",
           "question": "Q6"
         }
       ]
@@ -855,6 +855,10 @@
           {
             "value": "NO",
             "label": "No"
+          },
+          {
+            "value": "NOT_APPLICABLE",
+            "label": "N/A – I don’t plan to make any more contributions to my pensions"
           }
         ]
       },
@@ -871,6 +875,10 @@
         },
         {
           "equals": "NO",
+          "question": "Q11"
+        },
+        {
+          "equals": "NOT_APPLICABLE",
           "question": "Q11"
         }
       ]
@@ -942,6 +950,10 @@
         },
         {
           "equals": "NO",
+          "question": "Q12"
+        },
+        {
+          "equals": "NOT_APPLICABLE",
           "question": "Q12"
         }
       ]
@@ -1061,12 +1073,8 @@
       },
       "warnings": [
         {
-          "equals": "NOT_APPLICABLE",
-          "question": "Q13_NA_Warning"
-        },
-        {
           "equals": "NO",
-          "question": "Q13_N_Warning"
+          "question": "Q13_Warning"
         }
       ],
       "next": [
@@ -1085,33 +1093,8 @@
       ]
     },
     {
-      "id": "Q13_NA_Warning",
-      "name": "Q13_NA_Warning",
-      "order": 2,
-      "isChildQuestion": false,
-      "type": "Warning",
-      "properties": {
-        "prompt": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
-              }
-            ]
-          }
-        ],
-        "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
-        "showEndFormButton": true
-      },
-      "warnings": [],
-      "next": []
-    },
-    {
-      "id": "Q13_N_Warning",
-      "name": "Q13_N_Warning",
+      "id": "Q13_Warning",
+      "name": "Q13_Warning",
       "order": 2,
       "isChildQuestion": false,
       "type": "Warning",
@@ -1170,12 +1153,8 @@
       },
       "warnings": [
         {
-          "equals": "NOT_APPLICABLE",
-          "question": "Q14_NA_Warning"
-        },
-        {
           "equals": "NO",
-          "question": "Q14_N_Warning"
+          "question": "Q14_Warning"
         }
       ],
       "next": [
@@ -1193,35 +1172,9 @@
         }
       ]
     },
-
     {
-      "id": "Q14_NA_Warning",
-      "name": "Q14_NA_Warning",
-      "order": 2,
-      "isChildQuestion": false,
-      "type": "Warning",
-      "properties": {
-        "prompt": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "N/A – I don’t have debt"
-              }
-            ]
-          }
-        ],
-        "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
-        "showEndFormButton": true
-      },
-      "warnings": [],
-      "next": []
-    },
-    {
-      "id": "Q14_N_Warning",
-      "name": "Q14_N_Warning",
+      "id": "Q14_Warning",
+      "name": "Q14_Warning",
       "order": 2,
       "isChildQuestion": false,
       "type": "Warning",
