@@ -8,7 +8,7 @@
       "order": 1,
       "isChildQuestion": false,
       "type": "RadioGroup",
-      "prompt": "Do you want guidance from PensionWise?",
+      "prompt": "Do you want guidance from Pension Wise?",
       "properties": {
         "disabled": false,
         "options": [
