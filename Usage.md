@@ -8,6 +8,8 @@ Whilst offering flexibility, the form can easily be broken by a missing transiti
 
 Please read the documentation **carefully** before attempting any modifications and extensively test _all_ possible answer paths.
 
+It's recommended to create a process diagram (i.e. flowchart) detailing each question (and the field type), and the possible answers. From there, you can simplify the creation of the schema whilst closely following these instructions.
+
 ### Schema Configuration
 
 The schema can either be delivered as a JavaScript object (allowing it to be stored within the codebase), or in JSON format (allowing it to be stored elsewhere).
@@ -63,7 +65,7 @@ export type Question<T> = {
    */
   next?: NextFieldTransition[];
   /**
-   * @property warnings {WarningProperties} - value-based warnings to display
+   * @property warnings {WarningProperties} - value-based warnings to display (use _only_ when you require a warning to be displayed as a child of this Question)
    */
   warnings?: NextFieldTransition[];
 };
@@ -435,57 +437,7 @@ Below is a complete example with the above field properties in use
 
 ```
 
-### 1.7 Warning
-
-|      Property       |           Type           | Description                                                                                                 |
-| :-----------------: | :----------------------: | :---------------------------------------------------------------------------------------------------------- |
-|       prompt        | `DynamicTextParagraph[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
-| continueButtonLabel |         `string`         | Label to display on continue button                                                                         |
-| endFormButtonLabel  |         `string`         | Label to display on end form button                                                                         |
-|  showEndFormButton  |        `boolean`         | Set to true to hide the end form button                                                                     |
-
-Note: Warnings and validation properties have no effect on this field type.
-
-It is possible to render a warning within a Question block, by including a `warnings` array on the Question entry itself. Define a NextFieldTransition with a value used by the Question and the warning name that should be rendered.
-
-If a Question has a warning definition (NextFieldTransition), this will intercept the next question and prevent its display _until_ the continue button on the warning is pressed.
-
-Note: Warnings and validation properties have no effect on this field type.
-
-#### Example
-
-Below is a complete example with the above field properties in use
-
-```json
- {
-      "id": "Q4_Warning",
-      "name": "Q4_Warning",
-      "order": 2,
-      "isChildQuestion": false,
-      "type": "Warning",
-      "properties": {
-        "prompt": [
-          {
-            "type": "text",
-            "value": "Your pension remains invested so its value, and your future income, can fall due to weak investment performance. Drawing too much income too early will also reduce its value. In the worst case you could run out of money entirely, leaving you reliant on the State. Unlike an annuity, which provides a secure income for life, your income isn’t guaranteed with drawdown. The value of your pension and income aren’t secure. If you’re still unsure don’t continue. Seek personal advice or guidance."
-          }
-        ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
-        "showEndFormButton": true
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": true,
-          "question": "Q5"
-        }
-      ]
-    },
-
-```
-
-### 1.8 SubmitButton
+### 1.7 SubmitButton
 
 | Property |   Type    | Description                          |
 | :------: | :-------: | :----------------------------------- |
@@ -509,6 +461,60 @@ Below is a complete example with the above field properties in use
   "warnings": [],
   "next": []
 }
+```
+
+### 1.8 Warning
+
+|      Property       |           Type           | Description                                                                                                 |
+| :-----------------: | :----------------------: | :---------------------------------------------------------------------------------------------------------- |
+|       prompt        | `DynamicTextParagraph[]` | DynamicText text or URL objects to render as the prompt message (see below for implementation instructions) |
+| continueButtonLabel |         `string`         | Label to display on continue button                                                                         |
+| endFormButtonLabel  |         `string`         | Label to display on end form button                                                                         |
+|  showEndFormButton  |        `boolean`         | Set to true to hide the end form button                                                                     |
+
+Note: Warnings and validation properties have no effect on this field type.
+
+It is possible to render a warning within a Question block, by including a `warnings` array on the Question entry itself. Define a NextFieldTransition with a value used by the Question and the warning name that should be rendered.
+
+If a Question has a warning definition (NextFieldTransition), this will intercept the next question and prevent its display _until_ the continue button on the warning is pressed.
+
+Note: Warnings and validation properties have no effect on this field type.
+
+#### Example
+
+Below is a complete example with the above field properties in use
+
+```json
+ {
+      "id": "uuidv4 here",
+      "name": "Q4_Warning_On_No_Selection",
+      "isChildQuestion": false,
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            "type": "paragraph",
+            "value": [
+               {
+                "type": "text",
+                "value": "This is the warning that will be generated based on the answer for Question 4 in this example"
+              }
+            ]
+          }
+        ],
+        "continueButtonLabel": "I agree, continue",
+        "endButtonLabel": "End risk questions",
+        "showEndFormButton": true
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q5"
+        }
+      ]
+    },
+
 ```
 
 ### Dynamic Text
@@ -576,4 +582,173 @@ const text: DynamicTextParagraph[] = [
 ];
 
 return <DynamicText data={text} />;
+```
+
+# Guidance for the use of Warning field type
+
+Warnings can be implemented in two different ways, and both require a Question to be defined with the Warning properties as described in previous sections.
+
+There are two choices for how Warnings can be displayed:
+
+- Option 1: Rendered separate to the Question as a peer component (just as any other Field type detailed above)
+- Option 2: Rendered within the Question (within the Field) as a child element ()
+
+## Option 1
+
+Option 1 is the simplest, in the sense that it follows the exact convention of defining a Question but with a Warning as the field type. You define the `next` transition on the preceding question so that the warning can be displayed based on the user's answer. You do not need to add any configuration to the preceding question's `warnings` property.
+
+Here's an example:
+
+```
+# When answering yes:
+[Question 1: YES] -> [Question 2] -> ...
+```
+
+```
+# When answering no:
+[Question 1: NO] -> [Q1_Warning: acknowledged] -> [Question 2] -> ...
+```
+
+```json
+   {
+      "id": "Q1",
+      "type": "RadioGroup",
+      "prompt": "This is question 1",
+      "properties": {
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [
+          // No configuration required (the Warning will be generated as a peer component)
+      ],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q2"
+        },
+        {
+          "equals": "NO",
+          "question": "Q1_Warning"
+        }
+      ]
+    },
+
+    {
+      "id": "Q1_Warning",
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            // text to be shown for this warning (refer to "Dynamic Text" section)
+          }
+        ]
+      },
+
+      "next": [
+        {
+          "equals": true,
+          "question": "Q6"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2",
+      "type": "RadioGroup",
+      "prompt": "This is question 2",
+      // rest of Question configuration
+    },
+
+
+```
+
+## Option 2
+
+When a `next` transition is defined within a Question's `warning` property, the QuestionForm will intercept the generation of the next question and instead generate the desired Warning. Once acknowledged, the next question will be generated as per the previous question's `next` transitions were defined.
+
+Ensure the `next` transition is defined for all answer options so that when the Warning is acknowledged the next question can be generated. Otherwise, your form will reach a break.
+
+Here's an example:
+
+```
+# When answering yes:
+[Question 1: YES] -> [Question 2] -> ...
+```
+
+```
+# When answering no:
+[Question 1: NO -> Q1_Warning: acknowledged]  -> [Question 2] -> ...
+```
+
+```json
+   {
+      "id": "Q1",
+      "type": "RadioGroup",
+      "prompt": "This is question 1",
+      "properties": {
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [
+          // No configuration required (the Warning will be generated as a peer component)
+        {
+          "equals": "NO",
+          "question": "Q1_Warning"
+        }
+      ],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q2"
+        },
+        {
+          "equals": "NO",
+          "question": "Q2"
+        }
+      ]
+    },
+
+    {
+      "id": "Q1_Warning",
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            // text to be shown for this warning (refer to "Dynamic Text" section)
+          }
+        ]
+      },
+
+      "next": [
+        {
+          "equals": true,
+          "question": "Q6"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2",
+      "type": "RadioGroup",
+      "prompt": "This is question 2",
+      // rest of Question configuration
+    },
+
+
 ```
