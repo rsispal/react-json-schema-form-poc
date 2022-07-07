@@ -335,7 +335,7 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
+        "continueButtonLabel": "OK, NEXT QUESTION",
         "endButtonLabel": "End risk questions",
         "showEndFormButton": false
       },
@@ -399,8 +399,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -468,8 +468,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -544,8 +544,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -612,8 +612,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -680,8 +680,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -748,8 +748,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -825,8 +825,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -893,8 +893,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -964,8 +964,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1027,8 +1027,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1102,8 +1102,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1136,8 +1136,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1212,8 +1212,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1247,8 +1247,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1310,8 +1310,8 @@
             ]
           }
         ],
-        "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "continueButtonLabel": "OK, NEXT QUESTION",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
