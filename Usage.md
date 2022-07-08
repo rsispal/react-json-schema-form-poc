@@ -14,13 +14,13 @@ It's recommended to create a process diagram (i.e. flowchart) detailing each que
 
 The schema can either be delivered as a JavaScript object (allowing it to be stored within the codebase), or in JSON format (allowing it to be stored elsewhere).
 
-The schema object itself requires three key parameters: `__version`, `formName`, `questions`:
+The schema object itself requires three key parameters: `schemaVersion`, `formName`, `questions`:
 
-|    Field    |             Type              | Description                                                                                      |
-| :---------: | :---------------------------: | :----------------------------------------------------------------------------------------------- |
-| `__version` |        number (float)         | The schema version and revision of the defined question set                                      |
-| `formName`  |            string             | The name of the form to be added onto the HTML form element                                      |
-| `questions` | Question<QuestionFieldType>[] | An array of Question objects defining the field, properties, transitions and validation criteria |
+|      Field      |             Type              | Description                                                                                      |
+| :-------------: | :---------------------------: | :----------------------------------------------------------------------------------------------- |
+| `schemaVersion` |        number (float)         | The schema version and revision of the defined question set                                      |
+|   `formName`    |            string             | The name of the form to be added onto the HTML form element                                      |
+|   `questions`   | Question<QuestionFieldType>[] | An array of Question objects defining the field, properties, transitions and validation criteria |
 
 ### Understanding the Question object
 
@@ -37,13 +37,9 @@ export type Question<T> = {
    */
   name: string;
   /**
-   * @property order {number} - a numeric value used to order the questions
+   * @property exclude {boolean} - hide the question from rendering independently (i.e. for rendering dependency-style questions)
    */
-  order: number;
-  /**
-   * @property isChildQuestion {boolean} - hide the question from rendering independently (ideal for child questions)
-   */
-  isChildQuestion: boolean;
+  exclude: boolean;
   /**
    * @property type {SupportedFormField} - the kind of field to generate
    */
@@ -71,18 +67,17 @@ export type Question<T> = {
 };
 ```
 
-|    Property     |          Type           | Description                                                                                                     |
-| :-------------: | :---------------------: | :-------------------------------------------------------------------------------------------------------------- |
-|       id        |        `string`         | a unique identifier for this question (for business reference, and used as React node key - uuidv4 recommended) |
-|      name       |        `string`         | the name of the field which the value will be stored against                                                    |
-|      order      |        `number`         | a numeric value used to order the questions                                                                     |
-| isChildQuestion |        `boolean`        | hide the question from rendering independently (ideal for child questions)                                      |
-|      type       |  `SupportedFormField`   | the kind of field to generate                                                                                   |
-|     prompt      |        `string`         | question/prompt to show for this field (optional)                                                               |
-|   properties    |           `T`           | field-specific configuration properties (see instructions)                                                      |
-|   validation    |  `FieldProps["rules"]`  | Async Validator static validation rules (functions not supported in JSON schemas)                               |
-|      next       | `NextFieldTransition[]` | value-based transition rules for question chaining (must be defined for _all_ possible answers)                 |
-|    warnings     | `NextFieldTransition[]` | value-based warnings to display within the Question                                                             |
+|  Property  |          Type           | Description                                                                                                     |
+| :--------: | :---------------------: | :-------------------------------------------------------------------------------------------------------------- |
+|     id     |        `string`         | a unique identifier for this question (for business reference, and used as React node key - uuidv4 recommended) |
+|    name    |        `string`         | the name of the field which the value will be stored against                                                    |
+|  exclude   |        `boolean`        | hide the question from rendering independently (ideal for child questions)                                      |
+|    type    |  `SupportedFormField`   | the kind of field to generate                                                                                   |
+|   prompt   |        `string`         | question/prompt to show for this field (optional)                                                               |
+| properties |           `T`           | field-specific configuration properties (see instructions)                                                      |
+| validation |  `FieldProps["rules"]`  | Async Validator static validation rules (functions not supported in JSON schemas)                               |
+|    next    | `NextFieldTransition[]` | value-based transition rules for question chaining (must be defined for _all_ possible answers)                 |
+|  warnings  | `NextFieldTransition[]` | value-based warnings to display within the Question                                                             |
 
 ### Supported Field Types
 
@@ -187,8 +182,7 @@ Below is a complete example with the above field properties in use
     {
       "id": "Q1_1_Y",
       "name": "Q1_1_Y",
-      "order": 2,
-      "isChildQuestion": true,
+      "exclude": true,
       "type": "LinkButton",
       "prompt": "",
       "properties": {
@@ -219,8 +213,7 @@ Below is a complete example with the above field properties in use
     {
       "id": "Q2",
       "name": "Q2",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you received personal advice from a regulated Financial Advisor?",
       "properties": {
@@ -267,8 +260,7 @@ Below is a complete example with the above field properties in use
 {
   "id": "Q4",
   "name": "Q4",
-  "order": 4,
-  "isChildQuestion": false,
+  "exclude": false,
   "type": "TextInput",
   "prompt": "Question 4",
   "properties": {
@@ -302,8 +294,7 @@ Below is a complete example with the above field properties in use
 {
   "id": "Q1A_2",
   "name": "Q1A_2",
-  "order": 1,
-  "isChildQuestion": true,
+  "exclude": true,
   "type": "NextQuestionButton",
   "prompt": "",
   "properties": {
@@ -334,16 +325,14 @@ Below is a complete example with the above field properties in use
     {
       "id": "Q1A_ButtonGroup",
       "name": "Q1A_ButtonGroup",
-      "order": 0,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "ButtonGroup",
       "properties": {
         "buttons": [
           {
             "id": "Q1A_1",
             "name": "Q1A_1",
-            "order": 2,
-            "isChildQuestion": true,
+            "exclude": true,
             "type": "LinkButton",
             "prompt": "",
             "properties": {
@@ -359,8 +348,7 @@ Below is a complete example with the above field properties in use
           {
             "id": "Q1A_2",
             "name": "Q1A_2",
-            "order": 1,
-            "isChildQuestion": true,
+            "exclude": true,
             "type": "NextQuestionButton",
             "prompt": "",
             "properties": {
@@ -399,8 +387,7 @@ Below is a complete example with the above field properties in use
     {
       "id": "Q2Prompt",
       "name": "Q2Prompt",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "Prompt",
       "properties": {
         "prompt": [
@@ -450,8 +437,7 @@ Below is a complete example with the above field properties in use
 {
   "id": "Q5_SubmitButton",
   "name": "Q5_SubmitButton",
-  "order": 1,
-  "isChildQuestion": false,
+  "exclude": false,
   "type": "SubmitButton",
   "prompt": "",
   "properties": {
@@ -488,7 +474,7 @@ Below is a complete example with the above field properties in use
  {
       "id": "uuidv4 here",
       "name": "Q4_Warning_On_No_Selection",
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "Warning",
       "properties": {
         "prompt": [

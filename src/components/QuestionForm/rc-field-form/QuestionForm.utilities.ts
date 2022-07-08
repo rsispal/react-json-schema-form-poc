@@ -1,4 +1,9 @@
-import { ValidateError } from "async-validator";
+import Schema, {
+  Rule,
+  Rules,
+  ValidateError,
+  ValidateFieldsError,
+} from "async-validator";
 import {
   NextFieldTransition,
   Question,
@@ -32,7 +37,7 @@ export namespace QuestionFormUtilities {
    */
   export const getAllParentQuestions = (
     questions: Question<QuestionFieldType>[]
-  ) => questions.filter(({ isChildQuestion }) => isChildQuestion === false);
+  ) => questions.filter(({ exclude }) => exclude === false);
 
   /**
    * @function getQuestionByName - get a question by the name attribute within the field object
@@ -216,5 +221,53 @@ export namespace QuestionFormUtilities {
       }
     }
     return true;
+  };
+
+  /**
+   * @function validate - run Async validator on the current answer set to ensure it complies with the validation rules defined in the schema
+   * @param values  {Record<string, string | boolean | undefined>} - current form values
+   * @param questions {Question[]} - array of questions
+   * @returns Promise: ValidateError[] (validation error),  undefined (validation success)
+   */
+  export const validate = async (
+    questions: Question<QuestionFieldType>[],
+    values: Record<string, string | boolean | undefined>
+  ) => {
+    const questionNames = Object.keys(values);
+
+    const answeredQuestions = questions.filter((question) =>
+      questionNames.includes(question.name)
+    );
+
+    const validationRules: Rules = {};
+
+    answeredQuestions.forEach(
+      (question) =>
+        (validationRules[question.name] =
+          (question.validation as Rule | undefined) ?? [])
+    );
+
+    const validator = new Schema(validationRules);
+    const formErrors: ValidateError[] = [];
+    const response = await validator
+      .validate(values)
+      .catch(
+        ({
+          errors,
+          fields,
+        }: {
+          errors: ValidateError[] | null;
+          fields: ValidateFieldsError;
+        }) => {
+          if (errors) {
+            formErrors.push(...errors);
+          }
+          return new Error("Validation failed");
+        }
+      );
+    if (response instanceof Error) {
+      return formErrors;
+    }
+    return undefined;
   };
 }

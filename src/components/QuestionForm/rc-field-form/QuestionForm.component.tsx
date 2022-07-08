@@ -1,18 +1,20 @@
+/* Libraries */
 import { FormEvent, FC, useState } from "react";
 import Form from "rc-field-form";
 
+/* Components */
 import { QuestionField } from "./QuestionField";
+
+/* Utilities */
+import { QuestionFormUtilities } from "./QuestionForm.utilities";
+
+/* Types */
 import { QuestionFormProps } from "./QuestionForm.types";
-import Schema, {
-  Rule,
-  Rules,
-  ValidateError,
-  ValidateFieldsError,
-} from "async-validator";
+import { ValidateError } from "async-validator";
 
 export const QuestionForm: FC<QuestionFormProps> = ({
   showAllQuestions,
-  __version,
+  schemaVersion,
   formName,
   questions,
   onChangeCallback,
@@ -37,44 +39,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
   const getInitialValues = () => ({});
 
-  // TODO: Move to Utilities
   const runAsyncValidator = async (
-    values: Record<string, string | boolean | undefined>
+    answers: Record<string, string | boolean | undefined>
   ) => {
-    const questionNames = Object.keys(values);
-
-    const answeredQuestions = questions.filter((question) =>
-      questionNames.includes(question.name)
-    );
-
-    const validationRules: Rules = {};
-
-    answeredQuestions.forEach(
-      (question) =>
-        (validationRules[question.name] =
-          (question.validation as Rule | undefined) ?? [])
-    );
-
-    const validator = new Schema(validationRules);
-    let formErrors: ValidateError[] = [];
-    const response = await validator
-      .validate(values)
-      .catch(
-        ({
-          errors,
-          fields,
-        }: {
-          errors: ValidateError[] | null;
-          fields: ValidateFieldsError;
-        }) => {
-          if (errors) {
-            formErrors.push(...errors);
-          }
-          return new Error("Validation failed");
-        }
-      );
-    if (response instanceof Error) {
-      setErrors(formErrors);
+    const response = await QuestionFormUtilities.validate(questions, answers);
+    if (Array.isArray(response) && response.length > 0) {
+      setErrors(response);
       return false;
     }
     setErrors([]);
@@ -85,10 +55,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     values: Record<string, string | boolean | undefined>
   ) => {
     const isValid = await runAsyncValidator(values);
-    if (!isValid) {
-      return;
+    if (isValid) {
+      return onSubmitCallback(values);
     }
-    onSubmitCallback(values);
   };
 
   const handleChange = (e: FormEvent<HTMLFormElement>) => {
@@ -99,7 +68,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   };
 
   const initialValues = getInitialValues();
-
+  const dataset = QuestionFormUtilities.getAllParentQuestions(questions);
   return (
     <Form
       form={form}
@@ -107,9 +76,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       initialValues={initialValues}
       onChange={handleChange}
       onFinish={handleSubmit}
+      data-schemaVersion={schemaVersion}
     >
-      {/* TODO: Refactor this into a utility fn */}
-      {[questions.filter((q) => q.isChildQuestion === false)[0]].map((q, i) => (
+      {(showAllQuestions ? dataset : dataset.slice(0, 1)).map((q, i) => (
         <QuestionField
           key={i}
           question={q}

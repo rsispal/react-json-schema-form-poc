@@ -23,7 +23,7 @@ const bottomPrompt: DynamicTextParagraph[] = [
       {
         type: "text",
         value:
-          "If you don't already have an HL SIPP, you will need to transfer your pension from your existing pension provider first. Once the transfer is complete you can then apply to move money from the HL SIPP into drawdown.",
+          "If you don't already have an HL SIPP, you will need to transfer your pension from your existing pension provider first. Once the transfer is complete you can then apply to move money from the HL SIPP into drawdown. ",
       },
       {
         type: "url",
@@ -94,6 +94,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
       <QuestionForm
+        showAllQuestions={false}
         renderQuestion={generateQuestionFieldCard}
         onSubmitCallback={handleSubmit}
         onChangeCallback={handleFormChange}
