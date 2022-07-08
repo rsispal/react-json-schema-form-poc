@@ -163,7 +163,7 @@
             "prompt": "",
             "properties": {
               "disabled": false,
-              "label": "Help me book PensionWise appointment",
+              "label": "Help me book Pension Wise appointment",
               "url": "https://www.hl.co.uk/retirement/preparing/pension-wise",
               "target": "_parent"
             },
