@@ -25,6 +25,7 @@ export const ButtonGroupWrapper: FC<{
       flexDirection="row"
       alignItems={"space-evenly"}
       justifyContent={"space-evenly"}
+      flexWrap="wrap"
     >
       {question.properties.buttons.map((btn, i) => {
         switch (btn.type) {

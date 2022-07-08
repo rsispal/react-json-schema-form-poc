@@ -16,6 +16,7 @@ export const LinkButton: FC<LinkButtonProps> = ({
     disabled={disabled}
     width={"fit-content"}
     onClick={() => onClickCallback(url)}
+    textTransform="uppercase"
   >
     {label}
   </Button>

@@ -24,7 +24,11 @@ export const NextQuestionButtonWrapper: FC<{
         <Stack>
           <Text>{question.prompt}</Text>
           {question.description && <DynamicText data={question.description} />}
-          <Button onClick={handleClick} width={"fit-content"}>
+          <Button
+            onClick={handleClick}
+            width={"fit-content"}
+            textTransform="uppercase"
+          >
             {question.properties.label}
           </Button>
           <input
