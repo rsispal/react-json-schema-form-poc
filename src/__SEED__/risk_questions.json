@@ -5,8 +5,7 @@
     {
       "id": "Q1",
       "name": "Q1",
-      "order": 1,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Do you want guidance from Pension Wise?",
       "properties": {
@@ -44,8 +43,7 @@
     {
       "id": "Q1_1_Y",
       "name": "Q1_1_Y",
-      "order": 2,
-      "isChildQuestion": true,
+      "exclude": true,
       "type": "LinkButton",
       "prompt": "",
       "properties": {
@@ -61,8 +59,7 @@
     {
       "id": "Q1_1_N",
       "name": "Q1_1_N",
-      "order": 2,
-      "isChildQuestion": true,
+      "exclude": true,
       "type": "RadioGroup",
       "prompt": "Please tell us more",
       "properties": {
@@ -102,8 +99,7 @@
     {
       "id": "Q1A",
       "name": "Q1A",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "RadioGroup",
       "prompt": "Have your circumstances changed since you had Pension Wise guidance?",
       "description": [
@@ -155,16 +151,14 @@
     {
       "id": "Q1A_ButtonGroup",
       "name": "Q1A_ButtonGroup",
-      "order": 0,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "ButtonGroup",
       "properties": {
         "buttons": [
           {
             "id": "Q1A_1",
             "name": "Q1A_1",
-            "order": 2,
-            "isChildQuestion": true,
+            "exclude": true,
             "type": "LinkButton",
             "prompt": "",
             "properties": {
@@ -180,8 +174,7 @@
           {
             "id": "Q1A_2",
             "name": "Q1A_2",
-            "order": 1,
-            "isChildQuestion": true,
+            "exclude": true,
             "type": "NextQuestionButton",
             "prompt": "",
             "properties": {
@@ -203,8 +196,7 @@
     {
       "id": "Q2",
       "name": "Q2",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you received personal advice from a regulated Financial Adviser?",
       "description": [
@@ -252,8 +244,7 @@
     {
       "id": "Q2_1_N",
       "name": "Q2_1_N",
-      "order": 3,
-      "isChildQuestion": true,
+      "exclude": true,
       "type": "RadioGroup",
       "prompt": "Would you like to learn more about HL's Advice Service?",
       "properties": {
@@ -285,8 +276,7 @@
     {
       "id": "Q2_1_N_A",
       "name": "Q2_1_N_A",
-      "order": 2,
-      "isChildQuestion": true,
+      "exclude": true,
       "type": "LinkButton",
       "prompt": "",
       "properties": {
@@ -302,8 +292,7 @@
     {
       "id": "PromptAfterQ2",
       "name": "PromptAfterQ2",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Prompt",
       "properties": {
         "prompt": [
@@ -346,8 +335,7 @@
     {
       "id": "Q3",
       "name": "Q3",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly?",
       "properties": {
@@ -384,8 +372,7 @@
     {
       "id": "Q3_Warning",
       "name": "Q3_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -415,8 +402,7 @@
     {
       "id": "Q4",
       "name": "Q4",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?",
       "properties": {
@@ -453,8 +439,7 @@
     {
       "id": "Q4_Warning",
       "name": "Q4_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -484,8 +469,7 @@
     {
       "id": "Q5",
       "name": "Q5",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks?",
       "properties": {
@@ -529,8 +513,7 @@
     {
       "id": "Q5_Warning",
       "name": "Q5_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -560,8 +543,7 @@
     {
       "id": "Q6",
       "name": "Q6",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments?",
       "properties": {
@@ -597,8 +579,7 @@
     {
       "id": "Q6_Warning",
       "name": "Q6_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -628,8 +609,7 @@
     {
       "id": "Q7",
       "name": "Q7",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Do you understand the tax treatment of income withdrawals?",
       "properties": {
@@ -665,8 +645,7 @@
     {
       "id": "Q7_Warning",
       "name": "Q7_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -696,8 +675,7 @@
     {
       "id": "Q8",
       "name": "Q8",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you shopped around to compare your retirement options and the services available from different providers?",
       "properties": {
@@ -733,8 +711,7 @@
     {
       "id": "Q8_Warning",
       "name": "Q8_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -764,8 +741,7 @@
     {
       "id": "Q9",
       "name": "Q9",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?",
       "properties": {
@@ -801,8 +777,7 @@
     {
       "id": "Q9_Warning",
       "name": "Q9_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -841,8 +816,7 @@
     {
       "id": "Q10",
       "name": "Q10",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £4,000 each tax year?",
       "properties": {
@@ -886,8 +860,7 @@
     {
       "id": "Q10_Warning",
       "name": "Q10_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -916,8 +889,7 @@
     {
       "id": "Q11",
       "name": "Q11",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?",
       "properties": {
@@ -961,8 +933,7 @@
     {
       "id": "Q11_Warning",
       "name": "Q11_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -987,8 +958,7 @@
     {
       "id": "Q12",
       "name": "Q12",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Have you considered the effects of inflation (i.e. rising prices) on your plans?",
       "properties": {
@@ -1024,8 +994,7 @@
     {
       "id": "Q12_Warning",
       "name": "Q12_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -1050,8 +1019,7 @@
     {
       "id": "Q13",
       "name": "Q13",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Do you understand how taking your pension could affect any means-tested state benefits you receive?",
       "properties": {
@@ -1095,8 +1063,7 @@
     {
       "id": "Q13_Warning",
       "name": "Q13_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -1130,8 +1097,7 @@
     {
       "id": "Q14",
       "name": "Q14",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)?",
       "properties": {
@@ -1175,8 +1141,7 @@
     {
       "id": "Q14_Warning",
       "name": "Q14_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -1211,8 +1176,7 @@
     {
       "id": "Q15",
       "name": "Q15",
-      "order": 3,
-      "isChildQuestion": false,
+      "exclude": false,
       "type": "RadioGroup",
       "prompt": "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?",
       "properties": {
@@ -1248,8 +1212,7 @@
     {
       "id": "Q15_Warning",
       "name": "Q15_Warning",
-      "order": 2,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "Warning",
       "properties": {
         "prompt": [
@@ -1274,8 +1237,7 @@
     {
       "id": "Form_Submit",
       "name": "Form_Submit",
-      "order": 1,
-      "isChildQuestion": false,
+      "exclude": true,
       "type": "SubmitButton",
       "prompt": "",
       "properties": {

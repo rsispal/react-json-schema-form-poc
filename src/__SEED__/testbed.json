@@ -2,59 +2,94 @@
   "formName": "Testbed Form",
   "questions": [
     {
-      "id": "Q0",
-      "name": "Q0_ButtonGroup",
-      "order": 0,
-      "isChildQuestion": false,
-      "type": "ButtonGroup",
-      "properties": {
-        "buttons": [
-          {
-            "type": "NextQuestionButton",
-            "name": "Q0_NextBtn",
-            "prompt": "",
-            "properties": {
-              "disabled": false,
-              "label": "Next question"
-            },
-            "warnings": [],
-            "next": [
-              {
-                "equals": true,
-                "question": "Q1"
-              }
-            ]
-          },
-          {
-            "type": "LinkButton",
-            "name": "Q0_LinkButton",
-            "prompt": "",
-            "properties": {
-              "disabled": false,
-              "label": "Go to specific website",
-              "url": "https://www.google.co.uk",
-              "target": "_blank"
-            },
-            "warnings": [],
-            "next": []
-          }
-        ]
-      }
-    },
-
-    {
-      "id": "Q1",
-      "name": "Q1",
-      "order": 1,
-      "isChildQuestion": false,
+      "id": "Q5",
+      "name": "Q5",
+      "exclude": false,
       "type": "RadioGroup",
-      "prompt": "This is question 1. Yes and No both have linked children",
+      "prompt": "If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks?",
       "properties": {
         "disabled": false,
         "options": [
           {
             "value": "YES",
-            "label": "Yes (show a link button)"
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          },
+          {
+            "value": "NOT_APPLICABLE",
+            "label": "N/A - I don't intend to take income"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "equals": "NO",
+          "question": "Q5_Warning"
+        },
+        {
+          "equals": "NOT_APPLICABLE",
+          "question": "Q5_Warning"
+        }
+      ],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q6"
+        },
+        {
+          "equals": "NO",
+          "question": "Q6"
+        },
+        {
+          "equals": "NOT_APPLICABLE",
+          "question": "Q6"
+        }
+      ]
+    },
+    {
+      "id": "Q5_Warning",
+      "name": "Q5_Warning",
+      "exclude": false,
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Unlike an annuity, income from drawdown isn’t secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won’t be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the ‘natural yield’. This generally carries lower risks than selling your investments to create an income, which is known as ‘drawing from capital’. The value of investments and the income they produce can fall as well as rise. If you’re still unsure don’t continue. Seek personal advice or guidance."
+              }
+            ]
+          }
+        ],
+        "continueButtonLabel": "I agree, continue",
+        "endButtonLabel": "End risk questions",
+        "showEndFormButton": true
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q6"
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "name": "Q6",
+      "exclude": false,
+      "type": "RadioGroup",
+      "prompt": "In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments?",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
           },
           {
             "value": "NO",
@@ -65,179 +100,17 @@
       "warnings": [
         {
           "equals": "NO",
-          "prompt": "This is a warning because you selected NO"
+          "question": "Q6_Warning"
         }
       ],
-      "validation": [],
       "next": [
         {
           "equals": "YES",
-          "question": "Q1_1_Y"
+          "question": "Q7"
         },
         {
           "equals": "NO",
-          "question": "Q1_1_N"
-        }
-      ]
-    },
-    {
-      "id": "Q1_1_Y",
-      "name": "Q1_1_Y",
-      "order": 2,
-      "isChildQuestion": true,
-      "type": "LinkButton",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "label": "Go to specific website",
-        "url": "https://www.google.co.uk",
-        "target": "_blank"
-      },
-      "warnings": [],
-      "next": []
-    },
-
-    {
-      "id": "Q1_1_N",
-      "name": "Q1_1_N",
-      "order": 2,
-      "isChildQuestion": true,
-      "type": "RadioGroup",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "A",
-            "label": "Option A"
-          },
-          {
-            "value": "B",
-            "label": "Option B"
-          },
-          {
-            "value": "C",
-            "label": "Option C (show a link button)"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "A",
-          "question": "Q2"
-        },
-        {
-          "equals": "B",
-          "question": "Q2"
-        },
-        {
-          "equals": "C",
-          "question": "Q1_1_N_C"
-        }
-      ]
-    },
-
-    {
-      "id": "Q1_1_N_C",
-      "name": "Q1_1_N_C",
-      "order": 2,
-      "isChildQuestion": true,
-      "type": "LinkButton",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "label": "Resource specific to option C",
-        "url": "https://www.google.co.uk",
-        "target": "_blank"
-      },
-      "warnings": [],
-      "next": []
-    },
-
-    {
-      "id": "Q2",
-      "name": "Q2",
-      "order": 3,
-      "isChildQuestion": false,
-      "type": "RadioGroup",
-      "prompt": "Question 2",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q3"
-        },
-        {
-          "equals": "NO",
-          "question": "Q3"
-        }
-      ]
-    },
-
-    {
-      "id": "Q3",
-      "name": "Q3",
-      "order": 3,
-      "isChildQuestion": false,
-      "type": "RadioGroup",
-      "prompt": "Question 3",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q4"
-        },
-        {
-          "equals": "NO",
-          "question": "Q4"
-        }
-      ]
-    },
-    {
-      "id": "Q4",
-      "name": "Q4",
-      "order": 4,
-      "isChildQuestion": false,
-      "type": "TextInput",
-      "prompt": "Question 4",
-      "properties": {
-        "disabled": false,
-        "placeholder": "Enter a value...",
-        "initialValue": null
-      },
-      "warnings": [],
-      "validation": [{ "required": true, "message": "You must enter a value" }],
-      "next": [
-        {
-          "valid": true,
-          "question": "Q4"
+          "question": "Q7"
         }
       ]
     }
