@@ -211,7 +211,7 @@
               "type": "url",
               "url": "https://www.moneyhelper.org.uk/en/getting-help-and-advice/financial-advisers",
               "label": "Money Helper website",
-              "target": "_blank"
+              "target": "_parent"
             }
           ]
         }
@@ -283,7 +283,7 @@
         "disabled": false,
         "label": "Tell me more about HL Advice",
         "url": "https://www.hl.co.uk/financial-advice/retirement-advice-services",
-        "target": "_blank"
+        "target": "_parent"
       },
       "warnings": [],
       "next": []
@@ -325,7 +325,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "End risk questions",
+        "endButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": false
       },
       "warnings": [],
