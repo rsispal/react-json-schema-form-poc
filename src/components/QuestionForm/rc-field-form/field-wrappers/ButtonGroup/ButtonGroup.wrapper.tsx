@@ -16,7 +16,7 @@ import { DynamicText } from "../../../../DynamicText";
 export const ButtonGroupWrapper: FC<{
   question: Question<ButtonGroupProperties>;
 }> = ({ question }) => (
-  <Stack>
+  <Stack data-testid={`${question.name}-button-group`}>
     <Text fontWeight={600}>{question.prompt}</Text>
     {question.description && <DynamicText data={question.description} />}
     <Flex

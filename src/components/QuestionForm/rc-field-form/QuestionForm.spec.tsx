@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/await-async-query */
+/* eslint-disable testing-library/prefer-screen-queries */
 import { Box, Text } from "@chakra-ui/react";
 import { mountWithProps } from "../../cypress-component-wrapper";
 import { QuestionForm } from "./QuestionForm.component";
@@ -11,9 +13,23 @@ import { SubmitButtonWrapper } from "./field-wrappers/SubmitButton/SubmitButton.
 import { TextInputWrapper } from "./field-wrappers/TextInput/TextInput.wrapper";
 import { WarningWrapper } from "./field-wrappers/Warning/Warning.wrapper";
 
-import SeedQuestions from "../../../__SEED__/basic.json";
+import SeedQuestions from "../../../__SEED__/e2e.json";
 
 import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
+
+const checkRadioGroupOption = (testId: string, value: string) => {
+  cy.findByTestId(`${testId}-radio-group`).within(() => {
+    cy.get(`input[value="${value}"]`).click({ force: true });
+  });
+};
+
+// const clickLinkButton = (testId: string) => {
+//   cy.findByTestId(`${testId}-link-button`).click();
+// };
+
+const clickNextQuestionButton = (testId: string) => {
+  cy.findByTestId(`${testId}-next-question-button`).click();
+};
 
 describe("<QuestionForm /> Page", () => {
   let onSubmitCallback: typeof cy.stub;
@@ -54,14 +70,15 @@ describe("<QuestionForm /> Page", () => {
     });
   });
   it("Should be able to submit a testbed form", () => {
-    cy.get("p").contains("Question 0").should("exist");
+    cy.viewport("macbook-13");
 
-    // cy.get(".chakra-radio-group > .chakra-stack > :nth-child(2)").click();
-    // cy.get(
-    //   ":nth-child(2) > :nth-child(1) > .chakra-radio-group > .chakra-stack > :nth-child(2)"
-    // ).click();
-    // cy.get('button').contains("Submit testbed form").click();
-    // cy.log(onSubmitCallback.arguments)
-    // cy.wrap(onSubmitCallback).should('be.called');
+    checkRadioGroupOption("Q1", "NO");
+
+    // checkRadioGroupOption("Q1_1_N", "B");
+
+    // checkRadioGroupOption("Q1A", "YES");
+
+    // clickNextQuestionButton("Q1A_2");
+    // cy.scrollTo("bottom");
   });
 });

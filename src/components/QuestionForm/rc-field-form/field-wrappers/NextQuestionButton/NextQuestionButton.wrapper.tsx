@@ -28,6 +28,7 @@ export const NextQuestionButtonWrapper: FC<{
             onClick={handleClick}
             width={"fit-content"}
             textTransform="uppercase"
+            data-testid={`${question.name}-next-question-button`}
           >
             {question.properties.label}
           </Button>

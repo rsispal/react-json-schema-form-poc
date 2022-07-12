@@ -19,6 +19,7 @@ export const RadioGroupWrapper: FC<{
           {...question.properties}
           value={value}
           onChange={onChange}
+          data-testid={`${question.name}-radio-group`}
         />
       </Stack>
     )}

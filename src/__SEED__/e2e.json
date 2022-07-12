@@ -1,0 +1,372 @@
+{
+  "formName": "End-to-end test form",
+  "questions": [
+    {
+      "id": "Q1",
+      "name": "Q1",
+      "exclude": false,
+      "type": "RadioGroup",
+      "prompt": "Question 1",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "equals": "NO",
+          "question": "Q1_Warning"
+        }
+      ],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q1_NextBtn"
+        },
+        {
+          "equals": "NO",
+          "question": "Q1_NextBtn"
+        }
+      ]
+    },
+
+    {
+      "id": "Q1_NextBtn",
+      "name": "Q1_NextBtn",
+      "exclude": false,
+      "type": "NextQuestionButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Next question"
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q1_Prompt"
+        }
+      ]
+    },
+    {
+      "id": "Q1_Warning",
+      "name": "Q1_Warning",
+      "exclude": false,
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "This is a warning because you selected no"
+              }
+            ]
+          }
+        ],
+        "continueButtonLabel": "I agree, continue",
+        "endButtonLabel": "End risk questions"
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q2"
+        }
+      ]
+    },
+
+    {
+      "id": "Q1_Prompt",
+      "name": "Q1_Prompt",
+      "exclude": false,
+      "type": "Prompt",
+      "properties": {
+        "prompt": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "What you do with your pension is an important decision. If you haven't received "
+              },
+              {
+                "type": "url",
+                "label": "Pension Wise",
+                "url": "https://www.pensionwise.gov.uk/"
+              },
+              {
+                "type": "text",
+                "value": " guidance or "
+              },
+              {
+                "type": "url",
+                "label": "personal advice",
+                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
+              },
+              {
+                "type": "text",
+                "value": ", we strongly suggest you do this before proceeding."
+              }
+            ]
+          }
+        ],
+        "continueButtonLabel": "I agree, continue",
+        "endButtonLabel": "End risk questions",
+        "showEndFormButton": true
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q2"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2",
+      "name": "Q2",
+      "exclude": false,
+      "type": "RadioGroup",
+      "prompt": "This is question 1. Yes and No both have linked children",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes (show a link button)"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "equals": "NO",
+          "question": "Q2_Warning"
+        }
+      ],
+      "validation": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q2_1_Y"
+        },
+        {
+          "equals": "NO",
+          "question": "Q2_1_N"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2_Warning",
+      "name": "Q2_Warning",
+      "exclude": false,
+      "type": "Warning",
+      "properties": {
+        "prompt": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "This is a warning because you selected no"
+              }
+            ]
+          }
+        ],
+        "continueButtonLabel": "I agree, continue",
+        "endButtonLabel": "End risk questions"
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": true,
+          "question": "Q2"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2_1_Y",
+      "name": "Q2_1_Y",
+      "exclude": true,
+      "type": "LinkButton",
+      "prompt": "You can click the button below to access a specific website resource",
+      "properties": {
+        "disabled": false,
+        "label": "Go to specific website",
+        "url": "https://www.google.co.uk",
+        "target": "_blank"
+      },
+      "warnings": [],
+      "next": []
+    },
+
+    {
+      "id": "Q2_1_N",
+      "name": "Q2_1_N",
+      "exclude": true,
+      "type": "RadioGroup",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "A",
+            "label": "Option A"
+          },
+          {
+            "value": "B",
+            "label": "Option B"
+          },
+          {
+            "value": "C",
+            "label": "Option C (show a link button)"
+          }
+        ]
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "A",
+          "question": "Q3"
+        },
+        {
+          "equals": "B",
+          "question": "Q3"
+        },
+        {
+          "equals": "C",
+          "question": "Q2_1_N_C"
+        }
+      ]
+    },
+
+    {
+      "id": "Q2_1_N_C",
+      "name": "Q2_1_N_C",
+      "exclude": true,
+      "type": "LinkButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Resource specific to option C",
+        "url": "https://www.google.co.uk",
+        "target": "_blank"
+      },
+      "warnings": [],
+      "next": []
+    },
+
+    {
+      "id": "Q3",
+      "name": "Q3",
+      "exclude": false,
+      "type": "RadioGroup",
+      "prompt": "Question 2",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q4"
+        },
+        {
+          "equals": "NO",
+          "question": "Q4"
+        }
+      ]
+    },
+
+    {
+      "id": "Q4",
+      "name": "Q4",
+      "exclude": false,
+      "type": "RadioGroup",
+      "prompt": "Question 4",
+      "properties": {
+        "disabled": false,
+        "options": [
+          {
+            "value": "YES",
+            "label": "Yes"
+          },
+          {
+            "value": "NO",
+            "label": "No"
+          }
+        ]
+      },
+      "warnings": [],
+      "next": [
+        {
+          "equals": "YES",
+          "question": "Q5"
+        },
+        {
+          "equals": "NO",
+          "question": "Q5"
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "name": "Q5",
+      "exclude": false,
+      "type": "TextInput",
+      "prompt": "Question 4",
+      "properties": {
+        "disabled": false,
+        "placeholder": "Enter a value",
+        "defaultValue": null
+      },
+      "validation": [{ "required": true, "message": "You must enter a value" }],
+      "warnings": [],
+      "next": [
+        {
+          "valid": true,
+          "question": "Q6_SubmitButton"
+        }
+      ]
+    },
+    {
+      "id": "Q6_SubmitButton",
+      "name": "Q6_SubmitButton",
+      "exclude": false,
+      "type": "SubmitButton",
+      "prompt": "",
+      "properties": {
+        "disabled": false,
+        "label": "Submit this form"
+      },
+      "warnings": [],
+      "next": []
+    }
+  ]
+}

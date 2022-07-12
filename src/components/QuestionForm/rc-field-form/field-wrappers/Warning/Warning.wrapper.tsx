@@ -27,6 +27,7 @@ export const WarningWrapper: FC<{
             onContinueClick={handleClick}
             onEndFormClick={onEndFormClickCallback}
             {...question.properties}
+            data-testid={`${question.name}-warning`}
           />
           <input
             hidden

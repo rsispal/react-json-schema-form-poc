@@ -22,7 +22,11 @@ export const LinkButtonWrapper: FC<{
         <Stack>
           <Text>{question.prompt}</Text>
           {question.description && <DynamicText data={question.description} />}
-          <LinkButton {...question.properties} onClickCallback={handleClick} />
+          <LinkButton
+            {...question.properties}
+            onClickCallback={handleClick}
+            data-testid={`${question.name}-link-button`}
+          />
 
           <input
             hidden
