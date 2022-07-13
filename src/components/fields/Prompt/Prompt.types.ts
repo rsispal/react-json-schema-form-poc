@@ -7,4 +7,5 @@ export interface PromptProps {
   showEndFormButton: boolean;
   onContinueClick: () => void;
   onEndFormClick: () => void;
+  dataTestId?: string;
 }

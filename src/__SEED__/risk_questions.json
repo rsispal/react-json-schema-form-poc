@@ -325,7 +325,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": false
       },
       "warnings": [],
@@ -387,7 +387,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -454,7 +454,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -528,7 +528,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -594,7 +594,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -660,7 +660,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -726,7 +726,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -801,7 +801,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -875,7 +875,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -948,7 +948,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1009,7 +1009,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1087,7 +1087,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1166,7 +1166,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -1227,7 +1227,7 @@
           }
         ],
         "continueButtonLabel": "OK, NEXT QUESTION",
-        "endButtonLabel": "END RISK QUESTIONS",
+        "endFormButtonLabel": "END RISK QUESTIONS",
         "showEndFormButton": true
       },
       "warnings": [],

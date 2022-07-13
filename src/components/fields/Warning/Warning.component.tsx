@@ -10,16 +10,18 @@ export const Warning: FC<WarningProps> = ({
   continueButtonLabel,
   endFormButtonLabel,
   showEndFormButton,
+  dataTestId,
+  ...rest
 }) => (
-  <Alert status="warning">
+  <Alert status="warning" data-testid={dataTestId}>
     <Stack>
       <DynamicText data={prompt} />
       <HStack>
-        <Button onClick={onContinueClick}>
+        <Button onClick={onContinueClick} data-testid={"acknowledge-button"}>
           {continueButtonLabel ?? "Continue"}
         </Button>
         {showEndFormButton && (
-          <Button onClick={onEndFormClick}>
+          <Button onClick={onEndFormClick} data-testid={"end-form-button"}>
             {endFormButtonLabel ?? "End Form"}
           </Button>
         )}

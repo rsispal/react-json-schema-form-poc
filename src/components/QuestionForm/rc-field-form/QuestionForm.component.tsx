@@ -76,7 +76,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       initialValues={initialValues}
       onChange={handleChange}
       onFinish={handleSubmit}
-      data-schemaVersion={schemaVersion}
+      data-schemaversion={schemaVersion}
     >
       {(showAllQuestions ? dataset : dataset.slice(0, 1)).map((q, i) => (
         <QuestionField

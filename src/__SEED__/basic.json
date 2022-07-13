@@ -74,7 +74,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions"
+        "endFormButtonLabel": "End risk questions"
       },
       "warnings": [],
       "next": [
@@ -121,7 +121,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "endFormButtonLabel": "End risk questions",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -189,7 +189,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions"
+        "endFormButtonLabel": "End risk questions"
       },
       "warnings": [],
       "next": [

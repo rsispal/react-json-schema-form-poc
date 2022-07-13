@@ -16,10 +16,11 @@ import { WarningWrapper } from "./field-wrappers/Warning/Warning.wrapper";
 import SeedQuestions from "../../../__SEED__/e2e.json";
 
 import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
+import { fireEvent } from "@testing-library/react";
 
 const checkRadioGroupOption = (testId: string, value: string) => {
   cy.findByTestId(`${testId}-radio-group`).within(() => {
-    cy.get(`input[value="${value}"]`).click({ force: true });
+    cy.get(`input[value="${value}"]`).scrollIntoView().click({ force: true });
   });
 };
 
@@ -28,7 +29,39 @@ const checkRadioGroupOption = (testId: string, value: string) => {
 // };
 
 const clickNextQuestionButton = (testId: string) => {
-  cy.findByTestId(`${testId}-next-question-button`).click();
+  cy.findByTestId(`${testId}-next-question-button`)
+    .should("exist")
+    .scrollIntoView()
+    .click({ force: true });
+};
+
+const acknowledgeWarning = (testId: string) => {
+  cy.findByTestId(`${testId}-warning`).within(() => {
+    cy.findByTestId("acknowledge-button")
+      .should("exist")
+      .scrollIntoView()
+      .click({ force: true });
+  });
+};
+
+const acknowledgePrompt = (testId: string) => {
+  cy.findByTestId(`${testId}-prompt`).within(() => {
+    cy.findByTestId("acknowledge-button")
+      .should("exist")
+      .scrollIntoView()
+      .click({ force: true });
+  });
+};
+
+const fillTextInput = (testId: string, value: string) => {
+  cy.findByTestId(`${testId}-text-input`)
+    .should("exist")
+    .scrollIntoView()
+    .type(value, { force: true });
+};
+
+const clickSubmitButton = (testId: string) => {
+  cy.findByTestId(`${testId}-submit-button`).scrollIntoView();
 };
 
 describe("<QuestionForm /> Page", () => {
@@ -73,6 +106,22 @@ describe("<QuestionForm /> Page", () => {
     cy.viewport("macbook-13");
 
     checkRadioGroupOption("Q1", "NO");
+    acknowledgeWarning("Q1_Warning");
+    clickNextQuestionButton("Q1_NextBtn");
+
+    acknowledgePrompt("Q1_Prompt");
+
+    checkRadioGroupOption("Q2", "NO");
+    acknowledgeWarning("Q2_Warning");
+
+    checkRadioGroupOption("Q2_1_N", "A");
+
+    checkRadioGroupOption("Q3", "YES");
+    checkRadioGroupOption("Q4", "YES");
+
+    fillTextInput("Q5", "abc");
+
+    clickSubmitButton("Q6_SubmitButton");
 
     // checkRadioGroupOption("Q1_1_N", "B");
 

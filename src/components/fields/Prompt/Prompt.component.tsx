@@ -10,20 +10,20 @@ export const Prompt: FC<PromptProps> = ({
   continueButtonLabel,
   endFormButtonLabel,
   showEndFormButton,
+  dataTestId,
+  ...rest
 }) => (
-  <>
-    <Stack>
-      <DynamicText data={prompt} />
-      <HStack>
-        <Button onClick={onContinueClick}>
-          {continueButtonLabel ?? "Continue"}
+  <Stack data-testid={dataTestId}>
+    <DynamicText data={prompt} />
+    <HStack>
+      <Button onClick={onContinueClick} data-testid={"acknowledge-button"}>
+        {continueButtonLabel ?? "Continue"}
+      </Button>
+      {showEndFormButton && (
+        <Button onClick={onEndFormClick} data-testid={"end-form-button"}>
+          {endFormButtonLabel ?? "End Form"}
         </Button>
-        {showEndFormButton && (
-          <Button onClick={onEndFormClick}>
-            {endFormButtonLabel ?? "End Form"}
-          </Button>
-        )}
-      </HStack>
-    </Stack>
-  </>
+      )}
+    </HStack>
+  </Stack>
 );

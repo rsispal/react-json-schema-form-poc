@@ -74,7 +74,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions"
+        "endFormButtonLabel": "End risk questions"
       },
       "warnings": [],
       "next": [
@@ -121,7 +121,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "endFormButtonLabel": "End risk questions",
         "showEndFormButton": true
       },
       "warnings": [],
@@ -189,7 +189,7 @@
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions"
+        "endFormButtonLabel": "End risk questions"
       },
       "warnings": [],
       "next": [
@@ -277,7 +277,7 @@
       "name": "Q3",
       "exclude": false,
       "type": "RadioGroup",
-      "prompt": "Question 2",
+      "prompt": "Question 3",
       "properties": {
         "disabled": false,
         "options": [

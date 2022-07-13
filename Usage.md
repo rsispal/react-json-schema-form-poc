@@ -415,7 +415,7 @@ Below is a complete example with the above field properties in use
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "endFormButtonLabel": "End risk questions",
         "showEndFormButton": false
       },
       "warnings": [],
@@ -489,7 +489,7 @@ Below is a complete example with the above field properties in use
           }
         ],
         "continueButtonLabel": "I agree, continue",
-        "endButtonLabel": "End risk questions",
+        "endFormButtonLabel": "End risk questions",
         "showEndFormButton": true
       },
       "warnings": [],
