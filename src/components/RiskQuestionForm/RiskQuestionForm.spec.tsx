@@ -376,6 +376,111 @@ describe("<RiskQuestionForm /> Page", () => {
     // TODO: Description text needs checking
   });
 
+  it(`Should complete the risk question form according to scenario 3 but triggering Q3-15 warnings.${Scenarios[3]}`, () => {
+    cy.viewport("macbook-11");
+
+    // Q1. Do you want guidance from Pension Wise? NO
+    QuestionFormTestUtilities.checkRadioGroupOption("Q1", "NO");
+
+    // Q1_1_N. Please tell us more: I've already had guidance from Pension Wise
+    QuestionFormTestUtilities.checkRadioGroupOption("Q1_1_N", "B");
+
+    // Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
+    QuestionFormTestUtilities.checkRadioGroupOption("Q1A", "YES");
+
+    // Q1A_1. Book Pension Wise appointment button
+    cy.findByTestId(`Q1A_1-link-button`)
+      .should("exist")
+      .should("have.text", "Help me book Pension Wise appointment")
+      .should("have.attr", "target", "_parent")
+      .should(
+        "have.attr",
+        "href",
+        "https://www.hl.co.uk/retirement/preparing/pension-wise"
+      );
+
+    // Q1A_2. Next question button
+    cy.findByTestId(`Q1A_2-next-question-button`)
+      .should("exist")
+      .should("have.text", "I'm happy with my guidance, next question")
+      .click({ force: true });
+
+    // Q2. Have you received personal advice from a regulated Financial Adviser? YES
+    QuestionFormTestUtilities.checkRadioGroupOption("Q2", "YES");
+
+    // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q3", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q3_Warning");
+
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q4", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q4_Warning");
+
+    // Q5. If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q5", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q5_Warning");
+
+    // Q6. In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q6", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q6_Warning");
+
+    // Q7. Do you understand the tax treatment of income withdrawals?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q7", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q7_Warning");
+
+    // Q8. Have you shopped around to compare your retirement options and the services available from different providers?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q8", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q8_Warning");
+
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q9", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q9_Warning");
+
+    // Q10. If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £4,000 each tax year?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q10", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q10_Warning");
+
+    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q11", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q11_Warning");
+
+    // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q12", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q12_Warning");
+
+    // Q13. Do you understand how taking your pension could affect any means-tested state benefits you receive?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q13", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q13_Warning");
+
+    // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q14", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q14_Warning");
+
+    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?
+    QuestionFormTestUtilities.checkRadioGroupOption("Q15", "NO");
+    // Acknowledge warning for this question
+    QuestionFormTestUtilities.acknowledgeWarning("Q15_Warning");
+
+    // Submit button
+    QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
+
+    // TODO: Form submit callback payload needs checking
+    // TODO: RadioGroup prompt and option text needs checking
+    // TODO: Description text needs checking
+  });
+
   it(`Should complete the risk question form according to scenario 4.${Scenarios[4]}`, () => {
     cy.viewport("macbook-11");
 
