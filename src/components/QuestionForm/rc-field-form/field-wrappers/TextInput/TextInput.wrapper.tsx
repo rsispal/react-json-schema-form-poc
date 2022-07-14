@@ -17,7 +17,7 @@ export const TextInputWrapper: FC<{
           {...question.properties}
           defaultValue={value}
           onChange={onChange}
-          data-testid={`${question.name}-text-input`}
+          dataTestId={`${question.name}-text-input`}
         />
       </Stack>
     )}

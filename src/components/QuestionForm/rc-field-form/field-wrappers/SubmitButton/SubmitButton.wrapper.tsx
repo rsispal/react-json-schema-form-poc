@@ -12,7 +12,7 @@ export const SubmitButtonWrapper: FC<{
     {question.description && <DynamicText data={question.description} />}
     <SubmitButton
       {...question.properties}
-      data-testid={`${question.name}-submit-button`}
+      dataTestId={`${question.name}-submit-button`}
     />
   </Stack>
 );

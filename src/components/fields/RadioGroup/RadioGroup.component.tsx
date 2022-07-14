@@ -7,8 +7,12 @@ import {
 import { FC } from "react";
 import { RadioGroupProps } from "./RadioGroup.types";
 
-export const RadioGroup: FC<RadioGroupProps> = ({ options, ...rest }) => (
-  <ChakraRadioGroup {...rest}>
+export const RadioGroup: FC<RadioGroupProps> = ({
+  options,
+  dataTestId,
+  ...rest
+}) => (
+  <ChakraRadioGroup data-testid={dataTestId} {...rest}>
     <Stack>
       {options.map(({ label, ...rest }, i) => (
         <Radio key={i} {...rest}>

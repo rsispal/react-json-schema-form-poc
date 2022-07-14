@@ -25,7 +25,7 @@ export const LinkButtonWrapper: FC<{
           <LinkButton
             {...question.properties}
             onClickCallback={handleClick}
-            data-testid={`${question.name}-link-button`}
+            dataTestId={`${question.name}-link-button`}
           />
 
           <input

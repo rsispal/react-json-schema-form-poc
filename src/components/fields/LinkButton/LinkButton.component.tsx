@@ -8,6 +8,8 @@ export const LinkButton: FC<LinkButtonProps> = ({
   target,
   disabled,
   onClickCallback,
+  dataTestId,
+  ...rest
 }) => (
   <Button
     as="a"
@@ -17,6 +19,8 @@ export const LinkButton: FC<LinkButtonProps> = ({
     width={"fit-content"}
     onClick={() => onClickCallback(url)}
     textTransform="uppercase"
+    data-testid={dataTestId}
+    {...rest}
   >
     {label}
   </Button>
