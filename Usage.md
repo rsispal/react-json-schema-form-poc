@@ -14,13 +14,14 @@ It's recommended to create a process diagram (i.e. flowchart) detailing each que
 
 The schema can either be delivered as a JavaScript object (allowing it to be stored within the codebase), or in JSON format (allowing it to be stored elsewhere).
 
-The schema object itself requires three key parameters: `schemaVersion`, `formName`, `questions`:
+The schema object itself requires four key parameters: `schemaVersionMajor`, `schemaVersionMinor`, `formName`, `questions`:
 
-|      Field      |             Type              | Description                                                                                      |
-| :-------------: | :---------------------------: | :----------------------------------------------------------------------------------------------- |
-| `schemaVersion` |        number (float)         | The schema version and revision of the defined question set                                      |
-|   `formName`    |            string             | The name of the form to be added onto the HTML form element                                      |
-|   `questions`   | Question<QuestionFieldType>[] | An array of Question objects defining the field, properties, transitions and validation criteria |
+|        Field         |             Type              | Description                                                                                      |
+| :------------------: | :---------------------------: | :----------------------------------------------------------------------------------------------- |
+| `schemaVersionMajor` |        number (float)         | The schema version                                                                               |
+| `schemaVersionMinor` |        number (float)         | The revision of the defined question set                                                         |
+|      `formName`      |            string             | The name of the form to be added onto the HTML form element                                      |
+|     `questions`      | Question<QuestionFieldType>[] | An array of Question objects defining the field, properties, transitions and validation criteria |
 
 ### Understanding the Question object
 

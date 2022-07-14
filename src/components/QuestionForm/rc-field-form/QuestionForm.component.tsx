@@ -14,7 +14,8 @@ import { ValidateError } from "async-validator";
 
 export const QuestionForm: FC<QuestionFormProps> = ({
   showAllQuestions,
-  schemaVersion,
+  schemaVersionMajor,
+  schemaVersionMinor,
   formName,
   questions,
   onChangeCallback,
@@ -76,7 +77,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       initialValues={initialValues}
       onChange={handleChange}
       onFinish={handleSubmit}
-      data-schemaversion={schemaVersion}
+      data-schemaversionmajor={schemaVersionMajor}
+      data-schemaversionminor={schemaVersionMinor}
     >
       {(showAllQuestions ? dataset : dataset.slice(0, 1)).map((q, i) => (
         <QuestionField

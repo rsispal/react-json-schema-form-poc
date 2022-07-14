@@ -1,5 +1,7 @@
 {
   "formName": "Testbed Form",
+  "schemaVersionMajor": 2,
+  "schemaVersionMinor": 0,
   "questions": [
     {
       "id": "Q0",

@@ -1,5 +1,6 @@
 {
-  "schemaVersion": 2,
+  "schemaVersionMajor": 2,
+  "schemaVersionMinor": 0,
   "formName": "Risk Form",
   "questions": [
     {

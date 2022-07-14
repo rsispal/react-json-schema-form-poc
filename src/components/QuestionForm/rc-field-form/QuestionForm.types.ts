@@ -4,6 +4,13 @@ import { DynamicTextParagraph } from "../../DynamicText/DynamicText.types";
 import { QuestionFieldRenderProps } from "./QuestionField/QuestionField.types";
 import { ValidateError } from "async-validator";
 
+export type QuestionSchema = {
+  schemaVersionMajor: number;
+  schemaVersionMinor: number;
+  formName: string;
+  questions: Question<QuestionFieldType>[];
+};
+
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
   onChangeCallback?: (
@@ -40,12 +47,6 @@ export interface QuestionFormProps extends QuestionSchema {
     props: QuestionFieldRenderProps<SubmitButtonProperties>
   ) => ReactElement;
 }
-
-export type QuestionSchema = {
-  schemaVersion: number;
-  formName: string;
-  questions: Question<QuestionFieldType>[];
-};
 
 export type Question<T> = {
   /**
