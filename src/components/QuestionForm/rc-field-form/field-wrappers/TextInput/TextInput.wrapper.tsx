@@ -18,7 +18,12 @@ export const TextInputWrapper: FC<{
         >
           {question.prompt}
         </Text>
-        {question.description && <DynamicText data={question.description} />}
+        {question.description && (
+          <DynamicText
+            data-testid={`${question.name}-question-description-text`}
+            data={question.description}
+          />
+        )}
         <TextInput
           {...question.properties}
           defaultValue={value}

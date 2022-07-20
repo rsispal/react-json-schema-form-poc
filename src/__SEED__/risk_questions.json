@@ -18,7 +18,7 @@
           },
           {
             "value": "NO",
-            "label": "No "
+            "label": "No"
           }
         ]
       },
@@ -68,15 +68,15 @@
         "options": [
           {
             "value": "A",
-            "label": "I've already had regulated financial advice "
+            "label": "I've already had regulated financial advice"
           },
           {
             "value": "B",
-            "label": "I've already had guidance from Pension Wise "
+            "label": "I've already had guidance from Pension Wise"
           },
           {
             "value": "C",
-            "label": "I do not want to speak to Pension Wise "
+            "label": "I do not want to speak to Pension Wise"
           }
         ]
       },

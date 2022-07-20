@@ -64,6 +64,22 @@ export const QuestionFormTestUtilities = {
       .findByTestId(`${testId}-question-prompt-text`)
       .should("exist")
       .should("have.text", expected),
+  ensureNoQuestionDescriptionText: (testId: string) =>
+    cy.findByTestId(`${testId}-question-description-text`).should("not.exist"),
+  verifyQuestionDescriptionText: (testId: string, expected: string) =>
+    cy
+      .findByTestId(`${testId}-question-description-text`)
+      .should("exist")
+      .should("have.text", expected),
+  verifyRadioGroupOptionLabel: (
+    testId: string,
+    index: number,
+    value: string
+  ) => {
+    cy.findByTestId(`${testId}-radio-group`).within(() => {
+      cy.get("label").eq(index).should("have.text", value);
+    });
+  },
 };
 
 describe("<QuestionForm /> Page", () => {
@@ -104,22 +120,52 @@ describe("<QuestionForm /> Page", () => {
       renderSubmitButtonField: (props) => <SubmitButtonWrapper {...props} />,
     });
   });
-  it("Should be able to submit a testbed form", () => {
+  it.only("Should be able to submit a testbed form", () => {
     cy.viewport("macbook-13");
 
     QuestionFormTestUtilities.checkRadioGroupOption("Q1", "NO");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q1", 0, "Yes");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q1", 1, "No");
+
     QuestionFormTestUtilities.acknowledgeWarning("Q1_Warning");
     QuestionFormTestUtilities.clickNextQuestionButton("Q1_NextBtn");
 
     QuestionFormTestUtilities.acknowledgePrompt("Q1_Prompt");
 
     QuestionFormTestUtilities.checkRadioGroupOption("Q2", "NO");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
+      "Q2",
+      0,
+      "Yes (show a link button)"
+    );
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q2", 1, "No");
+
     QuestionFormTestUtilities.acknowledgeWarning("Q2_Warning");
 
     QuestionFormTestUtilities.checkRadioGroupOption("Q2_1_N", "A");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
+      "Q2_1_N",
+      0,
+      "Option A"
+    );
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
+      "Q2_1_N",
+      1,
+      "Option B"
+    );
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
+      "Q2_1_N",
+      2,
+      "Option C (show a link button)"
+    );
 
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
+
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
+    QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 1, "No");
 
     QuestionFormTestUtilities.fillTextInput("Q5", "abc");
 
