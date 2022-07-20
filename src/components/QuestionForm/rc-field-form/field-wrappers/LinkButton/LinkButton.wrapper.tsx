@@ -20,7 +20,13 @@ export const LinkButtonWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <Stack>
-          <Text>{question.prompt}</Text>
+          <Text
+            data-testid={`${question.name}-prompt`}
+            fontWeight={600}
+            fontSize="larger"
+          >
+            {question.prompt}
+          </Text>
           {question.description && <DynamicText data={question.description} />}
           <LinkButton
             {...question.properties}

@@ -21,7 +21,13 @@ export const WarningWrapper: FC<{
     <Field name={question.name}>
       {({ value, onChange }) => (
         <Stack>
-          <Text fontWeight={600}>{question.prompt}</Text>
+          <Text
+            data-testid={`${question.name}-prompt`}
+            fontWeight={600}
+            fontSize="larger"
+          >
+            {question.prompt}
+          </Text>
           {question.description && <DynamicText data={question.description} />}
           <Warning
             onContinueClick={handleClick}
