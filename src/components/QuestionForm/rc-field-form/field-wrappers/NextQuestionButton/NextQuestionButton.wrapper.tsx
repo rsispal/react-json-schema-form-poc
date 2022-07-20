@@ -23,7 +23,7 @@ export const NextQuestionButtonWrapper: FC<{
       {({ value, onChange }) => (
         <Stack>
           <Text
-            data-testid={`${question.name}-prompt`}
+            data-testid={`${question.name}-question-prompt-text`}
             fontWeight={600}
             fontSize="larger"
           >

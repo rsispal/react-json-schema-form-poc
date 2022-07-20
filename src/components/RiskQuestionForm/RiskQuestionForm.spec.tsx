@@ -3,6 +3,7 @@
 import { Box } from "@chakra-ui/react";
 
 import { mountWithProps } from "../cypress-component-wrapper";
+import { QuestionFormTestUtilities } from "../QuestionForm/rc-field-form/QuestionForm.spec";
 
 import { RiskQuestionForm } from "./";
 
@@ -170,55 +171,6 @@ const Scenarios = {
 - Q2_1_N. Would you like to learn more about HL's Advice Service? NO
 - Q3
   `,
-};
-
-const QuestionFormTestUtilities = {
-  checkRadioGroupOption: (testId: string, value: string) => {
-    cy.findByTestId(`${testId}-radio-group`).within(() => {
-      cy.get(`input[value="${value}"]`).scrollIntoView().click({ force: true });
-    });
-  },
-  clickLinkButton: (testId: string) => {
-    cy.findByTestId(`${testId}-link-button`).click({ force: true });
-  },
-  clickNextQuestionButton: (testId: string) => {
-    cy.findByTestId(`${testId}-next-question-button`)
-      .should("exist")
-      .scrollIntoView()
-      .click({ force: true });
-  },
-  acknowledgeWarning: (testId: string) => {
-    cy.findByTestId(`${testId}-warning`).within(() => {
-      cy.findByTestId("acknowledge-button")
-        .should("exist")
-        .scrollIntoView()
-        .click({ force: true });
-    });
-  },
-  acknowledgePrompt: (testId: string) => {
-    cy.findByTestId(`${testId}-prompt`).within(() => {
-      cy.findByTestId("acknowledge-button")
-        .should("exist")
-        .scrollIntoView()
-        .click({ force: true });
-    });
-  },
-  fillTextInput: (testId: string, value: string) => {
-    cy.findByTestId(`${testId}-text-input`)
-      .should("exist")
-      .scrollIntoView()
-      .type(value, { force: true });
-  },
-  clickSubmitButton: (testId: string) => {
-    cy.findByTestId(`${testId}-submit-button`)
-      .scrollIntoView()
-      .click({ force: true });
-  },
-  verifyQuestionPromptText: (testId: string, expected: string) =>
-    cy
-      .findByTestId(`${testId}-prompt`)
-      .should("exist")
-      .should("have.text", expected),
 };
 
 describe("<RiskQuestionForm /> Page", () => {

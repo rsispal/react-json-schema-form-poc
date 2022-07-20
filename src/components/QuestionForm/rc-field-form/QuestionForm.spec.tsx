@@ -16,52 +16,54 @@ import { WarningWrapper } from "./field-wrappers/Warning/Warning.wrapper";
 import SeedQuestions from "../../../__SEED__/e2e.json";
 
 import { QuestionSchema, QuestionFormProps } from "./QuestionForm.types";
-import { fireEvent } from "@testing-library/react";
 
-const checkRadioGroupOption = (testId: string, value: string) => {
-  cy.findByTestId(`${testId}-radio-group`).within(() => {
-    cy.get(`input[value="${value}"]`).scrollIntoView().click({ force: true });
-  });
-};
-
-// const clickLinkButton = (testId: string) => {
-//   cy.findByTestId(`${testId}-link-button`).click();
-// };
-
-const clickNextQuestionButton = (testId: string) => {
-  cy.findByTestId(`${testId}-next-question-button`)
-    .should("exist")
-    .scrollIntoView()
-    .click({ force: true });
-};
-
-const acknowledgeWarning = (testId: string) => {
-  cy.findByTestId(`${testId}-warning`).within(() => {
-    cy.findByTestId("acknowledge-button")
+export const QuestionFormTestUtilities = {
+  checkRadioGroupOption: (testId: string, value: string) => {
+    cy.findByTestId(`${testId}-radio-group`).within(() => {
+      cy.get(`input[value="${value}"]`).scrollIntoView().click({ force: true });
+    });
+  },
+  clickLinkButton: (testId: string) => {
+    cy.findByTestId(`${testId}-link-button`).click({ force: true });
+  },
+  clickNextQuestionButton: (testId: string) => {
+    cy.findByTestId(`${testId}-next-question-button`)
       .should("exist")
       .scrollIntoView()
       .click({ force: true });
-  });
-};
-
-const acknowledgePrompt = (testId: string) => {
-  cy.findByTestId(`${testId}-prompt`).within(() => {
-    cy.findByTestId("acknowledge-button")
+  },
+  acknowledgeWarning: (testId: string) => {
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId("acknowledge-button")
+        .should("exist")
+        .scrollIntoView()
+        .click({ force: true });
+    });
+  },
+  acknowledgePrompt: (testId: string) => {
+    cy.findByTestId(`${testId}-prompt`).within(() => {
+      cy.findByTestId("acknowledge-button")
+        .should("exist")
+        .scrollIntoView()
+        .click({ force: true });
+    });
+  },
+  fillTextInput: (testId: string, value: string) => {
+    cy.findByTestId(`${testId}-text-input`)
       .should("exist")
       .scrollIntoView()
+      .type(value, { force: true });
+  },
+  clickSubmitButton: (testId: string) => {
+    cy.findByTestId(`${testId}-submit-button`)
+      .scrollIntoView()
       .click({ force: true });
-  });
-};
-
-const fillTextInput = (testId: string, value: string) => {
-  cy.findByTestId(`${testId}-text-input`)
-    .should("exist")
-    .scrollIntoView()
-    .type(value, { force: true });
-};
-
-const clickSubmitButton = (testId: string) => {
-  cy.findByTestId(`${testId}-submit-button`).scrollIntoView();
+  },
+  verifyQuestionPromptText: (testId: string, expected: string) =>
+    cy
+      .findByTestId(`${testId}-question-prompt-text`)
+      .should("exist")
+      .should("have.text", expected),
 };
 
 describe("<QuestionForm /> Page", () => {
@@ -105,29 +107,36 @@ describe("<QuestionForm /> Page", () => {
   it("Should be able to submit a testbed form", () => {
     cy.viewport("macbook-13");
 
-    checkRadioGroupOption("Q1", "NO");
-    acknowledgeWarning("Q1_Warning");
-    clickNextQuestionButton("Q1_NextBtn");
+    QuestionFormTestUtilities.checkRadioGroupOption("Q1", "NO");
+    QuestionFormTestUtilities.acknowledgeWarning("Q1_Warning");
+    QuestionFormTestUtilities.clickNextQuestionButton("Q1_NextBtn");
 
-    acknowledgePrompt("Q1_Prompt");
+    QuestionFormTestUtilities.acknowledgePrompt("Q1_Prompt");
 
-    checkRadioGroupOption("Q2", "NO");
-    acknowledgeWarning("Q2_Warning");
+    QuestionFormTestUtilities.checkRadioGroupOption("Q2", "NO");
+    QuestionFormTestUtilities.acknowledgeWarning("Q2_Warning");
 
-    checkRadioGroupOption("Q2_1_N", "A");
+    QuestionFormTestUtilities.checkRadioGroupOption("Q2_1_N", "A");
 
-    checkRadioGroupOption("Q3", "YES");
-    checkRadioGroupOption("Q4", "YES");
+    QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
+    QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
 
-    fillTextInput("Q5", "abc");
+    QuestionFormTestUtilities.fillTextInput("Q5", "abc");
 
-    clickSubmitButton("Q6_SubmitButton");
+    QuestionFormTestUtilities.clickSubmitButton("Q6_SubmitButton");
 
-    // checkRadioGroupOption("Q1_1_N", "B");
-
-    // checkRadioGroupOption("Q1A", "YES");
-
-    // clickNextQuestionButton("Q1A_2");
-    // cy.scrollTo("bottom");
+    cy.wrap(onEndFormClickCallback).should("not.have.been.called");
+    cy.wrap(onSubmitCallback).should("have.been.called.with", {
+      Q1: "NO",
+      Q1_Warning: true,
+      Q1_NextBtn: true,
+      Q1_Prompt: true,
+      Q2: "NO",
+      Q2_Warning: true,
+      Q2_1_N: "A",
+      Q3: "YES",
+      Q4: "YES",
+      Q5: "abc",
+    });
   });
 });
