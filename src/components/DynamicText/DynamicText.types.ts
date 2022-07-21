@@ -19,4 +19,5 @@ export type DynamicTextParagraph = {
 
 export interface DynamicTextProps {
   data: DynamicTextParagraph[];
+  dataTestId?: string;
 }

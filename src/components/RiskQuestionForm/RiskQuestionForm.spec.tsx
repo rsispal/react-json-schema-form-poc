@@ -73,6 +73,29 @@ export const QuestionFormTestUtilities = {
       cy.get("label").eq(index).should("have.text", value);
     });
   },
+  ensureWarningHasAcknowledgeButton: (testId: string, label: string) => {
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId("acknowledge-button")
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", label);
+    });
+  },
+  ensureWarningHasEndFormButton: (testId: string, label: string) => {
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId("end-form-button")
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", label);
+    });
+  },
+  verifyWarningText: (testId: string, expected: string) =>
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId(`warning-text`)
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", expected);
+    }),
 };
 
 /*
@@ -890,6 +913,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q3_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q3_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q3_Warning",
+      "With drawdown you'll have to take responsibility for your income and investment decisions, and you'll need to review these regularly. Nobody other than you will be accountable for any decisions you make. How much income you get, and how long your pension lasts, will depend on how much you withdraw (particularly in the early years), the returns you achieve and how long you live. You're choosing to proceed without personal financial advice from Hargreaves Lansdown so you must be confident (and comfortable) making these decisions yourself. If you're still unsure don't continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q3_Warning");
 
     // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? NO
@@ -903,6 +938,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q4_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q4_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q4_Warning",
+      "Your pension remains invested so its value, and your future income, can fall due to weak investment performance. Drawing too much income too early will also reduce its value. In the worst case you could run out of money entirely, leaving you reliant on the State. Unlike an annuity, which provides a secure income for life, your income isn’t guaranteed with drawdown. The value of your pension and income aren’t secure. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q4_Warning");
 
     // Q5. If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks? NO
@@ -921,6 +968,18 @@ describe("<RiskQuestionForm /> Page", () => {
     );
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q5_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q5_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q5_Warning",
+      "Unlike an annuity, income from drawdown isn’t secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won’t be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the ‘natural yield’. This generally carries lower risks than selling your investments to create an income, which is known as ‘drawing from capital’. The value of investments and the income they produce can fall as well as rise. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q5_Warning");
 
     // Q6. In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments? NO
@@ -934,6 +993,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q6", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q6_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q6_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q6_Warning",
+      "Drawing on capital in times of poor market conditions will seriously reduce the value of your pension, making it harder if not impossible to regain any losses. If you need to draw from capital even in times of poor market conditions, you should consider if drawdown is really appropriate for you. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q6_Warning");
 
     // Q7. Do you understand the tax treatment of income withdrawals? NO
@@ -947,6 +1018,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q7", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q7_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q7_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q7_Warning",
+      "You could pay more tax than you intend to, or more (or less) than you owe. Drawdown providers will deduct tax, where applicable, before income withdrawals are paid out. This income is added to any other income you’ve received in that tax year. So taking large withdrawals could mean you’re pushed into a higher tax bracket. For investors taking an income for the first time, it’s likely emergency tax will be deducted. If you pay too much tax you’ll be able to reclaim this from HMRC directly. The tax you pay and any benefits you receive will depend on your circumstances. Tax rules can change in the future. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q7_Warning");
 
     // Q8. Have you shopped around to compare your retirement options and the services available from different providers? NO
@@ -960,6 +1043,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q8_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q8_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q8_Warning",
+      "You could find yourself choosing an option which isn’t right for you. Shopping around allows you to compare the different options, including the benefits and risks, and services of different providers. For example drawdown can provide a flexible income but this isn’t secure. Other options, such as annuities, can offer a secure income for life, but they aren’t flexible. Understanding the different options and how these work will help you choose the option that’s right for your circumstances. If you’re still unsure, don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q8_Warning");
 
     // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? NO
@@ -973,6 +1068,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q9_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q9_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q9_Warning",
+      "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the Terms and Conditions. The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q9_Warning");
 
     // Q10. If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £4,000 each tax year? NO
@@ -991,6 +1098,18 @@ describe("<RiskQuestionForm /> Page", () => {
     );
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q10_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q10_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q10_Warning",
+      "If you’re still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £4,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don’t flexibly access benefits elsewhere, this restriction won’t apply. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q10_Warning");
 
     // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? NO
@@ -1009,6 +1128,18 @@ describe("<RiskQuestionForm /> Page", () => {
     );
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q11_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q11_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q11_Warning",
+      "You could lose valuable guarantees or allowances (like a higher tax-free cash entitlement – over 25%) which you can’t get back. You could also trigger high exit fees. Before you do anything, you should check all these details with your current pension provider. If you have guarantees we suggest you seek personal advice before applying to transfer. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q11_Warning");
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? NO
@@ -1022,6 +1153,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q12", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q12_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q12_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q12_Warning",
+      "Prices rise over time. For example, between March 2002 and March 2022, inflation (as measured by the Retail Price Index) saw the cost of goods and services risk by 85.4%. This means an equivalent range of goods costing £1,000 twenty years ago would typically have increased to £1,854. This means you might find yourself running short of money, even if the amount of income you take stays the same. If you’re unsure about this you should seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q12_Warning");
 
     // Q13. Do you understand how taking your pension could affect any means-tested state benefits you receive? NO
@@ -1040,6 +1183,18 @@ describe("<RiskQuestionForm /> Page", () => {
     );
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q13_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q13_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q13_Warning",
+      "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at gov.uk/benefits-calculators. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q13_Warning");
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? NO
@@ -1058,6 +1213,18 @@ describe("<RiskQuestionForm /> Page", () => {
     );
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q14_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q14_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q14_Warning",
+      "If you're in debt and your creditors take action against you, any money held in a pension may be protected. Once you take it out any protection could be lost. If you get into serious financial trouble, you should take extra care before withdrawing money from your pension. You can get help and support around debt management from the government's Money Helper service. If you're still unsure do not continue. You should seek personal financial advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q14_Warning");
 
     // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? NO
@@ -1071,6 +1238,18 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 1, "No");
 
     // Acknowledge warning for this question
+    QuestionFormTestUtilities.ensureWarningHasAcknowledgeButton(
+      "Q15_Warning",
+      "OK, NEXT QUESTION"
+    );
+    QuestionFormTestUtilities.ensureWarningHasEndFormButton(
+      "Q15_Warning",
+      "END RISK QUESTIONS"
+    );
+    QuestionFormTestUtilities.verifyWarningText(
+      "Q15_Warning",
+      "If you fall victim to these scams you could lose most or all of your money, with no compensation available. Unfortunately investment scams exist and tend to be carried out by firms which aren’t regulated by the Financial Conduct Authority (FCA). Warning signs of a scam often include cold calling or texting, pressure to act quickly, the promise of unique or unusual opportunities, the offer of quick and easy profits, or something that seems too good to be true. You can find out more at fca.org.uk/scamsmart. If you’re still unsure don’t continue. Seek personal advice or guidance."
+    );
     QuestionFormTestUtilities.acknowledgeWarning("Q15_Warning");
 
     // Submit button

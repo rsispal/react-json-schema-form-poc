@@ -80,6 +80,29 @@ export const QuestionFormTestUtilities = {
       cy.get("label").eq(index).should("have.text", value);
     });
   },
+  ensureWarningHasAcknowledgeButton: (testId: string, label: string) => {
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId("acknowledge-button")
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", label);
+    });
+  },
+  ensureWarningHasEndFormButton: (testId: string, label: string) => {
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId("end-form-button")
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", label);
+    });
+  },
+  verifyWarningText: (testId: string, expected: string) =>
+    cy.findByTestId(`${testId}-warning`).within(() => {
+      cy.findByTestId(`warning-text`)
+        .should("exist")
+        .scrollIntoView()
+        .should("have.text", expected);
+    }),
 };
 
 describe("<QuestionForm /> Page", () => {

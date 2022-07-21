@@ -15,7 +15,7 @@ export const Warning: FC<WarningProps> = ({
 }) => (
   <Alert status="warning" data-testid={dataTestId}>
     <Stack>
-      <DynamicText data={prompt} />
+      <DynamicText data={prompt} dataTestId="warning-text" />
       <HStack>
         <Button onClick={onContinueClick} data-testid={"acknowledge-button"}>
           {continueButtonLabel ?? "Continue"}
