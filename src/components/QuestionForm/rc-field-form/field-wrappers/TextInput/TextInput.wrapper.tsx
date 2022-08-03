@@ -5,7 +5,7 @@ import { DynamicText } from "../../../../DynamicText";
 import { TextInput } from "../../../../fields/TextInput";
 import { Question, TextInputProperties } from "../../QuestionForm.types";
 
-export const TextInputWrapper: FC<{
+export const TextInputFieldWrapper: FC<{
   question: Question<TextInputProperties>;
 }> = ({ question }) => (
   <Field name={question.name}>

@@ -5,14 +5,15 @@ import { useParams } from "react-router-dom";
 
 /* Components */
 import { QuestionForm as QuestionFormRCFieldForm } from "../../components/QuestionForm/rc-field-form";
-import { ButtonGroupWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/ButtonGroup/ButtonGroup.wrapper";
-import { LinkButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/LinkButton/LinkButton.wrapper";
-import { NextQuestionButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
-import { PromptWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Prompt/Prompt.wrapper";
-import { RadioGroupWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/RadioGroup/RadioGroup.wrapper";
-import { SubmitButtonWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/SubmitButton/SubmitButton.wrapper";
-import { TextInputWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/TextInput/TextInput.wrapper";
-import { WarningWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Warning/Warning.wrapper";
+import { QuestionForm as QuestionFormFormik } from "../../components/QuestionForm/formik";
+import { ButtonGroupFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/ButtonGroup";
+import { LinkButtonFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/LinkButton";
+import { NextQuestionButtonFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/NextQuestionButton";
+import { PromptFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Prompt";
+import { RadioGroupFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/RadioGroup";
+import { SubmitButtonFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/SubmitButton";
+import { TextInputFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/TextInput";
+import { WarningFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/Warning";
 import { BackOfficeQuestionResults } from "../../components/BackOfficeQuestionResults";
 
 /* Constants */
@@ -23,6 +24,7 @@ import { Routes } from "../../constants";
 import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
+import { QuestionSchema as QuestionSchemaFormik } from "../../components/QuestionForm/formik/QuestionForm.types";
 import { QuestionSchema as QuestionSchemaRCFieldForm } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
 import { FormPageProps } from "./Form.types";
 
@@ -31,14 +33,13 @@ export const FormPage: FC<FormPageProps> = () => {
   const { variant } = useParams(); // will use for Formik variant
 
   const [submission, setSubmission] =
-    useState<Record<string, string | boolean | undefined>>();
+    useState<Record<string, string | undefined>>();
 
   const [changedValues, setChangedValues] =
-    useState<Record<string, string | boolean | undefined>>();
+    useState<Record<string, string | undefined>>();
 
-  const handleFormSubmit = (
-    results: Record<string, string | boolean | undefined>
-  ) => setSubmission(results);
+  const handleFormSubmit = (results: Record<string, string | undefined>) =>
+    setSubmission(results);
 
   const renderQuestionField = (children: ReactElement) => (
     <Box
@@ -53,6 +54,55 @@ export const FormPage: FC<FormPageProps> = () => {
     </Box>
   );
 
+  const renderFormikVariant = () => (
+    <QuestionFormFormik
+      {...(SeedQuestions as unknown as QuestionSchemaFormik)}
+      onEndFormClickCallback={() => undefined}
+      onSubmitCallback={handleFormSubmit}
+      onChangeCallback={(values) => setChangedValues(values)}
+      renderQuestion={renderQuestionField}
+      renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
+      renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
+      renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
+      renderNextQuestionButtonField={(props) => (
+        <NextQuestionButtonFieldWrapper {...props} />
+      )}
+      renderButtonGroupField={(props) => <ButtonGroupFieldWrapper {...props} />}
+      renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+      renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+      renderFieldErrorMessage={(error) => (
+        <Text color="red">{error.message}</Text>
+      )}
+      renderSubmitButtonField={(props) => (
+        <SubmitButtonFieldWrapper {...props} />
+      )}
+    />
+  );
+
+  const renderRCFieldFormVariant = () => (
+    <QuestionFormRCFieldForm
+      {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
+      onEndFormClickCallback={() => undefined}
+      onSubmitCallback={handleFormSubmit}
+      onChangeCallback={(values) => setChangedValues(values)}
+      renderQuestion={renderQuestionField}
+      renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
+      renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
+      renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
+      renderNextQuestionButtonField={(props) => (
+        <NextQuestionButtonFieldWrapper {...props} />
+      )}
+      renderButtonGroupField={(props) => <ButtonGroupFieldWrapper {...props} />}
+      renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+      renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+      renderFieldErrorMessage={(error) => (
+        <Text color="red">{error.message}</Text>
+      )}
+      renderSubmitButtonField={(props) => (
+        <SubmitButtonFieldWrapper {...props} />
+      )}
+    />
+  );
   return (
     <PageLayout
       title="Form"
@@ -65,26 +115,8 @@ export const FormPage: FC<FormPageProps> = () => {
       }}
       goBackRoute={Routes.ROUTE__HOME}
     >
-      <QuestionFormRCFieldForm
-        {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
-        onEndFormClickCallback={() => undefined}
-        onSubmitCallback={handleFormSubmit}
-        onChangeCallback={(values) => setChangedValues(values)}
-        renderQuestion={renderQuestionField}
-        renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
-        renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
-        renderTextInputField={(props) => <TextInputWrapper {...props} />}
-        renderNextQuestionButtonField={(props) => (
-          <NextQuestionButtonWrapper {...props} />
-        )}
-        renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
-        renderPromptField={(props) => <PromptWrapper {...props} />}
-        renderWarningField={(props) => <WarningWrapper {...props} />}
-        renderFieldErrorMessage={(error) => (
-          <Text color="red">{error.message}</Text>
-        )}
-        renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
-      />
+      {(variant === "formik" && renderFormikVariant()) || <></>}
+      {(variant === "rc-field-form" && renderRCFieldFormVariant()) || <></>}
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
 

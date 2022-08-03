@@ -7,7 +7,7 @@ import {
   Question,
 } from "../../QuestionForm.types";
 
-export const NextQuestionButtonWrapper: FC<{
+export const NextQuestionButtonFieldWrapper: FC<{
   question: Question<NextQuestionButtonProperties>;
 }> = ({ question }) => {
   const handleClick = () => {
@@ -44,7 +44,7 @@ export const NextQuestionButtonWrapper: FC<{
             ref={checkboxRef}
             type="checkbox"
             defaultChecked={value}
-            onChange={() => onChange(true)}
+            onChange={() => onChange("SELECTED")}
           />
         </Stack>
       )}

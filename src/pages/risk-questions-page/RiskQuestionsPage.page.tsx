@@ -14,16 +14,14 @@ import { Routes } from "../../constants";
 import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
-import { QuestionSchema } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
+import { QuestionSchema } from "../../components/QuestionForm/formik/QuestionForm.types";
 import { RiskQuestionsPageProps } from "./RiskQuestionsPage.types";
 
 export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
   const [submission, setSubmission] =
-    useState<Record<string, string | boolean | undefined>>();
+    useState<Record<string, string | undefined>>();
 
-  const handleFormSubmit = (
-    results: Record<string, string | boolean | undefined>
-  ) => {
+  const handleFormSubmit = (results: Record<string, string | undefined>) => {
     setSubmission(results);
   };
 

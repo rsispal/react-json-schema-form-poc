@@ -8,12 +8,12 @@ import {
   SubmitButtonProperties,
   SupportedFormField,
 } from "../../QuestionForm.types";
-import { NextQuestionButtonWrapper } from "../NextQuestionButton/NextQuestionButton.wrapper";
-import { LinkButtonWrapper } from "../LinkButton/LinkButton.wrapper";
-import { SubmitButtonWrapper } from "../SubmitButton/SubmitButton.wrapper";
+import { NextQuestionButtonFieldWrapper } from "../NextQuestionButton";
+import { LinkButtonFieldWrapper } from "../LinkButton";
+import { SubmitButtonFieldWrapper } from "../SubmitButton";
 import { DynamicText } from "../../../../DynamicText";
 
-export const ButtonGroupWrapper: FC<{
+export const ButtonGroupFieldWrapper: FC<{
   question: Question<ButtonGroupProperties>;
 }> = ({ question }) => (
   <Stack data-testid={`${question.name}-button-group`}>
@@ -37,7 +37,7 @@ export const ButtonGroupWrapper: FC<{
         switch (btn.type) {
           case SupportedFormField.LinkButton: {
             return (
-              <LinkButtonWrapper
+              <LinkButtonFieldWrapper
                 key={i}
                 question={btn as Question<LinkButtonProperties>}
               />
@@ -45,7 +45,7 @@ export const ButtonGroupWrapper: FC<{
           }
           case SupportedFormField.NextQuestionButton: {
             return (
-              <NextQuestionButtonWrapper
+              <NextQuestionButtonFieldWrapper
                 key={i}
                 question={btn as Question<NextQuestionButtonProperties>}
               />
@@ -53,7 +53,7 @@ export const ButtonGroupWrapper: FC<{
           }
           case SupportedFormField.SubmitButton: {
             return (
-              <SubmitButtonWrapper
+              <SubmitButtonFieldWrapper
                 key={i}
                 question={btn as Question<SubmitButtonProperties>}
               />

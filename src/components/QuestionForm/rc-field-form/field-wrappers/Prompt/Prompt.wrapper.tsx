@@ -5,7 +5,7 @@ import { DynamicText } from "../../../../DynamicText";
 import { Prompt } from "../../../../fields/Prompt";
 import { Question, PromptProperties } from "../../QuestionForm.types";
 
-export const PromptWrapper: FC<{
+export const PromptFieldWrapper: FC<{
   question: Question<PromptProperties>;
   onEndFormClickCallback: () => void;
 }> = ({ question, onEndFormClickCallback }) => {
@@ -41,7 +41,7 @@ export const PromptWrapper: FC<{
             ref={checkboxRef}
             type="checkbox"
             defaultChecked={value}
-            onChange={() => onChange(true)}
+            onChange={() => onChange("SELECTED")}
           />
         </Stack>
       )}

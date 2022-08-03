@@ -5,7 +5,7 @@ import { DynamicText } from "../../../../DynamicText";
 import { Warning } from "../../../../fields/Warning";
 import { Question, WarningProperties } from "../../QuestionForm.types";
 
-export const WarningWrapper: FC<{
+export const WarningFieldWrapper: FC<{
   question: Question<WarningProperties>;
   onEndFormClickCallback: () => void;
 }> = ({ question, onEndFormClickCallback }) => {
@@ -41,7 +41,7 @@ export const WarningWrapper: FC<{
             ref={checkboxRef}
             type="checkbox"
             defaultChecked={value}
-            onChange={() => onChange(true)}
+            onChange={() => onChange("SELECTED")}
           />
         </Stack>
       )}

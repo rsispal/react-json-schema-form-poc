@@ -75,7 +75,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q6"
         }
       ]
