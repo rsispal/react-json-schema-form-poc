@@ -5,7 +5,7 @@ import { LinkButton } from "../../../../fields/LinkButton";
 import { Stack, Text } from "@chakra-ui/react";
 import { DynamicText } from "../../../../DynamicText";
 
-export const LinkButtonWrapper: FC<{
+export const LinkButtonFieldWrapper: FC<{
   question: Question<LinkButtonProperties>;
 }> = ({ question }) => {
   const handleClick = () => {
@@ -40,7 +40,7 @@ export const LinkButtonWrapper: FC<{
             ref={checkboxRef}
             type="checkbox"
             defaultChecked={value}
-            onChange={() => onChange(true)}
+            onChange={() => onChange("SELECTED")}
           />
         </Stack>
       )}

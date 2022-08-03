@@ -53,7 +53,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q1_Prompt"
         }
       ]
@@ -81,7 +81,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q2"
         }
       ]
@@ -129,7 +129,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q2"
         }
       ]
@@ -196,7 +196,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q2"
         }
       ]

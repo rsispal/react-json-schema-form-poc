@@ -4,7 +4,7 @@ import { DynamicText } from "../../../../DynamicText";
 import { SubmitButton } from "../../../../fields/SubmitButton";
 import { Question, SubmitButtonProperties } from "../../QuestionForm.types";
 
-export const SubmitButtonWrapper: FC<{
+export const SubmitButtonFieldWrapper: FC<{
   question: Question<SubmitButtonProperties>;
 }> = ({ question }) => (
   <Stack>

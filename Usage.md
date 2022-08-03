@@ -305,7 +305,7 @@ Below is a complete example with the above field properties in use
   "warnings": [],
   "next": [
     {
-      "equals": true,
+      "equals": "SELECTED",
       "question": "Q2"
     }
   ]
@@ -359,7 +359,7 @@ Below is a complete example with the above field properties in use
             "warnings": [],
             "next": [
               {
-                "equals": true,
+                "equals":"SELECTED",
                 "question": "Q2"
               }
             ]
@@ -496,7 +496,7 @@ Below is a complete example with the above field properties in use
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals":"SELECTED",
           "question": "Q5"
         }
       ]
@@ -641,7 +641,7 @@ Here's an example:
 
       "next": [
         {
-          "equals": true,
+          "equals":"SELECTED",
           "question": "Q6"
         }
       ]
@@ -724,7 +724,7 @@ Here's an example:
 
       "next": [
         {
-          "equals": true,
+          "equals":"SELECTED",
           "question": "Q6"
         }
       ]

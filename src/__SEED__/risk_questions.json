@@ -185,7 +185,7 @@
             "warnings": [],
             "next": [
               {
-                "equals": true,
+                "equals": "SELECTED",
                 "question": "Q2"
               }
             ]
@@ -394,7 +394,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q4"
         }
       ]
@@ -461,7 +461,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q5"
         }
       ]
@@ -535,7 +535,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q6"
         }
       ]
@@ -601,7 +601,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q7"
         }
       ]
@@ -667,7 +667,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q8"
         }
       ]
@@ -733,7 +733,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q9"
         }
       ]
@@ -808,7 +808,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q10"
         }
       ]
@@ -882,7 +882,7 @@
       "warnings": [],
       "next": [
         {
-          "equals": true,
+          "equals": "SELECTED",
           "question": "Q11"
         }
       ]

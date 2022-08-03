@@ -33,15 +33,13 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   renderSubmitButtonField,
 }) => {
   const [form] = Form.useForm();
-  const [values, setValues] = useState<
-    Record<string, string | boolean | undefined>
-  >({});
+  const [values, setValues] = useState<Record<string, string | undefined>>({});
   const [errors, setErrors] = useState<ValidateError[]>([]);
 
   const getInitialValues = () => ({});
 
   const runAsyncValidator = async (
-    answers: Record<string, string | boolean | undefined>
+    answers: Record<string, string | undefined>
   ) => {
     const response = await QuestionFormUtilities.validate(questions, answers);
     if (Array.isArray(response) && response.length > 0) {
@@ -52,9 +50,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     return true;
   };
 
-  const handleSubmit = async (
-    values: Record<string, string | boolean | undefined>
-  ) => {
+  const handleSubmit = async (values: Record<string, string | undefined>) => {
     const isValid = await runAsyncValidator(values);
     if (isValid) {
       return onSubmitCallback(values);

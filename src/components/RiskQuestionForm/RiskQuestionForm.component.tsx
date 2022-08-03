@@ -5,14 +5,14 @@ import { FC, ReactElement, useEffect, useState } from "react";
 /* Components */
 import { QuestionForm } from "../QuestionForm/rc-field-form";
 
-import { ButtonGroupWrapper } from "../QuestionForm/rc-field-form/field-wrappers/ButtonGroup/ButtonGroup.wrapper";
-import { LinkButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/LinkButton/LinkButton.wrapper";
-import { NextQuestionButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/NextQuestionButton/NextQuestionButton.wrapper";
-import { PromptWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Prompt/Prompt.wrapper";
-import { RadioGroupWrapper } from "../QuestionForm/rc-field-form/field-wrappers/RadioGroup/RadioGroup.wrapper";
-import { SubmitButtonWrapper } from "../QuestionForm/rc-field-form/field-wrappers/SubmitButton/SubmitButton.wrapper";
-import { TextInputWrapper } from "../QuestionForm/rc-field-form/field-wrappers/TextInput/TextInput.wrapper";
-import { WarningWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Warning/Warning.wrapper";
+import { ButtonGroupFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/ButtonGroup";
+import { LinkButtonFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/LinkButton";
+import { NextQuestionButtonFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/NextQuestionButton";
+import { PromptFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Prompt";
+import { RadioGroupFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/RadioGroup";
+import { SubmitButtonFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/SubmitButton";
+import { TextInputFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/TextInput";
+import { WarningFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Warning";
 
 /* Types */
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
@@ -22,19 +22,14 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   onSubmitCallback,
   onEndFormCallback,
 }) => {
-  const [values, setValues] = useState<
-    Record<string, string | boolean | undefined>
-  >({});
+  const [values, setValues] = useState<Record<string, string | undefined>>({});
 
-  const handleSubmit = (
-    answers: Record<string, string | boolean | undefined>
-  ) => {
+  const handleSubmit = (answers: Record<string, string | undefined>) => {
     console.log("[RiskQuestionForm] Submit", { answers });
     onSubmitCallback(answers);
   };
-  const handleFormChange = (
-    answers: Record<string, string | boolean | undefined>
-  ) => setValues(answers);
+  const handleFormChange = (answers: Record<string, string | undefined>) =>
+    setValues(answers);
 
   const handleEndFormClick = () => {
     console.log("[RiskQuestionForm] End", {});
@@ -42,7 +37,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   };
 
   const handleSpecificCondition = (
-    values: Record<string, string | boolean | undefined>
+    values: Record<string, string | undefined>
   ) => {
     const isQ1AnsweredAsYes = values["Q1"] === "YES";
     const isQ1_1_YLinkClicked = values["Q1_1_Y"];
@@ -82,16 +77,20 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
         onSubmitCallback={handleSubmit}
         onChangeCallback={handleFormChange}
         onEndFormClickCallback={handleEndFormClick}
-        renderLinkButtonField={(props) => <LinkButtonWrapper {...props} />}
-        renderRadioGroupField={(props) => <RadioGroupWrapper {...props} />}
-        renderTextInputField={(props) => <TextInputWrapper {...props} />}
+        renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
+        renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
+        renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
         renderNextQuestionButtonField={(props) => (
-          <NextQuestionButtonWrapper {...props} />
+          <NextQuestionButtonFieldWrapper {...props} />
         )}
-        renderButtonGroupField={(props) => <ButtonGroupWrapper {...props} />}
-        renderPromptField={(props) => <PromptWrapper {...props} />}
-        renderWarningField={(props) => <WarningWrapper {...props} />}
-        renderSubmitButtonField={(props) => <SubmitButtonWrapper {...props} />}
+        renderButtonGroupField={(props) => (
+          <ButtonGroupFieldWrapper {...props} />
+        )}
+        renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+        renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+        renderSubmitButtonField={(props) => (
+          <SubmitButtonFieldWrapper {...props} />
+        )}
         renderFieldErrorMessage={(error) => (
           <Text color="red">{error.message}</Text>
         )}

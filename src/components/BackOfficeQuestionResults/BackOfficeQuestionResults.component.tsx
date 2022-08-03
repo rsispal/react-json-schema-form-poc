@@ -125,7 +125,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 
   const renderQuestionAndAnswer = (
     question: Question<QuestionFieldType>,
-    answers: Record<string, string | boolean | undefined>
+    answers: Record<string, string | undefined>
   ) => {
     const name = question.name;
     const type = getQuestionType(question);

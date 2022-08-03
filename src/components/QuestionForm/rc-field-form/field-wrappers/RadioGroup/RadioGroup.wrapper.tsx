@@ -5,7 +5,7 @@ import { Field } from "rc-field-form";
 import { Stack, Text } from "@chakra-ui/react";
 import { DynamicText } from "../../../../DynamicText/";
 
-export const RadioGroupWrapper: FC<{
+export const RadioGroupFieldWrapper: FC<{
   question: Question<RadioGroupProperties>;
 }> = ({ question }) => (
   <Field name={question.name}>

@@ -22,7 +22,7 @@ export interface QuestionFieldProps {
   question: Question<QuestionFieldType>;
   questions: Question<QuestionFieldType>[];
   renderQuestion: (children: ReactElement) => ReactElement;
-  values: Record<string, string | boolean | undefined>;
+  values: Record<string, string | undefined>;
   errors: ValidateError[];
   form: FormInstance;
   onEndFormClickCallback: () => void;

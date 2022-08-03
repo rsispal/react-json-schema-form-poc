@@ -46,11 +46,10 @@ export const HomePage: FC<HomePageProps> = () => (
         audience="public"
       />
       <RouteCard
-        title="[OPTION 3: WIP] Risk Form (Formik library)"
+        title="[OPTION 3] Risk Form (Formik library)"
         description="The form is loaded with the version 2 risk questions and the QuestionForm uses react-final-form."
         link={`${Routes.ROUTE__FORM_PATH}/formik`}
-        audience="unavailable"
-        disabled
+        audience="public"
       />
     </Flex>
     <Flex
