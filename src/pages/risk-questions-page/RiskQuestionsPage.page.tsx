@@ -14,14 +14,16 @@ import { Routes } from "../../constants";
 import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
-import { QuestionSchema } from "../../components/QuestionForm/formik/QuestionForm.types";
 import { RiskQuestionsPageProps } from "./RiskQuestionsPage.types";
+import {
+  RiskQuestionFormPayload,
+  RiskQuestionFormSchema,
+} from "../../components/RiskQuestionForm/RiskQuestionForm.types";
 
 export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
-  const [submission, setSubmission] =
-    useState<Record<string, string | undefined>>();
+  const [submission, setSubmission] = useState<RiskQuestionFormPayload>();
 
-  const handleFormSubmit = (results: Record<string, string | undefined>) => {
+  const handleFormSubmit = (results: RiskQuestionFormPayload) => {
     setSubmission(results);
   };
 
@@ -51,7 +53,7 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
       goBackRoute={Routes.ROUTE__HOME}
     >
       <RiskQuestionForm
-        schema={SeedQuestions as unknown as QuestionSchema}
+        schema={SeedQuestions as unknown as RiskQuestionFormSchema}
         onEndFormCallback={() => undefined}
         onSubmitCallback={handleFormSubmit}
         renderQuestion={renderQuestionField}
@@ -59,10 +61,12 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
 
-        <BackOfficeQuestionResults
-          schema={SeedQuestions as QuestionSchema}
-          answers={submission}
-        />
+        {submission?.answers && (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as RiskQuestionFormSchema}
+            answers={submission.answers}
+          />
+        )}
       </Box>
       <Box paddingTop={20}>
         <Heading>Schema</Heading>

@@ -1,4 +1,4 @@
 export interface BackOfficeQuestionResultsProps {
-  answers: Record<string, string | undefined> | undefined;
+  answers: Array<{ name: string; answer: string | undefined }>;
   schema: any;
 }

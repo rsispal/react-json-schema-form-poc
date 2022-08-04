@@ -10,7 +10,6 @@ export const NextQuestionButton: FC<NextQuestionButtonProps> = ({
   ...rest
 }) => (
   <Button
-    as="a"
     disabled={disabled}
     width={"fit-content"}
     onClick={disabled ? undefined : onClickCallback}

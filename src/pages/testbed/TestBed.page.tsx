@@ -3,7 +3,10 @@ import { FC, ReactElement, useState } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
 /* Components */
-import { QuestionForm } from "../../components/QuestionForm/formik";
+import {
+  QuestionForm,
+  QuestionFormUtilities,
+} from "../../components/QuestionForm/formik";
 
 /* Constants */
 import SeedQuestions from "../../__SEED__/basic.json";
@@ -50,6 +53,18 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
     </Box>
   );
 
+  const renderBackOfficeAnswers = () => {
+    if (submission) {
+      const answers = QuestionFormUtilities.transformAnswers(submission);
+      console.log(answers);
+      return (
+        <BackOfficeQuestionResults
+          schema={SeedQuestions as QuestionSchema}
+          answers={answers}
+        />
+      );
+    }
+  };
   return (
     <PageLayout
       title="Testbed"
@@ -88,10 +103,7 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
       />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
-        <BackOfficeQuestionResults
-          schema={SeedQuestions as unknown as QuestionSchema}
-          answers={submission}
-        />
+        {renderBackOfficeAnswers()}
 
         <br />
         <p>onChange Results:</p>
