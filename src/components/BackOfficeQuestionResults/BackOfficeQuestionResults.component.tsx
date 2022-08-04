@@ -26,7 +26,7 @@ import {
 import { DynamicText } from "../DynamicText";
 
 export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
-  answers = {},
+  answers = [],
   schema,
 }) => {
   const tableBg = useColorModeValue("white", "gray.700");
@@ -93,39 +93,42 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 
   const getAnswer = (
     question: Question<QuestionFieldType>,
-    answers: BackOfficeQuestionResultsProps["answers"] = {}
+    answers: BackOfficeQuestionResultsProps["answers"]
   ) => {
-    switch (question.type) {
-      case SupportedFormField.RadioGroup: {
-        const currentAnswer = (answers[question.name] as string) ?? "";
-        const option =
-          QuestionFormUtilities.getRadioGroupOptionForQuestionByValue(
-            question,
-            currentAnswer
-          );
+    const filtered = answers?.filter((a) => a.name === question.name).at(0);
+    if (filtered) {
+      switch (question.type) {
+        case SupportedFormField.RadioGroup: {
+          const currentAnswer = (filtered.answer as string) ?? "";
+          const option =
+            QuestionFormUtilities.getRadioGroupOptionForQuestionByValue(
+              question,
+              currentAnswer
+            );
 
-        return option?.label;
-      }
-      case SupportedFormField.LinkButton: {
-        return Boolean(answers[question.name])
-          ? "Link clicked"
-          : "Link not clicked";
-      }
-      case SupportedFormField.Prompt:
-      case SupportedFormField.Warning: {
-        return Boolean(answers[question.name])
-          ? "User acknowledged"
-          : "User didn't acknowledge";
-      }
-      default: {
-        return answers[question.name];
+          return option?.label;
+        }
+        case SupportedFormField.LinkButton: {
+          return filtered.answer === "SELECTED"
+            ? "Link clicked"
+            : "Link not clicked";
+        }
+        case SupportedFormField.Prompt:
+        case SupportedFormField.Warning: {
+          return filtered.answer === "SELECTED"
+            ? "User acknowledged"
+            : "User didn't acknowledge";
+        }
+        default: {
+          return filtered.answer;
+        }
       }
     }
   };
 
   const renderQuestionAndAnswer = (
     question: Question<QuestionFieldType>,
-    answers: Record<string, string | undefined>
+    answers: BackOfficeQuestionResultsProps["answers"]
   ) => {
     const name = question.name;
     const type = getQuestionType(question);
@@ -154,15 +157,16 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {Object.keys(answers).map((name) => {
+          {answers.map(({ name, answer }) => {
             const question = QuestionFormUtilities.getQuestionByName(
               schema.questions,
               name
             );
-            if (!question) {
-              return null;
+
+            if (question) {
+              return renderQuestionAndAnswer(question, answers);
             }
-            return renderQuestionAndAnswer(question, answers);
+            return null;
           })}
         </Tbody>
       </Table>

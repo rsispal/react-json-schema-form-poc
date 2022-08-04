@@ -2,6 +2,9 @@
   "schemaVersionMajor": 2,
   "schemaVersionMinor": 0,
   "formName": "Risk Form",
+  "miscellaneous": {
+    "guidedQuestion": "Q1"
+  },
   "questions": [
     {
       "id": "Q1",

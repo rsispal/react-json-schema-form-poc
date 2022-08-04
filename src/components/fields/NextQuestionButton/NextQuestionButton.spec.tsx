@@ -9,7 +9,7 @@ describe("<NextQuestionButton /> Component", () => {
       disabled: false,
       onClickCallback: () => undefined,
     });
-    cy.get("a").contains("Test Button").should("exist");
+    cy.get("button").contains("Test Button").should("exist");
   });
 
   it("Should render the label again", () => {
@@ -18,9 +18,9 @@ describe("<NextQuestionButton /> Component", () => {
       disabled: false,
       onClickCallback: () => undefined,
     });
-    cy.get("a").contains("Test Button 123").should("exist");
+    cy.get("button").contains("Test Button 123").should("exist");
   });
-  it("Should not fire callback when the button is disabled", () => {
+  it.only("Should not fire callback when the button is disabled", () => {
     let onClickCallback = cy.stub();
     mountWithProps<NextQuestionButtonProps>(NextQuestionButton, {
       label: "Test Button",
@@ -28,10 +28,10 @@ describe("<NextQuestionButton /> Component", () => {
       onClickCallback,
       dataTestId: "test-candidate",
     });
-    const button = cy.get("a").contains("Test Button");
+    const button = cy.get("button").contains("Test Button");
+    cy.get('[data-testid="test-candidate"]').click({ force: true });
     button.should("have.attr", "disabled");
 
-    cy.findByTestId("test-candidate").click();
     cy.wrap(onClickCallback).should("not.be.called");
   });
   it("Should fire onclick callback", () => {
@@ -42,7 +42,7 @@ describe("<NextQuestionButton /> Component", () => {
       disabled: false,
       onClickCallback,
     });
-    const button = cy.get("a").contains("Test Button");
+    const button = cy.get("button").contains("Test Button");
     button.click();
     cy.wrap(onClickCallback).should("be.called");
   });

@@ -8,6 +8,7 @@ export type QuestionSchema = {
   schemaVersionMajor: number;
   schemaVersionMinor: number;
   formName: string;
+  miscellaneous: Record<string, any>;
   questions: Question<QuestionFieldType>[];
 };
 

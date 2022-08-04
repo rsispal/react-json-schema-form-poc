@@ -4,8 +4,15 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 /* Components */
-import { QuestionForm as QuestionFormRCFieldForm } from "../../components/QuestionForm/rc-field-form";
-import { QuestionForm as QuestionFormFormik } from "../../components/QuestionForm/formik";
+import {
+  QuestionForm as QuestionFormRCFieldForm,
+  QuestionFormUtilities as QuestionFormUtilitiesRCFieldForm,
+} from "../../components/QuestionForm/rc-field-form";
+import {
+  QuestionForm as QuestionFormFormik,
+  QuestionFormUtilities as QuestionFormUtilitiesFormik,
+} from "../../components/QuestionForm/formik";
+
 import { ButtonGroupFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/ButtonGroup";
 import { LinkButtonFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/LinkButton";
 import { NextQuestionButtonFieldWrapper } from "../../components/QuestionForm/rc-field-form/field-wrappers/NextQuestionButton";
@@ -103,6 +110,34 @@ export const FormPage: FC<FormPageProps> = () => {
       )}
     />
   );
+
+  const renderBackOfficeAnswers = () => {
+    if (submission) {
+      if (variant === "formik") {
+        const answers =
+          QuestionFormUtilitiesFormik.transformAnswers(submission);
+
+        return (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as QuestionSchemaRCFieldForm}
+            answers={answers}
+          />
+        );
+      }
+
+      if (variant === "rc-field-form") {
+        const answers =
+          QuestionFormUtilitiesRCFieldForm.transformAnswers(submission);
+
+        return (
+          <BackOfficeQuestionResults
+            schema={SeedQuestions as QuestionSchemaRCFieldForm}
+            answers={answers}
+          />
+        );
+      }
+    }
+  };
   return (
     <PageLayout
       title="Form"
@@ -119,11 +154,7 @@ export const FormPage: FC<FormPageProps> = () => {
       {(variant === "rc-field-form" && renderRCFieldFormVariant()) || <></>}
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
-
-        <BackOfficeQuestionResults
-          schema={SeedQuestions as QuestionSchemaRCFieldForm}
-          answers={submission}
-        />
+        {renderBackOfficeAnswers()}
         <pre>{JSON.stringify(submission ?? changedValues, null, 2)}</pre>
       </Box>
       <Box paddingTop={20}>

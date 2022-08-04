@@ -270,4 +270,17 @@ export namespace QuestionFormUtilities {
     }
     return undefined;
   };
+
+  /**
+   * @function transformAnswers - convert form submission from key-value pairs to array of objects
+   * @param answers {Record<string, string | undefined>} - current form values
+   * @returns { Array<{ name:string, answer:string | undefined}> }
+   */
+  export const transformAnswers = (
+    answers: Record<string, string | undefined>
+  ) =>
+    Object.keys(answers).map((k) => ({
+      name: k,
+      answer: answers[k],
+    }));
 }

@@ -4,6 +4,7 @@ import { FC, ReactElement, useEffect, useState } from "react";
 
 /* Components */
 import { QuestionForm } from "../QuestionForm/rc-field-form";
+import { QuestionFormUtilities } from "../QuestionForm/rc-field-form/QuestionForm.utilities";
 
 import { ButtonGroupFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/ButtonGroup";
 import { LinkButtonFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/LinkButton";
@@ -15,7 +16,10 @@ import { TextInputFieldWrapper } from "../QuestionForm/rc-field-form/field-wrapp
 import { WarningFieldWrapper } from "../QuestionForm/rc-field-form/field-wrappers/Warning";
 
 /* Types */
-import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
+import {
+  RiskQuestionFormPayload,
+  RiskQuestionFormProps,
+} from "./RiskQuestionForm.types";
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   schema,
@@ -25,8 +29,13 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   const [values, setValues] = useState<Record<string, string | undefined>>({});
 
   const handleSubmit = (answers: Record<string, string | undefined>) => {
-    console.log("[RiskQuestionForm] Submit", { answers });
-    onSubmitCallback(answers);
+    const payload: RiskQuestionFormPayload = {
+      source: "ONLINE",
+      guidedQuestion: schema.miscellaneous.guidedQuestion,
+      answers: QuestionFormUtilities.transformAnswers(answers),
+    };
+    console.log("[RiskQuestionForm] Submit", payload);
+    onSubmitCallback(payload);
   };
   const handleFormChange = (answers: Record<string, string | undefined>) =>
     setValues(answers);
