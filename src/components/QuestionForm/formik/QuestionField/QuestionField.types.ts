@@ -1,5 +1,5 @@
 import { ValidateError } from "async-validator";
-import { ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import {
   ButtonGroupProperties,
   LinkButtonProperties,

@@ -178,11 +178,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
             )}
+            {/* Generate the next question following a button press */}
             {(question.properties as ButtonGroupProperties).buttons.map(
               (button) => {
                 switch (button.type) {
                   case SupportedFormField.LinkButton:
-                  case SupportedFormField.NextQuestionButton: {
+                  case SupportedFormField.NextQuestionButton:
+                  case SupportedFormField.SubmitButton: {
                     return (
                       <Fragment key={button.id}>
                         {generateQuestion(undefined, button)}

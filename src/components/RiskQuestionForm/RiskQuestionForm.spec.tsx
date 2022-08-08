@@ -8,7 +8,10 @@ import { RiskQuestionForm } from "./";
 
 import RiskQuestionsSchema from "../../__SEED__/risk_questions.json";
 
-import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
+import {
+  RiskQuestionFormPayload,
+  RiskQuestionFormProps,
+} from "./RiskQuestionForm.types";
 
 export const QuestionFormTestUtilities = {
   checkRadioGroupOption: (testId: string, value: string) => {
@@ -96,6 +99,22 @@ export const QuestionFormTestUtilities = {
         .scrollIntoView()
         .should("have.text", expected);
     }),
+  verifySubmitPayload: (
+    actual: RiskQuestionFormPayload,
+    expected: RiskQuestionFormPayload
+  ) => {
+    const doesSourceExist = !!actual.source;
+    const doesGuidedQuestionExist = !!actual.guidedQuestion;
+    const doesAnswersExist = !!actual.answers && Array.isArray(actual.answers);
+
+    const doPayloadsMatch = JSON.stringify(actual) === JSON.stringify(expected);
+    return (
+      doesSourceExist &&
+      doesGuidedQuestionExist &&
+      doesAnswersExist &&
+      doPayloadsMatch
+    );
+  },
 };
 
 /*
@@ -313,8 +332,8 @@ describe("<RiskQuestionForm /> Page", () => {
         "href",
         "https://www.hl.co.uk/retirement/preparing/pension-wise"
       );
-    cy.wrap(onSubmitCallback).should("not.have.been.called");
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onSubmitCallback).should("not.be.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 2.${Scenarios[2]}`, () => {
@@ -515,27 +534,76 @@ describe("<RiskQuestionForm /> Page", () => {
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
 
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "A",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "A",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
-  it(`Should complete the risk question form according to scenario 3.${Scenarios[3]}`, () => {
+  it.only(`Should complete the risk question form according to scenario 3.${Scenarios[3]}`, () => {
     cy.viewport("macbook-11");
 
     // Q1. Do you want guidance from Pension Wise? NO
@@ -786,30 +854,89 @@ describe("<RiskQuestionForm /> Page", () => {
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
 
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "B",
-      Q1A: "YES",
-      Q1A_2: true,
-      Q2: "YES",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+    cy.wrap(onSubmitCallback).should("have.been.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "B",
+        },
+        {
+          name: "Q1A",
+          answer: "YES",
+        },
+        {
+          name: "Q1A_2",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q2",
+          answer: "YES",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
-  it(`Should complete the risk question form according to scenario 3 but triggering Q3-15 warnings.${Scenarios[4]}`, () => {
+  it(`Should complete the risk question form according to scenario 4.${Scenarios[4]}`, () => {
     cy.viewport("macbook-11");
 
     // Q1. Do you want guidance from Pension Wise? NO
@@ -1254,40 +1381,139 @@ describe("<RiskQuestionForm /> Page", () => {
 
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "B",
-      Q1A: "YES",
-      Q1A_2: true,
-      Q2: "YES",
-      Q3: "NO",
-      Q3_Warning: true,
-      Q4: "NO",
-      Q4_Warning: true,
-      Q5: "NO",
-      Q5_Warning: true,
-      Q6: "NO",
-      Q6_Warning: true,
-      Q7: "NO",
-      Q7_Warning: true,
-      Q8: "NO",
-      Q8_Warning: true,
-      Q9: "NO",
-      Q9_Warning: true,
-      Q10: "NO",
-      Q10_Warning: true,
-      Q11: "NO",
-      Q11_Warning: true,
-      Q12: "NO",
-      Q12_Warning: true,
-      Q13: "NO",
-      Q13_Warning: true,
-      Q14: "NO",
-      Q14_Warning: true,
-      Q15: "NO",
-      Q15_Warning: true,
+
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "B",
+        },
+        {
+          name: "Q1A",
+          answer: "YES",
+        },
+        {
+          name: "Q1A_2",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q2",
+          answer: "YES",
+        },
+        {
+          name: "Q3",
+          answer: "NO",
+        },
+        {
+          name: "Q3_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q4",
+          answer: "NO",
+        },
+        {
+          name: "Q4_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q5",
+          answer: "NO",
+        },
+        {
+          name: "Q5_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q6",
+          answer: "NO",
+        },
+        {
+          name: "Q6_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q7",
+          answer: "NO",
+        },
+        {
+          name: "Q7_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q8",
+          answer: "NO",
+        },
+        {
+          name: "Q8_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q9",
+          answer: "NO",
+        },
+        {
+          name: "Q9_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q10",
+          answer: "NO",
+        },
+        {
+          name: "Q10_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q11",
+          answer: "NO",
+        },
+        {
+          name: "Q11_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q12",
+          answer: "NO",
+        },
+        {
+          name: "Q12_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q13",
+          answer: "NO",
+        },
+        {
+          name: "Q13_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q14",
+          answer: "NO",
+        },
+        {
+          name: "Q14_Warning",
+          answer: "SELECTED",
+        },
+        {
+          name: "Q15",
+          answer: "NO",
+        },
+        {
+          name: "Q15_Warning",
+          answer: "SELECTED",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 5.${Scenarios[5]}`, () => {
@@ -1523,26 +1749,81 @@ describe("<RiskQuestionForm /> Page", () => {
 
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "B",
-      Q1A: "NO",
-      Q2: "YES",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "B",
+        },
+        {
+          name: "Q1A",
+          answer: "NO",
+        },
+        {
+          name: "Q2",
+          answer: "YES",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 6.${Scenarios[6]}`, () => {
@@ -1644,8 +1925,8 @@ describe("<RiskQuestionForm /> Page", () => {
         "href",
         "https://www.hl.co.uk/financial-advice/retirement-advice-services"
       );
-    cy.wrap(onSubmitCallback).should("not.have.been.called");
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onSubmitCallback).should("not.be.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 7.${Scenarios[7]}`, () => {
@@ -1895,27 +2176,85 @@ describe("<RiskQuestionForm /> Page", () => {
 
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "B",
-      Q1A: "NO",
-      Q2: "NO",
-      Q2_1_N: "NO",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "B",
+        },
+        {
+          name: "Q1A",
+          answer: "NO",
+        },
+        {
+          name: "Q2",
+          answer: "NO",
+        },
+        {
+          name: "Q2_1_N",
+          answer: "NO",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 8.${Scenarios[8]}`, () => {
@@ -2133,25 +2472,78 @@ describe("<RiskQuestionForm /> Page", () => {
 
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "C",
-      Q2: "YES",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "C",
+        },
+        {
+          name: "Q2",
+          answer: "YES",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 9.${Scenarios[9]}`, () => {
@@ -2236,8 +2628,8 @@ describe("<RiskQuestionForm /> Page", () => {
         "href",
         "https://www.hl.co.uk/financial-advice/retirement-advice-services"
       );
-    cy.wrap(onSubmitCallback).should("not.have.been.called");
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+    cy.wrap(onSubmitCallback).should("not.be.called");
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
   it(`Should complete the risk question form according to scenario 10.${Scenarios[10]}`, () => {
@@ -2469,25 +2861,82 @@ describe("<RiskQuestionForm /> Page", () => {
 
     // Submit button
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
-    cy.wrap(onSubmitCallback).should("have.been.called.with", {
-      Q1: "NO",
-      Q1_1_N: "C",
-      Q2: "NO",
-      Q2_1_N: "NO",
-      Q3: "YES",
-      Q4: "YES",
-      Q5: "YES",
-      Q6: "YES",
-      Q7: "YES",
-      Q8: "YES",
-      Q9: "YES",
-      Q10: "YES",
-      Q11: "YES",
-      Q12: "YES",
-      Q13: "YES",
-      Q14: "YES",
-      Q15: "YES",
+
+    cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
+      source: "ONLINE",
+      guidedQuestion: "Q1",
+      answers: [
+        {
+          name: "Q1",
+          answer: "NO",
+        },
+        {
+          name: "Q1_1_N",
+          answer: "C",
+        },
+        {
+          name: "Q2",
+          answer: "NO",
+        },
+        {
+          name: "Q2_1_N",
+          answer: "NO",
+        },
+        {
+          name: "Q3",
+          answer: "YES",
+        },
+        {
+          name: "Q4",
+          answer: "YES",
+        },
+        {
+          name: "Q5",
+          answer: "YES",
+        },
+        {
+          name: "Q6",
+          answer: "YES",
+        },
+        {
+          name: "Q7",
+          answer: "YES",
+        },
+        {
+          name: "Q8",
+          answer: "YES",
+        },
+        {
+          name: "Q9",
+          answer: "YES",
+        },
+        {
+          name: "Q10",
+          answer: "YES",
+        },
+        {
+          name: "Q11",
+          answer: "YES",
+        },
+        {
+          name: "Q12",
+          answer: "YES",
+        },
+        {
+          name: "Q13",
+          answer: "YES",
+        },
+        {
+          name: "Q14",
+          answer: "YES",
+        },
+        {
+          name: "Q15",
+          answer: "YES",
+        },
+      ],
     });
-    cy.wrap(onEndFormCallback).should("not.have.been.called");
+
+    cy.wrap(onEndFormCallback).should("not.be.called");
   });
 });

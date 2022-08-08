@@ -279,8 +279,10 @@ export namespace QuestionFormUtilities {
   export const transformAnswers = (
     answers: Record<string, string | undefined>
   ) =>
-    Object.keys(answers).map((k) => ({
-      name: k,
-      answer: answers[k],
-    }));
+    Object.keys(answers)
+      .map((k) => ({
+        name: k,
+        answer: answers[k],
+      }))
+      .filter(({ answer }) => !!answer);
 }

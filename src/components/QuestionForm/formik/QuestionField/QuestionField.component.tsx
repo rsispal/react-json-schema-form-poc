@@ -19,16 +19,6 @@ import {
 } from "../QuestionForm.types";
 import { QuestionFieldProps } from "./QuestionField.types";
 
-/* Field Wrappers */
-import { RadioGroupFieldWrapper } from "../field-wrappers/RadioGroup";
-import { LinkButtonFieldWrapper } from "../field-wrappers/LinkButton";
-import { NextQuestionButtonFieldWrapper } from "../field-wrappers/NextQuestionButton";
-import { SubmitButtonFieldWrapper } from "../field-wrappers/SubmitButton";
-import { WarningFieldWrapper } from "../field-wrappers/Warning";
-import { PromptFieldWrapper } from "../field-wrappers/Prompt";
-import { ButtonGroupFieldWrapper } from "../field-wrappers/ButtonGroup";
-import { TextInputFieldWrapper } from "../field-wrappers/TextInput";
-
 export const QuestionField: FC<QuestionFieldProps> = ({
   questions,
   question,
@@ -67,11 +57,9 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     );
 
     return warnings.map((question, i) => (
-      <WarningFieldWrapper
-        key={i}
-        question={question as Question<WarningProperties>}
-        onEndFormClickCallback={onEndFormClickCallback}
-      />
+      <Fragment key={i}>
+        {renderWarningField({ question, onEndFormClickCallback })}
+      </Fragment>
     ));
   };
 
@@ -113,102 +101,54 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {generateError(question.name)}
 
                 {/* LINK BUTTON */}
-                {/* {question.type === SupportedFormField.LinkButton &&
+                {question.type === SupportedFormField.LinkButton &&
                   renderLinkButtonField({
                     question: question as Question<LinkButtonProperties>,
                     onEndFormClickCallback,
-                  })} */}
-                {question.type === SupportedFormField.LinkButton && (
-                  <LinkButtonFieldWrapper
-                    question={question as Question<LinkButtonProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                  })}
 
                 {/* RADIO GROUP */}
-                {/* {question.type === SupportedFormField.RadioGroup &&
+                {question.type === SupportedFormField.RadioGroup &&
                   renderRadioGroupField({
                     question: question as Question<RadioGroupProperties>,
                     onEndFormClickCallback,
-                  })} */}
-
-                {question.type === SupportedFormField.RadioGroup && (
-                  <RadioGroupFieldWrapper
-                    question={question as Question<RadioGroupProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                  })}
 
                 {/* TEXT INPUT */}
-                {/* {question.type === SupportedFormField.TextInput &&
+                {question.type === SupportedFormField.TextInput &&
                   renderTextInputField({
                     question: question as Question<TextInputProperties>,
                     onEndFormClickCallback,
-                  })} */}
-                {question.type === SupportedFormField.TextInput && (
-                  <TextInputFieldWrapper
-                    question={question as Question<TextInputProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                  })}
 
                 {/* NEXT QUESTION BUTTON */}
-                {/* {question.type === SupportedFormField.NextQuestionButton &&
+                {question.type === SupportedFormField.NextQuestionButton &&
                   renderNextQuestionButtonField({
                     question:
                       question as Question<NextQuestionButtonProperties>,
                     onEndFormClickCallback,
-                  })} */}
-                {question.type === SupportedFormField.NextQuestionButton && (
-                  <NextQuestionButtonFieldWrapper
-                    question={
-                      question as Question<NextQuestionButtonProperties>
-                    }
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                  })}
 
                 {/* PROMPT */}
-                {/* {question.type === SupportedFormField.Prompt &&
+                {question.type === SupportedFormField.Prompt &&
                   renderPromptField({
                     question: question as Question<PromptProperties>,
-                    onEndFormClickCall
-                    
-                    TextInputFieldWrapperback,
-                  })} */}
-
-                {question.type === SupportedFormField.Prompt && (
-                  <PromptFieldWrapper
-                    question={question as Question<PromptProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                    onEndFormClickCallback,
+                  })}
 
                 {/* WARNING */}
-                {/* {question.type === SupportedFormField.Warning &&
+                {question.type === SupportedFormField.Warning &&
                   renderWarningField({
                     question: question as Question<WarningProperties>,
                     onEndFormClickCallback,
-                  })} */}
+                  })}
 
-                {question.type === SupportedFormField.Warning && (
-                  <WarningFieldWrapper
-                    question={question as Question<WarningProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
                 {/* SUBMIT BUTTON */}
-                {/* {question.type === SupportedFormField.SubmitButton &&
+                {question.type === SupportedFormField.SubmitButton &&
                   renderSubmitButtonField({
                     question: question as Question<SubmitButtonProperties>,
                     onEndFormClickCallback,
-                  })} */}
-                {question.type === SupportedFormField.SubmitButton && (
-                  <SubmitButtonFieldWrapper
-                    question={question as Question<SubmitButtonProperties>}
-                    onEndFormClickCallback={onEndFormClickCallback}
-                  />
-                )}
+                  })}
 
                 {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
@@ -222,7 +162,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
         PROBLEM: Generating the buttons is fine, but how do I generate the next question if it has a transition?
 
         SPECIAL CASE:
-        - Render a ButtonGroupFieldWrapper (responsible for the actual buttons)
+        - Render a ButtonGroupWrapper (responsible for the actual buttons)
         - Map over each button entry and pass it to the recursive generateQuestion to load the next transition
         */
         return (
@@ -230,22 +170,20 @@ export const QuestionField: FC<QuestionFieldProps> = ({
             {renderQuestion(
               <Fragment>
                 {generateError(question.name)}
-                {/* {renderButtonGroupField({
+                {renderButtonGroupField({
                   question: question as Question<ButtonGroupProperties>,
                   onEndFormClickCallback,
-                })} */}
-                <ButtonGroupFieldWrapper
-                  question={question as Question<ButtonGroupProperties>}
-                  onEndFormClickCallback={onEndFormClickCallback}
-                />
+                })}
                 {generateWarnings(question as Question<QuestionFieldType>)}
               </Fragment>
             )}
+            {/* Generate the next question following a button press */}
             {(question.properties as ButtonGroupProperties).buttons.map(
               (button) => {
                 switch (button.type) {
                   case SupportedFormField.LinkButton:
-                  case SupportedFormField.NextQuestionButton: {
+                  case SupportedFormField.NextQuestionButton:
+                  case SupportedFormField.SubmitButton: {
                     return (
                       <Fragment key={button.id}>
                         {generateQuestion(undefined, button)}
@@ -260,37 +198,6 @@ export const QuestionField: FC<QuestionFieldProps> = ({
             )}
           </Fragment>
         );
-        // return (
-        //   <Fragment key={question.id}>
-        //     {renderQuestion(
-        //       <Fragment>
-        //         {generateError(question.name)}
-        //         {renderButtonGroupField({
-        //           question: question as Question<ButtonGroupProperties>,
-        //           onEndFormClickCallback,
-        //         })}
-        //         {generateWarnings(question as Question<QuestionFieldType>)}
-        //       </Fragment>
-        //     )}
-        //     {(question.properties as ButtonGroupProperties).buttons.map(
-        //       (button) => {
-        //         switch (button.type) {
-        //           case SupportedFormField.LinkButton:
-        //           case SupportedFormField.NextQuestionButton: {
-        //             return (
-        //               <Fragment key={button.id}>
-        //                 {generateQuestion(undefined, button)}
-        //               </Fragment>
-        //             );
-        //           }
-        //           default: {
-        //             return null;
-        //           }
-        //         }
-        //       }
-        //     )}
-        //   </Fragment>
-        // );
       }
 
       default: {
@@ -311,6 +218,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     // GENERATE VALUE-BASED SUBFIELDS
     if (subQuestion) {
       const currentValue = getFieldValue(subQuestion.name);
+
       const childQuestions = QuestionFormUtilities.getChildQuestionsForParent(
         questions,
         subQuestion.next,
