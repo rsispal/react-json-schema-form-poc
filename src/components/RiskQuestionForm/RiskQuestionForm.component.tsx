@@ -31,7 +31,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   const handleSubmit = (answers: Record<string, string | undefined>) => {
     const payload: RiskQuestionFormPayload = {
       source: "ONLINE",
-      guidedQuestion: schema.miscellaneous.guidedQuestion,
+      guided_question: schema.miscellaneous.guided_question,
       answers: QuestionFormUtilities.transformAnswers(answers),
     };
     console.log("[RiskQuestionForm] Submit", payload);

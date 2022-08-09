@@ -3,7 +3,7 @@ import { QuestionSchema } from "../QuestionForm/rc-field-form/QuestionForm.types
 
 export interface RiskQuestionFormSchema extends QuestionSchema {
   miscellaneous: {
-    guidedQuestion: string;
+    guided_question: string;
   };
 }
 export interface RiskQuestionFormProps {
@@ -15,6 +15,6 @@ export interface RiskQuestionFormProps {
 
 export type RiskQuestionFormPayload = {
   source: "ONLINE";
-  guidedQuestion: string;
+  guided_question: string;
   answers: Array<{ name: string; answer: string | undefined }>;
 };

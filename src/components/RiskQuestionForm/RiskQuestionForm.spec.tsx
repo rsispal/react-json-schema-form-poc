@@ -104,13 +104,13 @@ export const QuestionFormTestUtilities = {
     expected: RiskQuestionFormPayload
   ) => {
     const doesSourceExist = !!actual.source;
-    const doesGuidedQuestionExist = !!actual.guidedQuestion;
+    const doesguided_questionExist = !!actual.guided_question;
     const doesAnswersExist = !!actual.answers && Array.isArray(actual.answers);
 
     const doPayloadsMatch = JSON.stringify(actual) === JSON.stringify(expected);
     return (
       doesSourceExist &&
-      doesGuidedQuestionExist &&
+      doesguided_questionExist &&
       doesAnswersExist &&
       doPayloadsMatch
     );
@@ -536,7 +536,7 @@ describe("<RiskQuestionForm /> Page", () => {
 
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -856,7 +856,7 @@ describe("<RiskQuestionForm /> Page", () => {
 
     cy.wrap(onSubmitCallback).should("have.been.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -1384,7 +1384,7 @@ describe("<RiskQuestionForm /> Page", () => {
 
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -1751,7 +1751,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -2178,7 +2178,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -2474,7 +2474,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.clickSubmitButton("Form_Submit");
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",
@@ -2864,7 +2864,7 @@ describe("<RiskQuestionForm /> Page", () => {
 
     cy.wrap(onSubmitCallback).should("be.calledWithExactly", {
       source: "ONLINE",
-      guidedQuestion: "Q1",
+      guided_question: "Q1",
       answers: [
         {
           name: "Q1",

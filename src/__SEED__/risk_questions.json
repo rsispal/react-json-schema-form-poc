@@ -3,7 +3,7 @@
   "schemaVersionMinor": 0,
   "formName": "Risk Form",
   "miscellaneous": {
-    "guidedQuestion": "Q1"
+    "guided_question": "Q1"
   },
   "questions": [
     {
