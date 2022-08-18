@@ -7,7 +7,7 @@ import {
   NextQuestionButtonProperties,
   PromptProperties,
   Question,
-  QuestionFieldType,
+  QuestionFieldProperties,
   RadioGroupProperties,
   SubmitButtonProperties,
   TextInputProperties,
@@ -19,8 +19,8 @@ export interface QuestionFieldRenderProps<T> {
   onEndFormClickCallback: () => void;
 }
 export interface QuestionFieldProps {
-  question: Question<QuestionFieldType>;
-  questions: Question<QuestionFieldType>[];
+  question: Question<QuestionFieldProperties>;
+  questions: Question<QuestionFieldProperties>[];
   renderQuestion: (children: ReactElement) => ReactElement;
   values: Record<string, string | undefined>;
   errors: ValidateError[];

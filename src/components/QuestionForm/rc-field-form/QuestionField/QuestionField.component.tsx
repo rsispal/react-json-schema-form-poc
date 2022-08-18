@@ -10,7 +10,7 @@ import {
   NextQuestionButtonProperties,
   PromptProperties,
   Question,
-  QuestionFieldType,
+  QuestionFieldProperties,
   RadioGroupProperties,
   SubmitButtonProperties,
   SupportedFormField,
@@ -47,7 +47,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       )
     );
 
-  const generateWarnings = (question: Question<QuestionFieldType>) => {
+  const generateWarnings = (question: Question<QuestionFieldProperties>) => {
     const currentValue = getFieldValue(question.name);
 
     const warnings = QuestionFormUtilities.getWarningQuestionsForParent(
@@ -64,7 +64,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     ));
   };
 
-  const generateField = (question: Question<QuestionFieldType>) => {
+  const generateField = (question: Question<QuestionFieldProperties>) => {
     const currentValue = getFieldValue(question.name);
     const doesFieldHaveError =
       QuestionFormUtilities.getFieldErrorsByFieldName(question.name, errors)
@@ -151,7 +151,9 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                     onEndFormClickCallback,
                   })}
 
-                {generateWarnings(question as Question<QuestionFieldType>)}
+                {generateWarnings(
+                  question as Question<QuestionFieldProperties>
+                )}
               </Fragment>
             )}
             {canShowNextQuestion && generateQuestion(undefined, question)}
@@ -175,7 +177,9 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                   question: question as Question<ButtonGroupProperties>,
                   onEndFormClickCallback,
                 })}
-                {generateWarnings(question as Question<QuestionFieldType>)}
+                {generateWarnings(
+                  question as Question<QuestionFieldProperties>
+                )}
               </Fragment>
             )}
             {/* Generate the next question following a button press */}
@@ -208,8 +212,8 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   };
 
   const generateQuestion = (
-    question: Question<QuestionFieldType> | undefined,
-    subQuestion: Question<QuestionFieldType> | undefined
+    question: Question<QuestionFieldProperties> | undefined,
+    subQuestion: Question<QuestionFieldProperties> | undefined
   ): ReactElement | null => {
     //  GENERATE MAIN FIELD
     if (question) {

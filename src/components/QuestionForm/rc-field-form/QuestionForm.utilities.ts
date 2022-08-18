@@ -7,7 +7,7 @@ import Schema, {
 import {
   NextFieldTransition,
   Question,
-  QuestionFieldType,
+  QuestionFieldProperties,
   RadioGroupProperties,
   SupportedFormField,
   WarningProperties,
@@ -19,16 +19,18 @@ export namespace QuestionFormUtilities {
    * @param questions {Question[]} - array of questions
    * @returns Question | undefined
    */
-  export const getFirstQuestion = (questions: Question<QuestionFieldType>[]) =>
-    questions.at(0);
+  export const getFirstQuestion = (
+    questions: Question<QuestionFieldProperties>[]
+  ) => questions.at(0);
 
   /**
    * @function getLastQuestion - get the last question from an array of questions
    * @param questions {Question[]} - array of questions
    * @returns Question | undefined
    */
-  export const getLastQuestion = (questions: Question<QuestionFieldType>[]) =>
-    questions.at(questions.length - 1);
+  export const getLastQuestion = (
+    questions: Question<QuestionFieldProperties>[]
+  ) => questions.at(questions.length - 1);
 
   /**
    * @function getAllParentQuestions - get non-child questions from an array of questions
@@ -36,7 +38,7 @@ export namespace QuestionFormUtilities {
    * @returns Question[]
    */
   export const getAllParentQuestions = (
-    questions: Question<QuestionFieldType>[]
+    questions: Question<QuestionFieldProperties>[]
   ) => questions.filter(({ exclude }) => exclude === false);
 
   /**
@@ -46,7 +48,7 @@ export namespace QuestionFormUtilities {
    * @returns Question | undefined
    */
   export const getQuestionByName = (
-    questions: Question<QuestionFieldType>[],
+    questions: Question<QuestionFieldProperties>[],
     name: string
   ) => questions.filter((q) => q.name === name).at(0);
 
@@ -59,7 +61,7 @@ export namespace QuestionFormUtilities {
    * @returns Question[]
    */
   export const getChildQuestionsForParent = (
-    questions: Question<QuestionFieldType>[],
+    questions: Question<QuestionFieldProperties>[],
     transitions: NextFieldTransition[] | undefined,
     currentValue: string | undefined,
     errors: ValidateError[]
@@ -96,7 +98,7 @@ export namespace QuestionFormUtilities {
    * @returns Question[]
    */
   export const getWarningQuestionsForParent = (
-    questions: Question<QuestionFieldType>[],
+    questions: Question<QuestionFieldProperties>[],
     childQuestions: NextFieldTransition[] | undefined,
     currentValue: string | undefined,
     errors: ValidateError[]
@@ -146,7 +148,7 @@ export namespace QuestionFormUtilities {
    * @returns RadioOption | undefined
    */
   export const getRadioGroupOptionForQuestionByValue = (
-    question: Question<QuestionFieldType>,
+    question: Question<QuestionFieldProperties>,
     currentValue: string
   ) => {
     if (question.type === SupportedFormField.RadioGroup) {
@@ -177,10 +179,10 @@ export namespace QuestionFormUtilities {
    * @returns boolean
    */
   export const haveWarningsForQuestionBeenAcknowledged = (
-    question: Question<QuestionFieldType>,
+    question: Question<QuestionFieldProperties>,
     currentValue: string | undefined,
     values: Record<string, string | undefined>,
-    questions: Question<QuestionFieldType>[]
+    questions: Question<QuestionFieldProperties>[]
   ) => {
     let haveWarningsBeenAcknowledged = false;
 
@@ -230,7 +232,7 @@ export namespace QuestionFormUtilities {
    * @returns Promise: ValidateError[] (validation error),  undefined (validation success)
    */
   export const validate = async (
-    questions: Question<QuestionFieldType>[],
+    questions: Question<QuestionFieldProperties>[],
     values: Record<string, string | undefined>
   ) => {
     const questionNames = Object.keys(values);

@@ -9,7 +9,7 @@ export type QuestionSchema = {
   schemaVersionMinor: number;
   formName: string;
   miscellaneous: Record<string, any>;
-  questions: Question<QuestionFieldType>[];
+  questions: Question<QuestionFieldProperties>[];
 };
 
 export interface QuestionFormProps extends QuestionSchema {
@@ -114,7 +114,7 @@ export enum SupportedFormField {
   SubmitButton = "SubmitButton",
 }
 
-export type QuestionFieldType =
+export type QuestionFieldProperties =
   | RadioGroupProperties
   | TextInputProperties
   | LinkButtonProperties
