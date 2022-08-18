@@ -1,5 +1,5 @@
 /* Libraries */
-import { FC, ReactElement, useState } from "react";
+import { FC, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 
 /* Components */
@@ -27,19 +27,6 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
     setSubmission(results);
   };
 
-  const renderQuestionField = (children: ReactElement) => (
-    <Box
-      bg="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      boxShadow="xl"
-      padding={6}
-      margin={6}
-    >
-      {children}
-    </Box>
-  );
-
   return (
     <PageLayout
       title="Risk Questions"
@@ -56,7 +43,6 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
         schema={SeedQuestions as unknown as RiskQuestionFormSchema}
         onEndFormCallback={() => undefined}
         onSubmitCallback={handleFormSubmit}
-        renderQuestion={renderQuestionField}
       />
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>

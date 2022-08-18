@@ -10,7 +10,6 @@ export interface RiskQuestionFormProps {
   schema: RiskQuestionFormSchema;
   onSubmitCallback: (results: RiskQuestionFormPayload) => void;
   onEndFormCallback: (results: Record<string, string | undefined>) => void;
-  renderQuestion: (children: ReactElement) => ReactElement;
 }
 
 export type RiskQuestionFormPayload = {

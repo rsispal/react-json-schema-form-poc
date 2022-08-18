@@ -1,7 +1,5 @@
 /* eslint-disable testing-library/await-async-query */
 /* eslint-disable testing-library/prefer-screen-queries */
-import { Box } from "@chakra-ui/react";
-
 import { mountWithProps } from "../cypress-component-wrapper";
 
 import { RiskQuestionForm } from "./";
@@ -290,19 +288,6 @@ describe("<RiskQuestionForm /> Page", () => {
       schema: RiskQuestionsSchema as RiskQuestionFormProps["schema"],
       onSubmitCallback,
       onEndFormCallback,
-      renderQuestion: (children) => (
-        <Box
-          bg="white"
-          borderWidth="1px"
-          borderRadius="lg"
-          boxShadow="xl"
-          padding={6}
-          margin={6}
-          width={800}
-        >
-          {children}
-        </Box>
-      ),
     });
   });
 
