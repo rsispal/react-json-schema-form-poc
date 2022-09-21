@@ -5,368 +5,40 @@
   "miscellaneous": {},
   "questions": [
     {
-      "id": "Q0",
-      "name": "Q0",
-      "exclude": false,
-      "type": "RadioGroup",
-      "prompt": "Question 0",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [
-        {
-          "equals": "NO",
-          "question": "Q0_Warning"
-        }
-      ],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q0_NextBtn"
-        },
-        {
-          "equals": "NO",
-          "question": "Q0_NextBtn"
-        }
-      ]
-    },
-
-    {
-      "id": "Q0_NextBtn",
-      "name": "Q0_NextBtn",
-      "exclude": false,
-      "type": "NextQuestionButton",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "label": "Next question"
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "SELECTED",
-          "question": "Q0_Prompt"
-        }
-      ]
-    },
-    {
-      "id": "Q0_Warning",
-      "name": "Q0_Warning",
-      "exclude": false,
-      "type": "Warning",
-      "properties": {
-        "prompt": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "This is a warning because you selected no"
-              }
-            ]
-          }
-        ],
-        "continueButtonLabel": "I agree, continue",
-        "endFormButtonLabel": "End risk questions"
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "SELECTED",
-          "question": "Q1"
-        }
-      ]
-    },
-
-    {
-      "id": "Q0_Prompt",
-      "name": "Q0_Prompt",
-      "exclude": false,
-      "type": "Prompt",
-      "properties": {
-        "prompt": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "What you do with your pension is an important decision. If you haven't received "
-              },
-              {
-                "type": "url",
-                "label": "Pension Wise",
-                "url": "https://www.pensionwise.gov.uk/"
-              },
-              {
-                "type": "text",
-                "value": " guidance or "
-              },
-              {
-                "type": "url",
-                "label": "personal advice",
-                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
-              },
-              {
-                "type": "text",
-                "value": ", we strongly suggest you do this before proceeding."
-              }
-            ]
-          }
-        ],
-        "continueButtonLabel": "I agree, continue",
-        "endFormButtonLabel": "End risk questions",
-        "showEndFormButton": true
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "SELECTED",
-          "question": "Q1"
-        }
-      ]
-    },
-
-    {
       "id": "Q1",
       "name": "Q1",
       "exclude": false,
-      "type": "RadioGroup",
-      "prompt": "This is question 1. Yes and No both have linked children",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes (show a link button)"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [
-        {
-          "equals": "NO",
-          "question": "Q1_Warning"
-        }
-      ],
-      "validation": [],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q1_1_Y"
-        },
-        {
-          "equals": "NO",
-          "question": "Q1_1_N"
-        }
-      ]
-    },
-
-    {
-      "id": "Q1_Warning",
-      "name": "Q1_Warning",
-      "exclude": false,
-      "type": "Warning",
-      "properties": {
-        "prompt": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "This is a warning because you selected no"
-              }
-            ]
-          }
-        ],
-        "continueButtonLabel": "I agree, continue",
-        "endFormButtonLabel": "End risk questions"
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "SELECTED",
-          "question": "Q1"
-        }
-      ]
-    },
-
-    {
-      "id": "Q1_1_Y",
-      "name": "Q1_1_Y",
-      "exclude": true,
-      "type": "LinkButton",
-      "prompt": "You can click the button below to access a specific website resource",
-      "properties": {
-        "disabled": false,
-        "label": "Go to specific website",
-        "url": "https://www.google.co.uk",
-        "target": "_blank"
-      },
-      "warnings": [],
-      "next": []
-    },
-
-    {
-      "id": "Q1_1_N",
-      "name": "Q1_1_N",
-      "exclude": true,
-      "type": "RadioGroup",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "A",
-            "label": "Option A"
-          },
-          {
-            "value": "B",
-            "label": "Option B"
-          },
-          {
-            "value": "C",
-            "label": "Option C (show a link button)"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "A",
-          "question": "Q2"
-        },
-        {
-          "equals": "B",
-          "question": "Q2"
-        },
-        {
-          "equals": "C",
-          "question": "Q1_1_N_C"
-        }
-      ]
-    },
-
-    {
-      "id": "Q1_1_N_C",
-      "name": "Q1_1_N_C",
-      "exclude": true,
-      "type": "LinkButton",
-      "prompt": "",
-      "properties": {
-        "disabled": false,
-        "label": "Resource specific to option C",
-        "url": "https://www.google.co.uk",
-        "target": "_blank"
-      },
-      "warnings": [],
-      "next": []
-    },
-
-    {
-      "id": "Q2",
-      "name": "Q2",
-      "exclude": false,
-      "type": "RadioGroup",
-      "prompt": "Question 2",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q3"
-        },
-        {
-          "equals": "NO",
-          "question": "Q3"
-        }
-      ]
-    },
-
-    {
-      "id": "Q3",
-      "name": "Q3",
-      "exclude": false,
-      "type": "RadioGroup",
-      "prompt": "Question 3",
-      "properties": {
-        "disabled": false,
-        "options": [
-          {
-            "value": "YES",
-            "label": "Yes"
-          },
-          {
-            "value": "NO",
-            "label": "No"
-          }
-        ]
-      },
-      "warnings": [],
-      "next": [
-        {
-          "equals": "YES",
-          "question": "Q4"
-        },
-        {
-          "equals": "NO",
-          "question": "Q4"
-        }
-      ]
-    },
-    {
-      "id": "Q4",
-      "name": "Q4",
-      "exclude": false,
       "type": "TextInput",
-      "prompt": "Question 4",
+      "prompt": "Question 1",
       "properties": {
         "disabled": false,
         "placeholder": "Enter a value",
         "defaultValue": null
       },
-      "validation": [{ "required": true, "message": "You must enter a value" }],
+      "validation": [
+        {
+          "required": true,
+          "message": "You must enter a value of length 6",
+          "len": 6
+        }
+      ],
       "warnings": [],
       "next": [
         {
           "valid": true,
-          "question": "Q5_SubmitButton"
+          "question": "Q2"
         }
       ]
     },
     {
-      "id": "Q5_SubmitButton",
-      "name": "Q5_SubmitButton",
+      "id": "Q2",
+      "name": "Q2",
       "exclude": false,
       "type": "SubmitButton",
       "prompt": "",
       "properties": {
         "disabled": false,
-        "label": "Submit this form"
+        "label": "Submit"
       },
       "warnings": [],
       "next": []

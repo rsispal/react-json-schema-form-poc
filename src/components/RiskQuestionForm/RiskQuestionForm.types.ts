@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import { QuestionSchema } from "../QuestionForm/rc-field-form/QuestionForm.types";
 
 export interface RiskQuestionFormSchema extends QuestionSchema {

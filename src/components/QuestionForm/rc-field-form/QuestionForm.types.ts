@@ -14,6 +14,7 @@ export type QuestionSchema = {
 
 export interface QuestionFormProps extends QuestionSchema {
   showAllQuestions?: boolean;
+  initialValues?: Record<string, string | undefined>;
   onChangeCallback?: (results: Record<string, string | undefined>) => void;
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
   renderQuestion: (children: ReactElement) => ReactElement;

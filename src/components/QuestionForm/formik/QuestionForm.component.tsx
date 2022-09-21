@@ -14,6 +14,7 @@ import { ValidateError } from "async-validator";
 
 export const QuestionForm: FC<QuestionFormProps> = ({
   showAllQuestions,
+  initialValues,
   schemaVersionMajor,
   schemaVersionMinor,
   formName,
@@ -35,8 +36,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const [values, setValues] = useState<Record<string, string | undefined>>({});
   const [errors, setErrors] = useState<ValidateError[]>([]);
 
-  const getInitialValues = () => ({});
-
   const runAsyncValidator = async (
     answers: Record<string, string | undefined>
   ) => {
@@ -56,7 +55,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     }
   };
 
-  const initialValues = getInitialValues();
   const dataset = QuestionFormUtilities.getAllParentQuestions(questions);
 
   const handleChange = (values: Record<string, string | undefined>) => {
@@ -67,11 +65,15 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialValues ?? {}}
       validate={handleChange}
       onSubmit={handleSubmit}
     >
-      <Form name={formName}>
+      <Form
+        name={formName}
+        data-schemaversionmajor={schemaVersionMajor}
+        data-schemaversionminor={schemaVersionMinor}
+      >
         {(showAllQuestions ? dataset : dataset.slice(0, 1)).map((q, i) => (
           <QuestionField
             key={i}
