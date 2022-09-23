@@ -1,7 +1,6 @@
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 import { FieldProps } from "rc-field-form/es/Field";
 import { DynamicTextParagraph } from "../../DynamicText/DynamicText.types";
-import { QuestionFieldRenderProps } from "./QuestionField/QuestionField.types";
 import { ValidateError } from "async-validator";
 
 export type QuestionSchema = {
@@ -12,38 +11,20 @@ export type QuestionSchema = {
   questions: Question<QuestionFieldProperties>[];
 };
 
+export type QuestionFormRenderProps = {
+  questionsToRender: Question<QuestionFieldProperties>[];
+  values: Record<string, string | undefined>;
+  errors: ValidateError[];
+  allQuestions: Question<QuestionFieldProperties>[];
+  onEndFormClickCallback: () => void;
+};
+
 export interface QuestionFormProps extends QuestionSchema {
-  showAllQuestions?: boolean;
   initialValues?: Record<string, string | undefined>;
   onChangeCallback?: (results: Record<string, string | undefined>) => void;
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
-  renderQuestion: (children: ReactElement) => ReactElement;
   onEndFormClickCallback: () => void;
-  renderLinkButtonField: (
-    props: QuestionFieldRenderProps<LinkButtonProperties>
-  ) => ReactElement;
-  renderRadioGroupField: (
-    props: QuestionFieldRenderProps<RadioGroupProperties>
-  ) => ReactElement;
-  renderTextInputField: (
-    props: QuestionFieldRenderProps<TextInputProperties>
-  ) => ReactElement;
-  renderNextQuestionButtonField: (
-    props: QuestionFieldRenderProps<NextQuestionButtonProperties>
-  ) => ReactElement;
-  renderButtonGroupField: (
-    props: QuestionFieldRenderProps<ButtonGroupProperties>
-  ) => ReactElement;
-  renderPromptField: (
-    props: QuestionFieldRenderProps<PromptProperties>
-  ) => ReactElement;
-  renderWarningField: (
-    props: QuestionFieldRenderProps<WarningProperties>
-  ) => ReactElement;
-  renderFieldErrorMessage: (error: ValidateError) => ReactElement;
-  renderSubmitButtonField: (
-    props: QuestionFieldRenderProps<SubmitButtonProperties>
-  ) => ReactElement;
+  children: (props: QuestionFormRenderProps) => ReactElement | ReactElement[];
 }
 
 export type Question<T> = {

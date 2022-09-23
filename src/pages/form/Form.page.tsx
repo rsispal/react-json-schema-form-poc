@@ -8,10 +8,13 @@ import {
   QuestionForm as QuestionFormRCFieldForm,
   QuestionFormUtilities as QuestionFormUtilitiesRCFieldForm,
 } from "../../components/QuestionForm/rc-field-form";
+import { QuestionField as QuestionFieldRCFieldForm } from "../../components/QuestionForm/rc-field-form/QuestionField";
+
 import {
   QuestionForm as QuestionFormFormik,
   QuestionFormUtilities as QuestionFormUtilitiesFormik,
 } from "../../components/QuestionForm/formik";
+import { QuestionField as QuestionFieldFormik } from "../../components/QuestionForm/formik/QuestionField";
 
 import { ButtonGroupFieldWrapper } from "../../components/QuestionForm/formik/field-wrappers/ButtonGroup";
 import { LinkButtonFieldWrapper } from "../../components/QuestionForm/formik/field-wrappers/LinkButton";
@@ -63,52 +66,108 @@ export const FormPage: FC<FormPageProps> = () => {
 
   const renderFormikVariant = () => (
     <QuestionFormFormik
-      {...(SeedQuestions as unknown as QuestionSchemaFormik)}
-      onEndFormClickCallback={() => undefined}
       onSubmitCallback={handleFormSubmit}
       onChangeCallback={(values) => setChangedValues(values)}
-      renderQuestion={renderQuestionField}
-      renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
-      renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
-      renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
-      renderNextQuestionButtonField={(props) => (
-        <NextQuestionButtonFieldWrapper {...props} />
-      )}
-      renderButtonGroupField={(props) => <ButtonGroupFieldWrapper {...props} />}
-      renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-      renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-      renderFieldErrorMessage={(error) => (
-        <Text color="red">{error.message}</Text>
-      )}
-      renderSubmitButtonField={(props) => (
-        <SubmitButtonFieldWrapper {...props} />
-      )}
-    />
+      onEndFormClickCallback={() => undefined}
+      {...(SeedQuestions as unknown as QuestionSchemaFormik)}
+    >
+      {({
+        questionsToRender,
+        values,
+        errors,
+        allQuestions,
+        onEndFormClickCallback,
+      }) =>
+        questionsToRender.map((question, key) => (
+          <QuestionFieldFormik
+            key={key}
+            question={question}
+            questions={allQuestions}
+            renderQuestion={renderQuestionField}
+            values={values}
+            errors={errors}
+            onEndFormClickCallback={onEndFormClickCallback}
+            renderLinkButtonField={(props) => (
+              <LinkButtonFieldWrapper {...props} />
+            )}
+            renderRadioGroupField={(props) => (
+              <RadioGroupFieldWrapper {...props} />
+            )}
+            renderTextInputField={(props) => (
+              <TextInputFieldWrapper {...props} />
+            )}
+            renderNextQuestionButtonField={(props) => (
+              <NextQuestionButtonFieldWrapper {...props} />
+            )}
+            renderButtonGroupField={(props) => (
+              <ButtonGroupFieldWrapper {...props} />
+            )}
+            renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+            renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+            renderSubmitButtonField={(props) => (
+              <SubmitButtonFieldWrapper {...props} />
+            )}
+            renderFieldErrorMessage={(error) => (
+              <Text color="red">{error.message}</Text>
+            )}
+          />
+        ))
+      }
+    </QuestionFormFormik>
   );
 
   const renderRCFieldFormVariant = () => (
     <QuestionFormRCFieldForm
-      {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
-      onEndFormClickCallback={() => undefined}
       onSubmitCallback={handleFormSubmit}
       onChangeCallback={(values) => setChangedValues(values)}
-      renderQuestion={renderQuestionField}
-      renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
-      renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
-      renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
-      renderNextQuestionButtonField={(props) => (
-        <NextQuestionButtonFieldWrapper {...props} />
-      )}
-      renderButtonGroupField={(props) => <ButtonGroupFieldWrapper {...props} />}
-      renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-      renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-      renderFieldErrorMessage={(error) => (
-        <Text color="red">{error.message}</Text>
-      )}
-      renderSubmitButtonField={(props) => (
-        <SubmitButtonFieldWrapper {...props} />
-      )}
-    />
+      onEndFormClickCallback={() => undefined}
+      {...(SeedQuestions as unknown as QuestionSchemaRCFieldForm)}
+    >
+      {({
+        form,
+        questionsToRender,
+        values,
+        errors,
+        allQuestions,
+        onEndFormClickCallback,
+      }) =>
+        questionsToRender.map((question, key) => (
+          <QuestionFieldRCFieldForm
+            key={key}
+            form={form}
+            question={question}
+            questions={allQuestions}
+            renderQuestion={renderQuestionField}
+            values={values}
+            errors={errors}
+            onEndFormClickCallback={onEndFormClickCallback}
+            renderLinkButtonField={(props) => (
+              <LinkButtonFieldWrapper {...props} />
+            )}
+            renderRadioGroupField={(props) => (
+              <RadioGroupFieldWrapper {...props} />
+            )}
+            renderTextInputField={(props) => (
+              <TextInputFieldWrapper {...props} />
+            )}
+            renderNextQuestionButtonField={(props) => (
+              <NextQuestionButtonFieldWrapper {...props} />
+            )}
+            renderButtonGroupField={(props) => (
+              <ButtonGroupFieldWrapper {...props} />
+            )}
+            renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+            renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+            renderSubmitButtonField={(props) => (
+              <SubmitButtonFieldWrapper {...props} />
+            )}
+            renderFieldErrorMessage={(error) => (
+              <Text color="red">{error.message}</Text>
+            )}
+          />
+        ))
+      }
+    </QuestionFormRCFieldForm>
   );
 
   const renderBackOfficeAnswers = () => {

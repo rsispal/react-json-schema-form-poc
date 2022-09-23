@@ -7,6 +7,7 @@ import {
   QuestionForm,
   QuestionFormUtilities,
 } from "../../components/QuestionForm/formik";
+import { QuestionField } from "components/QuestionForm/formik/QuestionField";
 
 /* Constants */
 import SeedQuestions from "../../__SEED__/basic.json";
@@ -78,29 +79,54 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
       goBackRoute={Routes.ROUTE__HOME}
     >
       <QuestionForm
-        {...(SeedQuestions as unknown as QuestionSchema)}
-        onEndFormClickCallback={() => undefined}
         onSubmitCallback={handleFormSubmit}
         onChangeCallback={(values) => setChangedValues(values)}
-        renderQuestion={renderQuestionField}
-        renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
-        renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
-        renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
-        renderNextQuestionButtonField={(props) => (
-          <NextQuestionButtonFieldWrapper {...props} />
-        )}
-        renderButtonGroupField={(props) => (
-          <ButtonGroupFieldWrapper {...props} />
-        )}
-        renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-        renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-        renderFieldErrorMessage={(error) => (
-          <Text color="red">{error.message}</Text>
-        )}
-        renderSubmitButtonField={(props) => (
-          <SubmitButtonFieldWrapper {...props} />
-        )}
-      />
+        onEndFormClickCallback={() => undefined}
+        {...(SeedQuestions as unknown as QuestionSchema)}
+      >
+        {({
+          questionsToRender,
+          values,
+          errors,
+          allQuestions,
+          onEndFormClickCallback,
+        }) =>
+          questionsToRender.map((question, key) => (
+            <QuestionField
+              key={key}
+              question={question}
+              questions={allQuestions}
+              renderQuestion={renderQuestionField}
+              values={values}
+              errors={errors}
+              onEndFormClickCallback={onEndFormClickCallback}
+              renderLinkButtonField={(props) => (
+                <LinkButtonFieldWrapper {...props} />
+              )}
+              renderRadioGroupField={(props) => (
+                <RadioGroupFieldWrapper {...props} />
+              )}
+              renderTextInputField={(props) => (
+                <TextInputFieldWrapper {...props} />
+              )}
+              renderNextQuestionButtonField={(props) => (
+                <NextQuestionButtonFieldWrapper {...props} />
+              )}
+              renderButtonGroupField={(props) => (
+                <ButtonGroupFieldWrapper {...props} />
+              )}
+              renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+              renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+              renderSubmitButtonField={(props) => (
+                <SubmitButtonFieldWrapper {...props} />
+              )}
+              renderFieldErrorMessage={(error) => (
+                <Text color="red">{error.message}</Text>
+              )}
+            />
+          ))
+        }
+      </QuestionForm>
       <Box paddingTop={20}>
         <Heading>BackOffice Results Preview</Heading>
         {renderBackOfficeAnswers()}

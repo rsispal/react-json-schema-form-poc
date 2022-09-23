@@ -2,9 +2,6 @@
 import { FC, useState } from "react";
 import { Formik, Form } from "formik";
 
-/* Components */
-import { QuestionField } from "./QuestionField";
-
 /* Utilities */
 import { QuestionFormUtilities } from "./QuestionForm.utilities";
 
@@ -13,7 +10,7 @@ import { QuestionFormProps } from "./QuestionForm.types";
 import { ValidateError } from "async-validator";
 
 export const QuestionForm: FC<QuestionFormProps> = ({
-  showAllQuestions,
+  children,
   initialValues,
   schemaVersionMajor,
   schemaVersionMinor,
@@ -21,17 +18,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   questions,
   onChangeCallback,
   onSubmitCallback,
-  renderQuestion,
   onEndFormClickCallback,
-  renderLinkButtonField,
-  renderRadioGroupField,
-  renderTextInputField,
-  renderNextQuestionButtonField,
-  renderButtonGroupField,
-  renderPromptField,
-  renderWarningField,
-  renderFieldErrorMessage,
-  renderSubmitButtonField,
 }) => {
   const [values, setValues] = useState<Record<string, string | undefined>>({});
   const [errors, setErrors] = useState<ValidateError[]>([]);
@@ -74,26 +61,13 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         data-schemaversionmajor={schemaVersionMajor}
         data-schemaversionminor={schemaVersionMinor}
       >
-        {(showAllQuestions ? dataset : dataset.slice(0, 1)).map((q, i) => (
-          <QuestionField
-            key={i}
-            question={q}
-            questions={questions}
-            renderQuestion={renderQuestion}
-            values={values}
-            errors={errors}
-            onEndFormClickCallback={onEndFormClickCallback}
-            renderLinkButtonField={renderLinkButtonField}
-            renderRadioGroupField={renderRadioGroupField}
-            renderTextInputField={renderTextInputField}
-            renderNextQuestionButtonField={renderNextQuestionButtonField}
-            renderButtonGroupField={renderButtonGroupField}
-            renderPromptField={renderPromptField}
-            renderWarningField={renderWarningField}
-            renderFieldErrorMessage={renderFieldErrorMessage}
-            renderSubmitButtonField={renderSubmitButtonField}
-          />
-        ))}
+        {children({
+          questionsToRender: dataset.slice(0, 1),
+          values,
+          errors,
+          allQuestions: questions,
+          onEndFormClickCallback,
+        })}
       </Form>
     </Formik>
   );

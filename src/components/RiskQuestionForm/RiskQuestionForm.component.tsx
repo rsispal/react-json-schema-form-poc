@@ -20,6 +20,7 @@ import {
   RiskQuestionFormPayload,
   RiskQuestionFormProps,
 } from "./RiskQuestionForm.types";
+import { QuestionField } from "components/QuestionForm/formik/QuestionField";
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   schema,
@@ -81,30 +82,54 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
       <QuestionForm
-        showAllQuestions={false}
-        renderQuestion={generateQuestionFieldCard}
         onSubmitCallback={handleSubmit}
         onChangeCallback={handleFormChange}
         onEndFormClickCallback={handleEndFormClick}
-        renderLinkButtonField={(props) => <LinkButtonFieldWrapper {...props} />}
-        renderRadioGroupField={(props) => <RadioGroupFieldWrapper {...props} />}
-        renderTextInputField={(props) => <TextInputFieldWrapper {...props} />}
-        renderNextQuestionButtonField={(props) => (
-          <NextQuestionButtonFieldWrapper {...props} />
-        )}
-        renderButtonGroupField={(props) => (
-          <ButtonGroupFieldWrapper {...props} />
-        )}
-        renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-        renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-        renderSubmitButtonField={(props) => (
-          <SubmitButtonFieldWrapper {...props} />
-        )}
-        renderFieldErrorMessage={(error) => (
-          <Text color="red">{error.message}</Text>
-        )}
         {...schema}
-      />
+      >
+        {({
+          questionsToRender,
+          values,
+          errors,
+          allQuestions,
+          onEndFormClickCallback,
+        }) =>
+          questionsToRender.map((question, key) => (
+            <QuestionField
+              key={key}
+              question={question}
+              questions={allQuestions}
+              renderQuestion={generateQuestionFieldCard}
+              values={values}
+              errors={errors}
+              onEndFormClickCallback={onEndFormClickCallback}
+              renderLinkButtonField={(props) => (
+                <LinkButtonFieldWrapper {...props} />
+              )}
+              renderRadioGroupField={(props) => (
+                <RadioGroupFieldWrapper {...props} />
+              )}
+              renderTextInputField={(props) => (
+                <TextInputFieldWrapper {...props} />
+              )}
+              renderNextQuestionButtonField={(props) => (
+                <NextQuestionButtonFieldWrapper {...props} />
+              )}
+              renderButtonGroupField={(props) => (
+                <ButtonGroupFieldWrapper {...props} />
+              )}
+              renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+              renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+              renderSubmitButtonField={(props) => (
+                <SubmitButtonFieldWrapper {...props} />
+              )}
+              renderFieldErrorMessage={(error) => (
+                <Text color="red">{error.message}</Text>
+              )}
+            />
+          ))
+        }
+      </QuestionForm>
     </Flex>
   );
 };

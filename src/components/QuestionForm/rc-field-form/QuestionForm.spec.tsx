@@ -4,6 +4,7 @@ import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { mountWithProps } from "../../cypress-component-wrapper";
 import { QuestionForm } from "./QuestionForm.component";
+import { QuestionField } from "./QuestionField/";
 
 import { ButtonGroupFieldWrapper } from "./field-wrappers/ButtonGroup";
 import { LinkButtonFieldWrapper } from "./field-wrappers/LinkButton";
@@ -115,35 +116,61 @@ describe("<QuestionForm /> Page", () => {
     onEndFormClickCallback = cy.stub();
     mountWithProps<QuestionFormProps>(QuestionForm, {
       ...(SeedQuestions as unknown as QuestionSchema),
-      showAllQuestions: false,
       onSubmitCallback,
       onEndFormClickCallback,
-      renderQuestion: (children) => (
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          boxShadow="xl"
-          padding={6}
-          margin={6}
-        >
-          {children}
-        </Box>
-      ),
-      renderLinkButtonField: (props) => <LinkButtonFieldWrapper {...props} />,
-      renderRadioGroupField: (props) => <RadioGroupFieldWrapper {...props} />,
-      renderTextInputField: (props) => <TextInputFieldWrapper {...props} />,
-      renderNextQuestionButtonField: (props) => (
-        <NextQuestionButtonFieldWrapper {...props} />
-      ),
-      renderButtonGroupField: (props) => <ButtonGroupFieldWrapper {...props} />,
-      renderPromptField: (props) => <PromptFieldWrapper {...props} />,
-      renderWarningField: (props) => <WarningFieldWrapper {...props} />,
-      renderFieldErrorMessage: (error) => (
-        <Text color="red">{error.message}</Text>
-      ),
-      renderSubmitButtonField: (props) => (
-        <SubmitButtonFieldWrapper {...props} />
-      ),
+      children: ({
+        form,
+        questionsToRender,
+        values,
+        errors,
+        allQuestions,
+        onEndFormClickCallback,
+      }) =>
+        questionsToRender.map((question, key) => (
+          <QuestionField
+            key={key}
+            form={form}
+            question={question}
+            questions={allQuestions}
+            renderQuestion={(children) => (
+              <Box
+                borderWidth="1px"
+                borderRadius="lg"
+                boxShadow="xl"
+                padding={6}
+                margin={6}
+              >
+                {children}
+              </Box>
+            )}
+            values={values}
+            errors={errors}
+            onEndFormClickCallback={onEndFormClickCallback}
+            renderLinkButtonField={(props) => (
+              <LinkButtonFieldWrapper {...props} />
+            )}
+            renderRadioGroupField={(props) => (
+              <RadioGroupFieldWrapper {...props} />
+            )}
+            renderTextInputField={(props) => (
+              <TextInputFieldWrapper {...props} />
+            )}
+            renderNextQuestionButtonField={(props) => (
+              <NextQuestionButtonFieldWrapper {...props} />
+            )}
+            renderButtonGroupField={(props) => (
+              <ButtonGroupFieldWrapper {...props} />
+            )}
+            renderPromptField={(props) => <PromptFieldWrapper {...props} />}
+            renderWarningField={(props) => <WarningFieldWrapper {...props} />}
+            renderSubmitButtonField={(props) => (
+              <SubmitButtonFieldWrapper {...props} />
+            )}
+            renderFieldErrorMessage={(error) => (
+              <Text style={{ color: "red" }}>{error.message}</Text>
+            )}
+          />
+        )),
     });
   });
   it.only("Should be able to submit a testbed form", () => {
