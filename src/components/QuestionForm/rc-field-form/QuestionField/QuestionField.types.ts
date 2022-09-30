@@ -1,5 +1,5 @@
 import { ValidateError } from "async-validator";
-import { FieldError, FormInstance } from "rc-field-form/es/interface";
+import { FormInstance } from "rc-field-form/es/interface";
 import { ReactElement } from "react";
 import {
   ButtonGroupProperties,
@@ -12,6 +12,7 @@ import {
   SubmitButtonProperties,
   TextInputProperties,
   WarningProperties,
+  SectionBlockProperties,
 } from "../QuestionForm.types";
 
 export interface QuestionFieldRenderProps<T> {
@@ -50,5 +51,8 @@ export interface QuestionFieldProps {
   renderFieldErrorMessage: (error: ValidateError) => ReactElement;
   renderSubmitButtonField: (
     props: QuestionFieldRenderProps<SubmitButtonProperties>
+  ) => ReactElement;
+  renderSectionBlockField: (
+    props: QuestionFieldRenderProps<SectionBlockProperties>
   ) => ReactElement;
 }

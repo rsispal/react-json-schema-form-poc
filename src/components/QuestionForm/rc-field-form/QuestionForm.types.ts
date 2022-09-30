@@ -1,7 +1,6 @@
 import { HTMLAttributeAnchorTarget, ReactElement } from "react";
-import { FieldProps } from "rc-field-form/es/Field";
 import { DynamicTextParagraph } from "../../DynamicText/DynamicText.types";
-import { ValidateError } from "async-validator";
+import { Rule, ValidateError } from "async-validator";
 import { FormInstance } from "rc-field-form";
 
 export type QuestionSchema = {
@@ -59,9 +58,9 @@ export type Question<T> = {
    */
   properties: T;
   /**
-   * @property validation {FieldProps["rules"] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
+   * @property validation {Rule[] | undefined} - Async Validator static validation rules (functions not supported in JSON schemas)
    */
-  validation?: FieldProps["rules"];
+  validation?: Rule[];
   /**
    * @property next {NextFieldTransition[]} - value-based transition rules for question chaining (must be define for _all_ answers)
    */
@@ -96,6 +95,7 @@ export enum SupportedFormField {
   Prompt = "Prompt",
   Warning = "Warning",
   SubmitButton = "SubmitButton",
+  SectionBlock = "SectionBlock",
 }
 
 export type QuestionFieldProperties =
@@ -106,7 +106,8 @@ export type QuestionFieldProperties =
   | ButtonGroupProperties
   | PromptProperties
   | WarningProperties
-  | SubmitButtonProperties;
+  | SubmitButtonProperties
+  | SectionBlockProperties;
 
 export type RadioGroupProperties = {
   disabled: boolean;
@@ -152,5 +153,12 @@ export type WarningProperties = {
 
 export type SubmitButtonProperties = {
   disabled: boolean;
-  label: string;
+  title: string;
+  subtitle: string;
+  buttonLabel: string;
+};
+
+export type SectionBlockProperties = {
+  title: string;
+  description?: DynamicTextParagraph[];
 };

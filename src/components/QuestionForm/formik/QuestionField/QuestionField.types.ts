@@ -1,5 +1,6 @@
+import { ReactElement } from "react";
 import { ValidateError } from "async-validator";
-import { FC, ReactElement } from "react";
+
 import {
   ButtonGroupProperties,
   LinkButtonProperties,
@@ -8,6 +9,7 @@ import {
   Question,
   QuestionFieldProperties,
   RadioGroupProperties,
+  SectionBlockProperties,
   SubmitButtonProperties,
   TextInputProperties,
   WarningProperties,
@@ -48,5 +50,8 @@ export interface QuestionFieldProps {
   renderFieldErrorMessage: (error: ValidateError) => ReactElement;
   renderSubmitButtonField: (
     props: QuestionFieldRenderProps<SubmitButtonProperties>
+  ) => ReactElement;
+  renderSectionBlockField: (
+    props: QuestionFieldRenderProps<SectionBlockProperties>
   ) => ReactElement;
 }

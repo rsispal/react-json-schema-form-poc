@@ -9,12 +9,12 @@ import { DynamicText } from "components/DynamicText";
 export const TextInputFieldWrapper: FC<
   QuestionFieldRenderProps<TextInputProperties>
 > = ({ question, onEndFormClickCallback }) => {
-  const [{ value, onChange }] = useField<string>({
+  const [{ onChange }] = useField<string>({
     name: question.name,
   });
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(question.name)(e.target.value);
+
   return (
     <Stack>
       <Text
@@ -27,7 +27,6 @@ export const TextInputFieldWrapper: FC<
       {question.description && <DynamicText data={question.description} />}
       <TextInput
         {...question.properties}
-        value={value}
         onChange={handleChange}
         dataTestId={`${question.name}-text-input`}
       />

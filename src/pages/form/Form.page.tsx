@@ -37,6 +37,7 @@ import { PageLayout } from "../../layout/page/Page.layout";
 import { QuestionSchema as QuestionSchemaFormik } from "../../components/QuestionForm/formik/QuestionForm.types";
 import { QuestionSchema as QuestionSchemaRCFieldForm } from "../../components/QuestionForm/rc-field-form/QuestionForm.types";
 import { FormPageProps } from "./Form.types";
+import { SectionBlockFieldWrapper } from "components/QuestionForm/formik/field-wrappers/SectionBlock";
 
 export const FormPage: FC<FormPageProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -107,6 +108,9 @@ export const FormPage: FC<FormPageProps> = () => {
             renderSubmitButtonField={(props) => (
               <SubmitButtonFieldWrapper {...props} />
             )}
+            renderSectionBlockField={(props) => (
+              <SectionBlockFieldWrapper {...props} />
+            )}
             renderFieldErrorMessage={(error) => (
               <Text color="red">{error.message}</Text>
             )}
@@ -160,6 +164,9 @@ export const FormPage: FC<FormPageProps> = () => {
             renderWarningField={(props) => <WarningFieldWrapper {...props} />}
             renderSubmitButtonField={(props) => (
               <SubmitButtonFieldWrapper {...props} />
+            )}
+            renderSectionBlockField={(props) => (
+              <SectionBlockFieldWrapper {...props} />
             )}
             renderFieldErrorMessage={(error) => (
               <Text color="red">{error.message}</Text>

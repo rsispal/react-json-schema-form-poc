@@ -30,6 +30,7 @@ import { RadioGroupFieldWrapper } from "../../components/QuestionForm/formik/fie
 import { SubmitButtonFieldWrapper } from "../../components/QuestionForm/formik/field-wrappers/SubmitButton";
 import { TextInputFieldWrapper } from "../../components/QuestionForm/formik/field-wrappers/TextInput";
 import { WarningFieldWrapper } from "../../components/QuestionForm/formik/field-wrappers/Warning";
+import { SectionBlockFieldWrapper } from "components/QuestionForm/formik/field-wrappers/SectionBlock";
 
 export const TestBedPage: FC<TestBedPageProps> = () => {
   const [submission, setSubmission] =
@@ -119,6 +120,9 @@ export const TestBedPage: FC<TestBedPageProps> = () => {
               renderWarningField={(props) => <WarningFieldWrapper {...props} />}
               renderSubmitButtonField={(props) => (
                 <SubmitButtonFieldWrapper {...props} />
+              )}
+              renderSectionBlockField={(props) => (
+                <SectionBlockFieldWrapper {...props} />
               )}
               renderFieldErrorMessage={(error) => (
                 <Text color="red">{error.message}</Text>

@@ -3,6 +3,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 
 /* Components */
+import { QuestionField } from "components/QuestionForm/formik/QuestionField";
 import { QuestionForm } from "../QuestionForm/formik";
 import { QuestionFormUtilities } from "../QuestionForm/formik/QuestionForm.utilities";
 
@@ -14,13 +15,13 @@ import { RadioGroupFieldWrapper } from "../QuestionForm/formik/field-wrappers/Ra
 import { SubmitButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/SubmitButton";
 import { TextInputFieldWrapper } from "../QuestionForm/formik/field-wrappers/TextInput";
 import { WarningFieldWrapper } from "../QuestionForm/formik/field-wrappers/Warning";
+import { SectionBlockFieldWrapper } from "components/QuestionForm/formik/field-wrappers/SectionBlock";
 
 /* Types */
 import {
   RiskQuestionFormPayload,
   RiskQuestionFormProps,
 } from "./RiskQuestionForm.types";
-import { QuestionField } from "components/QuestionForm/formik/QuestionField";
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   schema,
@@ -122,6 +123,9 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
               renderWarningField={(props) => <WarningFieldWrapper {...props} />}
               renderSubmitButtonField={(props) => (
                 <SubmitButtonFieldWrapper {...props} />
+              )}
+              renderSectionBlockField={(props) => (
+                <SectionBlockFieldWrapper {...props} />
               )}
               renderFieldErrorMessage={(error) => (
                 <Text color="red">{error.message}</Text>

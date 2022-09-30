@@ -5,7 +5,9 @@ import { mountWithProps } from "../../cypress-component-wrapper";
 describe("<SubmitButton /> Component", () => {
   it("Should render the label", () => {
     mountWithProps<SubmitButtonProps>(SubmitButton, {
-      label: "Test Button",
+      title: "",
+      subtitle: "",
+      buttonLabel: "Test Button",
       disabled: false,
     });
     cy.get("button").contains("Test Button").should("exist");
@@ -13,7 +15,9 @@ describe("<SubmitButton /> Component", () => {
 
   it("Should have submit role", () => {
     mountWithProps<SubmitButtonProps>(SubmitButton, {
-      label: "Test Button",
+      title: "",
+      subtitle: "",
+      buttonLabel: "Test Button",
       disabled: false,
     });
     const button = cy.get("button").contains("Test Button");
@@ -21,7 +25,9 @@ describe("<SubmitButton /> Component", () => {
   });
   it("Should have disabled attribute", () => {
     mountWithProps<SubmitButtonProps>(SubmitButton, {
-      label: "Test Button",
+      title: "",
+      subtitle: "",
+      buttonLabel: "Test Button",
       disabled: true,
     });
     const button = cy.get("button").contains("Test Button");

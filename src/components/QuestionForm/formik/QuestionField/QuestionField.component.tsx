@@ -12,6 +12,7 @@ import {
   Question,
   QuestionFieldProperties,
   RadioGroupProperties,
+  SectionBlockProperties,
   SubmitButtonProperties,
   SupportedFormField,
   TextInputProperties,
@@ -35,6 +36,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   renderWarningField,
   renderFieldErrorMessage,
   renderSubmitButtonField,
+  renderSectionBlockField,
 }) => {
   const getFieldValue = (fieldName: string) =>
     values[fieldName] ? values[fieldName] : undefined;
@@ -80,10 +82,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
         questions
       );
 
+    const isFieldTouched = values.hasOwnProperty(question.name);
     const canShowNextQuestion = QuestionFormUtilities.canShowNextField(
+      question,
       doesFieldHaveError,
       doesFieldHaveWarnings,
-      areWarningsAcknowledged
+      areWarningsAcknowledged,
+      isFieldTouched
     );
 
     switch (question.type) {
@@ -93,7 +98,8 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       case SupportedFormField.NextQuestionButton:
       case SupportedFormField.Prompt:
       case SupportedFormField.Warning:
-      case SupportedFormField.SubmitButton: {
+      case SupportedFormField.SubmitButton:
+      case SupportedFormField.SectionBlock: {
         return (
           <Fragment key={question.id}>
             {renderQuestion(
@@ -147,6 +153,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
                 {question.type === SupportedFormField.SubmitButton &&
                   renderSubmitButtonField({
                     question: question as Question<SubmitButtonProperties>,
+                    onEndFormClickCallback,
+                  })}
+
+                {/* SECTION BLOCK */}
+                {question.type === SupportedFormField.SectionBlock &&
+                  renderSectionBlockField({
+                    question: question as Question<SectionBlockProperties>,
                     onEndFormClickCallback,
                   })}
 
@@ -222,13 +235,14 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     // GENERATE VALUE-BASED SUBFIELDS
     if (subQuestion) {
       const currentValue = getFieldValue(subQuestion.name);
-
       const childQuestions = QuestionFormUtilities.getChildQuestionsForParent(
+        subQuestion,
         questions,
         subQuestion.next,
         currentValue,
         errors
       );
+
       return <Fragment>{childQuestions.map((q) => generateField(q))}</Fragment>;
     }
     return null;

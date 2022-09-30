@@ -45,6 +45,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const dataset = QuestionFormUtilities.getAllParentQuestions(questions);
 
   const handleChange = (values: Record<string, string | undefined>) => {
+    // console.log("QuestionForm :: handleChange", values);
     onChangeCallback && onChangeCallback(values);
     runAsyncValidator(values);
     setValues(values);
@@ -55,6 +56,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       initialValues={initialValues ?? {}}
       validate={handleChange}
       onSubmit={handleSubmit}
+      validateOnMount
+      validateOnChange
+      validateOnBlur
     >
       <Form
         name={formName}

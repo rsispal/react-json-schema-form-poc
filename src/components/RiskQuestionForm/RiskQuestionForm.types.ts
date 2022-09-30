@@ -1,4 +1,4 @@
-import { QuestionSchema } from "../QuestionForm/rc-field-form/QuestionForm.types";
+import { QuestionSchema } from "../QuestionForm/formik/QuestionForm.types";
 
 export interface RiskQuestionFormSchema extends QuestionSchema {
   miscellaneous: {

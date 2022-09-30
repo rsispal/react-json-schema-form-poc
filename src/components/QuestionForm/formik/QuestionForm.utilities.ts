@@ -53,7 +53,7 @@ export namespace QuestionFormUtilities {
   ) => questions.filter((q) => q.name === name).at(0);
 
   /**
-   * @function getChildQuestionsForParent - get any applicable warnings based on a provided "current" value
+   * @function getChildQuestionsForParent - get any applicable questions based on a provided "current" value
    * @param questions {Question[]} - array of questions
    * @param transitions {NextFieldTransition[] | undefined} - array of transitions to another question
    * @param currentValue {string | undefined} - current value to compare against
@@ -61,33 +61,36 @@ export namespace QuestionFormUtilities {
    * @returns Question[]
    */
   export const getChildQuestionsForParent = (
+    parentQuestion: Question<QuestionFieldProperties>,
     questions: Question<QuestionFieldProperties>[],
     transitions: NextFieldTransition[] | undefined,
     currentValue: string | undefined,
     errors: ValidateError[]
-  ) =>
-    questions.filter((question) =>
+  ) => {
+    return questions.filter((question) =>
       (transitions || [])
         .filter((transition) => {
-          if (currentValue !== null && currentValue !== undefined) {
-            if (transition.hasOwnProperty("equals")) {
-              if (currentValue === transition.equals) {
-                return true;
-              }
-            }
-            if (transition.hasOwnProperty("valid")) {
-              // TODO: check error block
-              if (getFieldErrorsByFieldName(question.name, errors).length > 0) {
-                return false;
-              }
+          if (parentQuestion.type === SupportedFormField.SectionBlock) {
+            return true;
+          }
+          if (transition.hasOwnProperty("equals")) {
+            if (currentValue === transition.equals) {
               return true;
             }
+          }
+          if (transition.hasOwnProperty("valid")) {
+            // TODO: check error block
+            if (getFieldErrorsByFieldName(question.name, errors).length > 0) {
+              return false;
+            }
+            return true;
           }
           return false;
         })
         .map((f) => f.question)
         .includes(question.name)
     );
+  };
 
   /**
    * @function getWarningQuestionsForParent - get any applicable warnings question objects based on a provided "current" value
@@ -203,16 +206,23 @@ export namespace QuestionFormUtilities {
 
   /**
    * @function canShowNextField - determine whether the next field can be shown based on whether the field has any errors or unacknowledged warnings
+   * @param question {Question[]} - question in focus
    * @param doesFieldHaveError {boolean} - true if the field has any errors
    * @param doesFieldHaveWarnings {boolean} - true if the field has any warnings
    * @param areWarningsAcknowledged {boolean} - true if any warning has been acknowledged
+   * @param isFieldTouched {boolean} - true if the field has been touched and values object has a value
    * @returns boolean - true if the next field can be shown
    */
   export const canShowNextField = (
+    question: Question<QuestionFieldProperties>,
     doesFieldHaveError: boolean,
     doesFieldHaveWarnings: boolean,
-    areWarningsAcknowledged: boolean
+    areWarningsAcknowledged: boolean,
+    isFieldTouched: boolean
   ) => {
+    if (question.type === SupportedFormField.SectionBlock) {
+      return true;
+    }
     if (doesFieldHaveError) {
       return false;
     }
@@ -221,6 +231,9 @@ export namespace QuestionFormUtilities {
       if (!areWarningsAcknowledged) {
         return false;
       }
+    }
+    if (!isFieldTouched) {
+      return false;
     }
     return true;
   };

@@ -14,6 +14,7 @@ import { RadioGroupFieldWrapper } from "./field-wrappers/RadioGroup";
 import { SubmitButtonFieldWrapper } from "./field-wrappers/SubmitButton";
 import { TextInputFieldWrapper } from "./field-wrappers/TextInput";
 import { WarningFieldWrapper } from "./field-wrappers/Warning";
+import { SectionBlockFieldWrapper } from "./field-wrappers/SectionBlock";
 
 import SeedQuestions from "../../../__SEED__/e2e.json";
 
@@ -165,6 +166,9 @@ describe("<QuestionForm /> Page", () => {
             renderWarningField={(props) => <WarningFieldWrapper {...props} />}
             renderSubmitButtonField={(props) => (
               <SubmitButtonFieldWrapper {...props} />
+            )}
+            renderSectionBlockField={(props) => (
+              <SectionBlockFieldWrapper {...props} />
             )}
             renderFieldErrorMessage={(error) => (
               <Text style={{ color: "red" }}>{error.message}</Text>
