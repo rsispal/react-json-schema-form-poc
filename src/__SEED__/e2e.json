@@ -366,7 +366,7 @@
       "prompt": "",
       "properties": {
         "disabled": false,
-        "label": "Submit this form"
+        "buttonLabel": "Submit this form"
       },
       "warnings": [],
       "next": []

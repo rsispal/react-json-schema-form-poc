@@ -1246,7 +1246,7 @@
       "prompt": "",
       "properties": {
         "disabled": false,
-        "label": "Submit Application"
+        "buttonLabel": "Submit Application"
       },
       "warnings": [],
       "next": []
