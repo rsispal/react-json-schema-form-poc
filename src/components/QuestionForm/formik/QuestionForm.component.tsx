@@ -20,7 +20,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   onSubmitCallback,
   onEndFormClickCallback,
 }) => {
-  const [values, setValues] = useState<Record<string, string | undefined>>({});
+  const [values, setValues] = useState<Record<string, string | undefined>>(
+    initialValues ?? {}
+  );
   const [errors, setErrors] = useState<ValidateError[]>([]);
 
   const runAsyncValidator = async (
@@ -45,7 +47,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const dataset = QuestionFormUtilities.getAllParentQuestions(questions);
 
   const handleChange = (values: Record<string, string | undefined>) => {
-    // console.log("QuestionForm :: handleChange", values);
     onChangeCallback && onChangeCallback(values);
     runAsyncValidator(values);
     setValues(values);
@@ -53,10 +54,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
   return (
     <Formik
-      initialValues={initialValues ?? {}}
       validate={handleChange}
       onSubmit={handleSubmit}
-      validateOnMount
+      initialValues={initialValues ?? {}}
       validateOnChange
       validateOnBlur
     >

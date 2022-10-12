@@ -46,6 +46,10 @@ export type Question<T> = {
    */
   type: SupportedFormField;
   /**
+   * @property ui {boolean} - wrap the question in the UI wrapper via the QuestionField renderQuestion prop
+   */
+  ui?: boolean;
+  /**
    * @property prompt {string} - question/prompt to show for this field (optional)
    */
   prompt?: string;
@@ -124,6 +128,8 @@ export type LinkButtonProperties = {
   label: string;
   url: string;
   target: HTMLAttributeAnchorTarget;
+  analyticsEnabled: boolean;
+  analyticsDescription: string | undefined;
 };
 
 export type NextQuestionButtonProperties = {

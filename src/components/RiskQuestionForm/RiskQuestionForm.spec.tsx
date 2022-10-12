@@ -58,6 +58,11 @@ export const QuestionFormTestUtilities = {
       .findByTestId(`${testId}-question-prompt-text`)
       .should("exist")
       .should("have.text", expected),
+  verifyDynamicTextInPrompt: (testId: string, expected: string) =>
+    cy
+      .findByTestId(`${testId}-prompt`)
+      .should("exist")
+      .should("include.text", expected),
   ensureNoQuestionDescriptionText: (testId: string) =>
     cy.findByTestId(`${testId}-question-description-text`).should("not.exist"),
   verifyQuestionDescriptionText: (testId: string, expected: string) =>
@@ -127,69 +132,75 @@ export const QuestionFormTestUtilities = {
 
 ## Scenario 2: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: A
-- Q3
+- Q1_1_N. Please tell us more: (1) I've already had regulated financial advice
+- Q3-15
 
 ## Scenario 3: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
 - Q1A_ButtonGroup tests
 - Q1A_2 Next question button click
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
 
 ## Scenario 4: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
 - Q1A_ButtonGroup tests
 - Q1A_2 Next question button click
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
 - Q3-15 NO, acknowlegde warnings to continue
 
 ## Scenario 5: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
 
 ## Scenario 6: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? YES
-- Q2_1_N_A. Tell me more about HL Advice button
+- Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
 
 ## Scenario 7: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? NO
-- Q3
+- Q2_1_N_No_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
 
 ## Scenario 8: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
 
 ## Scenario 9: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? YES
-- Q2_1_N_A. Tell me more about HL Advice button
+- Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
 
 ## Scenario 10: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? NO
-- Q3
+- Q2_1_N_No_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
 
 */
 
@@ -203,77 +214,83 @@ const Scenarios = {
   2: `
 ## Scenario 2: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: A
-- Q3
+- Q1_1_N. Please tell us more: (1) I've already had regulated financial advice
+- Q3-15
   `,
   3: `
 ## Scenario 3: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
 - Q1A_ButtonGroup tests
 - Q1A_2 Next question button click
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
   `,
   4: `
-  ## Scenario 4: 
-  - Q1. Do you want guidance from Pension Wise? NO
-  - Q1_1_N. Please tell us more: B
-  - Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
-  - Q1A_ButtonGroup tests
-  - Q1A_2 Next question button click
-  - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-  - Q3-15 NO, acknowlegde warnings to continue
+## Scenario 4: 
+- Q1. Do you want guidance from Pension Wise? NO
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
+- Q1A. Have your circumstances changed since you had Pension Wise guidance? YES
+- Q1A_ButtonGroup tests
+- Q1A_2 Next question button click
+- Q2. Have you received personal advice from a regulated Financial Adviser? YES
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15 NO, acknowlegde warnings to continue
     `,
   5: `
 ## Scenario 5: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
   `,
   6: `
 ## Scenario 6: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? YES
-- Q2_1_N_A. Tell me more about HL Advice button
+- Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
   `,
   7: `
 ## Scenario 7: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: B
+- Q1_1_N. Please tell us more: (2) I've already had guidance from Pension Wise
 - Q1A. Have your circumstances changed since you had Pension Wise guidance? NO
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? NO
-- Q3
+- Q2_1_N_No_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
   `,
   8: `
 ## Scenario 8: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? YES
-- Q3
+- Q2Yes_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
   `,
   9: `
 ## Scenario 9: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? YES
-- Q2_1_N_A. Tell me more about HL Advice button
+- Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
   `,
   10: `
 ## Scenario 10: 
 - Q1. Do you want guidance from Pension Wise? NO
-- Q1_1_N. Please tell us more: C
+- Q1_1_N. Please tell us more: (3) I do not want to speak to Pension Wise
 - Q2. Have you received personal advice from a regulated Financial Adviser? NO
 - Q2_1_N. Would you like to learn more about HL's Advice Service? NO
-- Q3
+- Q2_1_N_No_Prompt. What you do with your pension is an important decision... I UNDERSTAND
+- Q3-15
   `,
 };
 
@@ -371,11 +388,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -426,11 +443,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -448,14 +465,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -463,7 +480,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -488,7 +505,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -503,14 +520,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -588,7 +605,7 @@ describe("<RiskQuestionForm /> Page", () => {
     cy.wrap(onEndFormCallback).should("not.be.called");
   });
 
-  it.only(`Should complete the risk question form according to scenario 3.${Scenarios[3]}`, () => {
+  it(`Should complete the risk question form according to scenario 3.${Scenarios[3]}`, () => {
     cy.viewport("macbook-11");
 
     // Q1. Do you want guidance from Pension Wise? NO
@@ -681,6 +698,13 @@ describe("<RiskQuestionForm /> Page", () => {
       "No - I have not had personal advice"
     );
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2Yes_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2Yes_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -691,11 +715,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -746,11 +770,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -768,14 +792,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -783,7 +807,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -808,7 +832,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -823,14 +847,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -862,6 +886,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2",
           answer: "YES",
+        },
+        {
+          name: "Q2Yes_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",
@@ -1014,6 +1042,13 @@ describe("<RiskQuestionForm /> Page", () => {
       "No - I have not had personal advice"
     );
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2Yes_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2Yes_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? NO
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "NO");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -1039,11 +1074,11 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q3_Warning");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? NO
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? NO
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "NO");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -1060,7 +1095,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q4_Warning",
-      "Your pension remains invested so its value, and your future income, can fall due to weak investment performance. Drawing too much income too early will also reduce its value. In the worst case you could run out of money entirely, leaving you reliant on the State. Unlike an annuity, which provides a secure income for life, your income isn’t guaranteed with drawdown. The value of your pension and income aren’t secure. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "Your pension remains invested so its value, and your future income, can fall due to weak investment performance. Drawing too much income too early will also reduce its value. In the worst case you could run out of money entirely, leaving you reliant on the State. Unlike an annuity, which provides a secure income for life, your income isn't guaranteed with drawdown. The value of your pension and income aren't secure. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q4_Warning");
 
@@ -1090,7 +1125,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q5_Warning",
-      "Unlike an annuity, income from drawdown isn’t secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won’t be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the ‘natural yield’. This generally carries lower risks than selling your investments to create an income, which is known as ‘drawing from capital’. The value of investments and the income they produce can fall as well as rise. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "Unlike an annuity, income from drawdown isn't secure and will vary. If you withdraw more than the growth provided by your pension investments, withdrawals won't be sustainable. Selling investments to create income increases the risk of running out of money. Taking just the income provided by the growth of your investments is known as taking the 'natural yield'. This generally carries lower risks than selling your investments to create an income, which is known as 'drawing from capital'. The value of investments and the income they produce can fall as well as rise. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q5_Warning");
 
@@ -1115,7 +1150,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q6_Warning",
-      "Drawing on capital in times of poor market conditions will seriously reduce the value of your pension, making it harder if not impossible to regain any losses. If you need to draw from capital even in times of poor market conditions, you should consider if drawdown is really appropriate for you. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "Drawing on capital in times of poor market conditions will seriously reduce the value of your pension, making it harder if not impossible to regain any losses. If you need to draw from capital even in times of poor market conditions, you should consider if drawdown is really appropriate for you. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q6_Warning");
 
@@ -1140,7 +1175,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q7_Warning",
-      "You could pay more tax than you intend to, or more (or less) than you owe. Drawdown providers will deduct tax, where applicable, before income withdrawals are paid out. This income is added to any other income you’ve received in that tax year. So taking large withdrawals could mean you’re pushed into a higher tax bracket. For investors taking an income for the first time, it’s likely emergency tax will be deducted. If you pay too much tax you’ll be able to reclaim this from HMRC directly. The tax you pay and any benefits you receive will depend on your circumstances. Tax rules can change in the future. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "You could pay more tax than you intend to, or more (or less) than you owe. Drawdown providers will deduct tax, where applicable, before income withdrawals are paid out. This income is added to any other income you've received in that tax year. So taking large withdrawals could mean you're pushed into a higher tax bracket. For investors taking an income for the first time, it's likely emergency tax will be deducted. If you pay too much tax you'll be able to reclaim this from HMRC directly. The tax you pay and any benefits you receive will depend on your circumstances. Tax rules can change in the future. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q7_Warning");
 
@@ -1165,15 +1200,15 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q8_Warning",
-      "You could find yourself choosing an option which isn’t right for you. Shopping around allows you to compare the different options, including the benefits and risks, and services of different providers. For example drawdown can provide a flexible income but this isn’t secure. Other options, such as annuities, can offer a secure income for life, but they aren’t flexible. Understanding the different options and how these work will help you choose the option that’s right for your circumstances. If you’re still unsure, don’t continue. Seek personal advice or guidance."
+      "You could find yourself choosing an option which isn't right for you. Shopping around allows you to compare the different options, including the benefits and risks, and services of different providers. For example drawdown can provide a flexible income but this isn't secure. Other options, such as annuities, can offer a secure income for life, but they aren't flexible. Understanding the different options and how these work will help you choose the option that's right for your circumstances. If you're still unsure, don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q8_Warning");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? NO
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? NO
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "NO");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -1190,7 +1225,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q9_Warning",
-      "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it’s important you consider the charges of your drawdown plan as well as the charges of any other options you’re considering. The charges for drawdown in the HL SIPP are shown in the Terms and Conditions. The investments you choose may have their own charges in addition to our account charges. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "Charges will reduce your retirement income and/or value of investments. Most investments carry charges, and the money you ultimately receive depends on the investment returns, less any charges. So it's important you consider the charges of your drawdown plan as well as the charges of any other options you're considering. The charges for drawdown in the HL SIPP are shown in the Terms and Conditions. The investments you choose may have their own charges in addition to our account charges. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q9_Warning");
 
@@ -1206,7 +1241,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
     // Acknowledge warning for this question
@@ -1220,15 +1255,15 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q10_Warning",
-      "If you’re still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £4,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don’t flexibly access benefits elsewhere, this restriction won’t apply. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "If you're still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £4,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don't flexibly access benefits elsewhere, this restriction won't apply. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q10_Warning");
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? NO
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? NO
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "NO");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -1236,7 +1271,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Acknowledge warning for this question
@@ -1250,7 +1285,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q11_Warning",
-      "You could lose valuable guarantees or allowances (like a higher tax-free cash entitlement – over 25%) which you can’t get back. You could also trigger high exit fees. Before you do anything, you should check all these details with your current pension provider. If you have guarantees we suggest you seek personal advice before applying to transfer. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "You could lose valuable guarantees or allowances (like a higher tax-free cash entitlement – over 25%) which you can't get back. You could also trigger high exit fees. Before you do anything, you should check all these details with your current pension provider. If you have guarantees we suggest you seek personal advice before applying to transfer. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q11_Warning");
 
@@ -1275,7 +1310,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q12_Warning",
-      "Prices rise over time. For example, between March 2002 and March 2022, inflation (as measured by the Retail Price Index) saw the cost of goods and services risk by 85.4%. This means an equivalent range of goods costing £1,000 twenty years ago would typically have increased to £1,854. This means you might find yourself running short of money, even if the amount of income you take stays the same. If you’re unsure about this you should seek personal advice or guidance."
+      "Prices rise over time. For example, between March 2002 and March 2022, inflation (as measured by the Retail Price Index) saw the cost of goods and services risk by 85.4%. This means an equivalent range of goods costing £1,000 twenty years ago would typically have increased to £1,854. This means you might find yourself running short of money, even if the amount of income you take stays the same. If you're unsure about this you should seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q12_Warning");
 
@@ -1291,7 +1326,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Acknowledge warning for this question
@@ -1305,7 +1340,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q13_Warning",
-      "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at gov.uk/benefits-calculators. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "Withdrawing money from your pension might reduce any means-tested benefits you receive. You can find more details about means-tested benefits at gov.uk/benefits-calculators. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q13_Warning");
 
@@ -1321,7 +1356,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
     // Acknowledge warning for this question
@@ -1339,11 +1374,11 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q14_Warning");
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? NO
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? NO
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "NO");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -1360,7 +1395,7 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.verifyWarningText(
       "Q15_Warning",
-      "If you fall victim to these scams you could lose most or all of your money, with no compensation available. Unfortunately investment scams exist and tend to be carried out by firms which aren’t regulated by the Financial Conduct Authority (FCA). Warning signs of a scam often include cold calling or texting, pressure to act quickly, the promise of unique or unusual opportunities, the offer of quick and easy profits, or something that seems too good to be true. You can find out more at fca.org.uk/scamsmart. If you’re still unsure don’t continue. Seek personal advice or guidance."
+      "If you fall victim to these scams you could lose most or all of your money, with no compensation available. Unfortunately investment scams exist and tend to be carried out by firms which aren't regulated by the Financial Conduct Authority (FCA). Warning signs of a scam often include cold calling or texting, pressure to act quickly, the promise of unique or unusual opportunities, the offer of quick and easy profits, or something that seems too good to be true. You can find out more at fca.org.uk/scamsmart. If you're still unsure don't continue. Seek personal advice or guidance."
     );
     QuestionFormTestUtilities.acknowledgeWarning("Q15_Warning");
 
@@ -1390,6 +1425,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2",
           answer: "YES",
+        },
+        {
+          name: "Q2Yes_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",
@@ -1577,6 +1616,13 @@ describe("<RiskQuestionForm /> Page", () => {
       "No - I have not had personal advice"
     );
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2Yes_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2Yes_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -1587,11 +1633,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -1642,11 +1688,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -1664,14 +1710,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -1679,7 +1725,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -1704,7 +1750,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -1719,14 +1765,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -1753,6 +1799,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2",
           answer: "YES",
+        },
+        {
+          name: "Q2Yes_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",
@@ -1900,8 +1950,8 @@ describe("<RiskQuestionForm /> Page", () => {
       "I do not want advice"
     );
 
-    // Q2_1_N_A. Tell me more about HL Advice button
-    cy.findByTestId(`Q2_1_N_A-link-button`)
+    // Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
+    cy.findByTestId(`Q2_1_N_HLAdviceLink-link-button`)
       .should("exist")
       .should("have.text", "Tell me more about HL Advice")
       .should("have.attr", "target", "_parent")
@@ -2004,6 +2054,13 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q2_1_N");
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2_1_N_No_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2_1_N_No_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -2014,11 +2071,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -2069,11 +2126,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -2091,14 +2148,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -2106,7 +2163,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -2131,7 +2188,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -2146,14 +2203,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -2184,6 +2241,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2_1_N",
           answer: "NO",
+        },
+        {
+          name: "Q2_1_N_No_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",
@@ -2300,6 +2361,13 @@ describe("<RiskQuestionForm /> Page", () => {
       "No - I have not had personal advice"
     );
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2Yes_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2Yes_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -2310,11 +2378,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -2365,11 +2433,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -2387,14 +2455,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -2402,7 +2470,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -2427,7 +2495,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -2442,14 +2510,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -2472,6 +2540,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2",
           answer: "YES",
+        },
+        {
+          name: "Q2Yes_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",
@@ -2603,8 +2675,8 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q2_1_N");
 
-    // Q2_1_N_A. Tell me more about HL Advice button
-    cy.findByTestId(`Q2_1_N_A-link-button`)
+    // Q2_1_N_HLAdviceLink. Tell me more about HL Advice button
+    cy.findByTestId(`Q2_1_N_HLAdviceLink-link-button`)
       .should("exist")
       .should("have.text", "Tell me more about HL Advice")
       .should("have.attr", "target", "_parent")
@@ -2689,6 +2761,13 @@ describe("<RiskQuestionForm /> Page", () => {
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q2_1_N");
 
+    // Q2 Prompt: What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding.
+    QuestionFormTestUtilities.verifyDynamicTextInPrompt(
+      "Q2_1_N_No_Prompt",
+      "What you do with your pension is an important decision. If you haven't received Pension Wise guidance or personal advice, we strongly suggest you do this before proceeding."
+    );
+    QuestionFormTestUtilities.acknowledgePrompt("Q2_1_N_No_Prompt");
+
     // Q3. Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q3", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
@@ -2699,11 +2778,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q3", 1, "No");
 
-    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want? YES
+    // Q4. Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q4", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q4",
-      "Do you understand you could run out of money earlier than planned in drawdown, if things don’t go the way you want?"
+      "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q4");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q4", 0, "Yes");
@@ -2754,11 +2833,11 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 0, "Yes");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q8", 1, "No");
 
-    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered? YES
+    // Q9. Have you considered how charges might affect your drawdown plan or any other retirement options you've considered? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q9", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q9",
-      "Have you considered how charges might affect your drawdown plan or any other retirement options you’ve considered?"
+      "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q9");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q9", 0, "Yes");
@@ -2776,14 +2855,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q10",
       2,
-      "N/A – I don’t plan to make any more contributions to my pensions"
+      "N/A – I don't plan to make any more contributions to my pensions"
     );
 
-    // Q11. Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
+    // Q11. Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q11", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q11",
-      "Have you checked you’re not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
+      "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q11");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q11", 0, "Yes");
@@ -2791,7 +2870,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q11",
       2,
-      "N/A – I’m not transferring pensions"
+      "N/A – I'm not transferring pensions"
     );
 
     // Q12. Have you considered the effects of inflation (i.e. rising prices) on your plans? YES
@@ -2816,7 +2895,7 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q13",
       2,
-      "N/A – I don’t receive means-tested benefits, nor expect to receive these in future"
+      "N/A – I don't receive means-tested benefits, nor expect to receive these in future"
     );
 
     // Q14. Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)? YES
@@ -2831,14 +2910,14 @@ describe("<RiskQuestionForm /> Page", () => {
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel(
       "Q14",
       2,
-      "N/A – I don’t have debt"
+      "N/A – I don't have debt"
     );
 
-    // Q15. Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension? YES
+    // Q15. Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension? YES
     QuestionFormTestUtilities.checkRadioGroupOption("Q15", "YES");
     QuestionFormTestUtilities.verifyQuestionPromptText(
       "Q15",
-      "Are you aware that investment scams exist which target people who’ve withdrawn, or plan to withdraw, money from their pension?"
+      "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?"
     );
     QuestionFormTestUtilities.ensureNoQuestionDescriptionText("Q15");
     QuestionFormTestUtilities.verifyRadioGroupOptionLabel("Q15", 0, "Yes");
@@ -2866,6 +2945,10 @@ describe("<RiskQuestionForm /> Page", () => {
         {
           name: "Q2_1_N",
           answer: "NO",
+        },
+        {
+          name: "Q2_1_N_No_Prompt",
+          answer: "SELECTED",
         },
         {
           name: "Q3",

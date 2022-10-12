@@ -65,6 +65,101 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     ));
   };
 
+  const generateFieldContent = (
+    question: Question<QuestionFieldProperties>
+  ) => {
+    switch (question.type) {
+      case SupportedFormField.LinkButton:
+      case SupportedFormField.RadioGroup:
+      case SupportedFormField.TextInput:
+      case SupportedFormField.NextQuestionButton:
+      case SupportedFormField.Prompt:
+      case SupportedFormField.Warning:
+      case SupportedFormField.SubmitButton:
+      case SupportedFormField.SectionBlock: {
+        return (
+          <Fragment>
+            {generateError(question.name)}
+
+            {/* LINK BUTTON */}
+            {question.type === SupportedFormField.LinkButton &&
+              renderLinkButtonField({
+                question: question as Question<LinkButtonProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* RADIO GROUP */}
+            {question.type === SupportedFormField.RadioGroup &&
+              renderRadioGroupField({
+                question: question as Question<RadioGroupProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* TEXT INPUT */}
+            {question.type === SupportedFormField.TextInput &&
+              renderTextInputField({
+                question: question as Question<TextInputProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* NEXT QUESTION BUTTON */}
+            {question.type === SupportedFormField.NextQuestionButton &&
+              renderNextQuestionButtonField({
+                question: question as Question<NextQuestionButtonProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* PROMPT */}
+            {question.type === SupportedFormField.Prompt &&
+              renderPromptField({
+                question: question as Question<PromptProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* WARNING */}
+            {question.type === SupportedFormField.Warning &&
+              renderWarningField({
+                question: question as Question<WarningProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* SUBMIT BUTTON */}
+            {question.type === SupportedFormField.SubmitButton &&
+              renderSubmitButtonField({
+                question: question as Question<SubmitButtonProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {/* SECTION BLOCK */}
+            {question.type === SupportedFormField.SectionBlock &&
+              renderSectionBlockField({
+                question: question as Question<SectionBlockProperties>,
+                onEndFormClickCallback,
+              })}
+
+            {generateWarnings(question as Question<QuestionFieldProperties>)}
+          </Fragment>
+        );
+      }
+      case SupportedFormField.ButtonGroup: {
+        return (
+          <Fragment>
+            {generateError(question.name)}
+            {renderButtonGroupField({
+              question: question as Question<ButtonGroupProperties>,
+              onEndFormClickCallback,
+            })}
+            {generateWarnings(question as Question<QuestionFieldProperties>)}
+          </Fragment>
+        );
+      }
+
+      default: {
+        return <></>;
+      }
+    }
+  };
+
   const generateField = (question: Question<QuestionFieldProperties>) => {
     const currentValue = getFieldValue(question.name);
     const doesFieldHaveError =
@@ -102,72 +197,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       case SupportedFormField.SectionBlock: {
         return (
           <Fragment key={question.id}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
+            {!question.hasOwnProperty("ui") &&
+              renderQuestion(generateFieldContent(question))}
 
-                {/* LINK BUTTON */}
-                {question.type === SupportedFormField.LinkButton &&
-                  renderLinkButtonField({
-                    question: question as Question<LinkButtonProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* RADIO GROUP */}
-                {question.type === SupportedFormField.RadioGroup &&
-                  renderRadioGroupField({
-                    question: question as Question<RadioGroupProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* TEXT INPUT */}
-                {question.type === SupportedFormField.TextInput &&
-                  renderTextInputField({
-                    question: question as Question<TextInputProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* NEXT QUESTION BUTTON */}
-                {question.type === SupportedFormField.NextQuestionButton &&
-                  renderNextQuestionButtonField({
-                    question:
-                      question as Question<NextQuestionButtonProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* PROMPT */}
-                {question.type === SupportedFormField.Prompt &&
-                  renderPromptField({
-                    question: question as Question<PromptProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* WARNING */}
-                {question.type === SupportedFormField.Warning &&
-                  renderWarningField({
-                    question: question as Question<WarningProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* SUBMIT BUTTON */}
-                {question.type === SupportedFormField.SubmitButton &&
-                  renderSubmitButtonField({
-                    question: question as Question<SubmitButtonProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {/* SECTION BLOCK */}
-                {question.type === SupportedFormField.SectionBlock &&
-                  renderSectionBlockField({
-                    question: question as Question<SectionBlockProperties>,
-                    onEndFormClickCallback,
-                  })}
-
-                {generateWarnings(
-                  question as Question<QuestionFieldProperties>
-                )}
-              </Fragment>
-            )}
+            {question.hasOwnProperty("ui") &&
+              question.ui === false &&
+              generateFieldContent(question)}
             {canShowNextQuestion && generateQuestion(undefined, question)}
           </Fragment>
         );
@@ -182,18 +217,13 @@ export const QuestionField: FC<QuestionFieldProps> = ({
         */
         return (
           <Fragment key={question.id}>
-            {renderQuestion(
-              <Fragment>
-                {generateError(question.name)}
-                {renderButtonGroupField({
-                  question: question as Question<ButtonGroupProperties>,
-                  onEndFormClickCallback,
-                })}
-                {generateWarnings(
-                  question as Question<QuestionFieldProperties>
-                )}
-              </Fragment>
-            )}
+            {!question.hasOwnProperty("ui") &&
+              renderQuestion(generateFieldContent(question))}
+
+            {question.hasOwnProperty("ui") &&
+              question.ui === false &&
+              generateFieldContent(question)}
+
             {/* Generate the next question following a button press */}
             {(question.properties as ButtonGroupProperties).buttons.map(
               (button) => {

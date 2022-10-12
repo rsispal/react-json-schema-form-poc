@@ -1,12 +1,13 @@
 import { QuestionSchema } from "../QuestionForm/formik/QuestionForm.types";
 
-export interface RiskQuestionFormSchema extends QuestionSchema {
+export type RiskQuestionFormSchema = QuestionSchema & {
   miscellaneous: {
     guided_question: string;
   };
-}
+};
 export interface RiskQuestionFormProps {
   schema: RiskQuestionFormSchema;
+  initialValues?: Record<string, string | undefined>;
   onSubmitCallback: (results: RiskQuestionFormPayload) => void;
   onEndFormCallback: (results: Record<string, string | undefined>) => void;
 }

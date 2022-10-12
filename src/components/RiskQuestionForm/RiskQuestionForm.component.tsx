@@ -24,6 +24,7 @@ import {
 } from "./RiskQuestionForm.types";
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
+  initialValues,
   schema,
   onSubmitCallback,
   onEndFormCallback,
@@ -83,6 +84,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
       <QuestionForm
+        initialValues={initialValues}
         onSubmitCallback={handleSubmit}
         onChangeCallback={handleFormChange}
         onEndFormClickCallback={handleEndFormClick}

@@ -22,6 +22,7 @@ export type QuestionFormRenderProps = {
 
 export interface QuestionFormProps extends QuestionSchema {
   initialValues?: Record<string, string | undefined>;
+  className?: string;
   onChangeCallback?: (results: Record<string, string | undefined>) => void;
   onSubmitCallback: (results: Record<string, string | undefined>) => void;
   onEndFormClickCallback: () => void;
@@ -45,6 +46,10 @@ export type Question<T> = {
    * @property type {SupportedFormField} - the kind of field to generate
    */
   type: SupportedFormField;
+  /**
+   * @property ui {boolean} - wrap the question in the UI wrapper via the QuestionField renderQuestion prop
+   */
+  ui?: boolean;
   /**
    * @property prompt {string} - question/prompt to show for this field (optional)
    */
@@ -124,6 +129,8 @@ export type LinkButtonProperties = {
   label: string;
   url: string;
   target: HTMLAttributeAnchorTarget;
+  analyticsEnabled: boolean;
+  analyticsDescription: string | undefined;
 };
 
 export type NextQuestionButtonProperties = {
