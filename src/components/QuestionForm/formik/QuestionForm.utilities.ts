@@ -1,11 +1,7 @@
-import Schema, {
-  Rule,
-  Rules,
-  ValidateError,
-  ValidateFieldsError,
-} from "async-validator";
+import Schema, { Rule, Rules, ValidateError, ValidateFieldsError } from "async-validator";
 import {
   NextFieldTransition,
+  PreDefinedResponse,
   Question,
   QuestionFieldProperties,
   RadioGroupProperties,
@@ -14,22 +10,15 @@ import {
 } from "./QuestionForm.types";
 
 export namespace QuestionFormUtilities {
-  export const getFirstQuestion = (
-    questions: Question<QuestionFieldProperties>[]
-  ) => questions.at(0);
+  export const getFirstQuestion = (questions: Question<QuestionFieldProperties>[]) => questions.at(0);
 
-  export const getLastQuestion = (
-    questions: Question<QuestionFieldProperties>[]
-  ) => questions.at(questions.length - 1);
+  export const getLastQuestion = (questions: Question<QuestionFieldProperties>[]) => questions.at(questions.length - 1);
 
-  export const getAllParentQuestions = (
-    questions: Question<QuestionFieldProperties>[]
-  ) => questions.filter(({ exclude }) => exclude === false);
+  export const getAllParentQuestions = (questions: Question<QuestionFieldProperties>[]) =>
+    questions.filter(({ exclude }) => exclude === false);
 
-  export const getQuestionByName = (
-    questions: Question<QuestionFieldProperties>[],
-    name: string
-  ) => questions.filter((q) => q.name === name).at(0);
+  export const getQuestionByName = (questions: Question<QuestionFieldProperties>[], name: string) =>
+    questions.filter((q) => q.name === name).at(0);
 
   export const getChildQuestionsForParent = (
     parentQuestion: Question<QuestionFieldProperties>,
@@ -82,9 +71,7 @@ export namespace QuestionFormUtilities {
               }
               if (transition.hasOwnProperty("valid")) {
                 // TODO: check error block
-                if (
-                  getFieldErrorsByFieldName(question.name, errors).length > 0
-                ) {
+                if (getFieldErrorsByFieldName(question.name, errors).length > 0) {
                   return false;
                 }
                 return true;
@@ -96,27 +83,18 @@ export namespace QuestionFormUtilities {
           .includes(question.name)
     ) as Question<WarningProperties>[];
 
-  export const getWarningsForField = (
-    warnings: NextFieldTransition[] | undefined,
-    currentValue: string | undefined
-  ) => warnings?.filter(({ equals }) => equals === currentValue) || [];
+  export const getWarningsForField = (warnings: NextFieldTransition[] | undefined, currentValue: string | undefined) =>
+    warnings?.filter(({ equals }) => equals === currentValue) || [];
 
-  export const getRadioGroupOptionForQuestionByValue = (
-    question: Question<QuestionFieldProperties>,
-    currentValue: string
-  ) => {
+  export const getRadioGroupOptionForQuestionByValue = (question: Question<QuestionFieldProperties>, currentValue: string) => {
     if (question.type === SupportedFormField.RadioGroup) {
-      return (question.properties as RadioGroupProperties).options
-        .filter((entry) => entry.value === currentValue)
-        .at(0);
+      return (question.properties as RadioGroupProperties).options.filter((entry) => entry.value === currentValue).at(0);
     }
     return undefined;
   };
 
-  export const getFieldErrorsByFieldName = (
-    fieldName: string,
-    errors: ValidateError[]
-  ) => errors.filter((error) => error.field === fieldName);
+  export const getFieldErrorsByFieldName = (fieldName: string, errors: ValidateError[]) =>
+    errors.filter((error) => error.field === fieldName);
 
   export const haveWarningsForQuestionBeenAcknowledged = (
     question: Question<QuestionFieldProperties>,
@@ -126,15 +104,10 @@ export namespace QuestionFormUtilities {
   ) => {
     let haveWarningsBeenAcknowledged = false;
 
-    const warnings = getWarningQuestionsForParent(
-      questions,
-      question.warnings,
-      currentValue,
-      []
-    );
+    const warnings = getWarningQuestionsForParent(questions, question.warnings, currentValue, []);
 
     warnings.forEach((warning) => {
-      if (values[warning.name] === "SELECTED") {
+      if (values[warning.name] === PreDefinedResponse.SELECTED) {
         haveWarningsBeenAcknowledged = true;
       }
     });
@@ -166,51 +139,32 @@ export namespace QuestionFormUtilities {
     return true;
   };
 
-  export const validate = async (
-    questions: Question<QuestionFieldProperties>[],
-    values: Record<string, string | undefined>
-  ) => {
+  export const validate = async (questions: Question<QuestionFieldProperties>[], values: Record<string, string | undefined>) => {
     const questionNames = Object.keys(values);
 
-    const answeredQuestions = questions.filter((question) =>
-      questionNames.includes(question.name)
-    );
+    const answeredQuestions = questions.filter((question) => questionNames.includes(question.name));
 
     const validationRules: Rules = {};
 
-    answeredQuestions.forEach(
-      (question) =>
-        (validationRules[question.name] =
-          (question.validation as Rule | undefined) ?? [])
-    );
+    answeredQuestions.forEach((question) => (validationRules[question.name] = (question.validation as Rule | undefined) ?? []));
 
     const validator = new Schema(validationRules);
     const formErrors: ValidateError[] = [];
     const response = await validator
       .validate(values)
-      .catch(
-        ({
-          errors,
-          fields,
-        }: {
-          errors: ValidateError[] | null;
-          fields: ValidateFieldsError;
-        }) => {
-          if (errors) {
-            formErrors.push(...errors);
-          }
-          return new Error("Validation failed");
+      .catch(({ errors, fields }: { errors: ValidateError[] | null; fields: ValidateFieldsError }) => {
+        if (errors) {
+          formErrors.push(...errors);
         }
-      );
+        return new Error("Validation failed");
+      });
     if (response instanceof Error) {
       return formErrors;
     }
     return undefined;
   };
 
-  export const transformAnswers = (
-    answers: Record<string, string | undefined>
-  ) =>
+  export const transformAnswers = (answers: Record<string, string | undefined>) =>
     Object.keys(answers)
       .map((k) => ({
         name: k,

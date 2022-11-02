@@ -90,6 +90,10 @@ export type NextFieldTransition = {
   question: string;
 };
 
+export enum PreDefinedResponse {
+  SELECTED = "SELECTED",
+}
+
 export enum SupportedFormField {
   LinkButton = "LinkButton",
   RadioGroup = "RadioGroup",
@@ -138,9 +142,7 @@ export type NextQuestionButtonProperties = {
 };
 
 export type ButtonGroupProperties = {
-  buttons: Question<
-    LinkButtonProperties | NextQuestionButtonProperties | SubmitButtonProperties
-  >[];
+  buttons: Question<LinkButtonProperties | NextQuestionButtonProperties | SubmitButtonProperties>[];
 };
 
 export type PromptProperties = {
