@@ -1,27 +1,53 @@
 /* Libraries */
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import React, { FC, ReactElement } from "react";
 
 /* Components */
-import { QuestionField } from "components/QuestionForm/formik/QuestionField";
-import { QuestionForm } from "../QuestionForm/formik";
-import { QuestionFormUtilities } from "../QuestionForm/formik/QuestionForm.utilities";
+import { QuestionForm } from "../QuestionForm/formik-v2";
 
-import { ButtonGroupFieldWrapper } from "../QuestionForm/formik/field-wrappers/ButtonGroup";
-import { LinkButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/LinkButton";
-import { NextQuestionButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/NextQuestionButton";
-import { PromptFieldWrapper } from "../QuestionForm/formik/field-wrappers/Prompt";
-import { RadioGroupFieldWrapper } from "../QuestionForm/formik/field-wrappers/RadioGroup";
-import { SubmitButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/SubmitButton";
-import { TextInputFieldWrapper } from "../QuestionForm/formik/field-wrappers/TextInput";
-import { WarningFieldWrapper } from "../QuestionForm/formik/field-wrappers/Warning";
-import { SectionBlockFieldWrapper } from "components/QuestionForm/formik/field-wrappers/SectionBlock";
+/* Field Wrappers */
+import LinkButtonFieldWrapper from "../fields/v2/field-wrappers/LinkButton";
+import RadioGroupFieldWrapper from "../fields/v2/field-wrappers/RadioGroup";
+import TextInputFieldWrapper from "../fields/v2/field-wrappers/TextInput";
+import NextQuestionButtonFieldWrapper from "../fields/v2/field-wrappers/NextQuestionButton";
+import ButtonGroupFieldWrapper from "../fields/v2/field-wrappers/ButtonGroup";
+import PromptFieldWrapper from "../fields/v2/field-wrappers/Prompt";
+import WarningFieldWrapper from "../fields/v2/field-wrappers/Warning";
+import SubmitButtonFieldWrapper from "../fields/v2/field-wrappers/SubmitButton";
+import SectionBlockFieldWrapper from "components/fields/v2/field-wrappers/SectionBlock";
 
 /* Types */
-import {
-  RiskQuestionFormPayload,
-  RiskQuestionFormProps,
-} from "./RiskQuestionForm.types";
+import { QuestionFormProps } from "../QuestionForm/formik-v2/types";
+
+import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
+
+const fields: QuestionFormProps["fields"] = {
+  LinkButton: LinkButtonFieldWrapper,
+  RadioGroup: RadioGroupFieldWrapper,
+  TextInput: TextInputFieldWrapper,
+  NextQuestionButton: NextQuestionButtonFieldWrapper,
+  ButtonGroup: ButtonGroupFieldWrapper,
+  Prompt: PromptFieldWrapper,
+  Warning: WarningFieldWrapper,
+  SubmitButton: SubmitButtonFieldWrapper,
+  SectionBlock: SectionBlockFieldWrapper,
+};
+
+const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({
+  children,
+}) => (
+  <Box
+    bg="white"
+    borderWidth="1px"
+    borderRadius="lg"
+    boxShadow="xl"
+    padding={6}
+    margin={6}
+    width={800}
+  >
+    {children}
+  </Box>
+);
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   initialValues,
@@ -29,113 +55,17 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
   onSubmitCallback,
   onEndFormCallback,
 }) => {
-  const [values, setValues] = useState<Record<string, string | undefined>>({});
-
-  const handleSubmit = (answers: Record<string, string | undefined>) => {
-    const payload: RiskQuestionFormPayload = {
-      source: "ONLINE",
-      guided_question: schema.miscellaneous.guided_question,
-      answers: QuestionFormUtilities.transformAnswers(answers),
-    };
-    console.log("[RiskQuestionForm] Submit", payload);
-    onSubmitCallback(payload);
-  };
-  const handleFormChange = (answers: Record<string, string | undefined>) =>
-    setValues(answers);
-
-  const handleEndFormClick = () => {
-    console.log("[RiskQuestionForm] End", {});
-    onEndFormCallback(values);
-  };
-
-  const handleSpecificCondition = (
-    values: Record<string, string | undefined>
-  ) => {
-    const isQ1AnsweredAsYes = values["Q1"] === "YES";
-    const isQ1_1_YLinkClicked = values["Q1_1_Y"];
-    if (isQ1AnsweredAsYes && isQ1_1_YLinkClicked) {
-      console.log(
-        "User has gone to pensionwise via link. Submitting form answers"
-      );
-      handleSubmit(values);
-    }
-  };
-
-  useEffect(() => {
-    handleSpecificCondition(values);
-    // onChangeCallback && onChangeCallback(values);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
-
-  const generateQuestionFieldCard = (children: ReactElement) => (
-    <Box
-      bg="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      boxShadow="xl"
-      padding={6}
-      margin={6}
-      width={800}
-    >
-      {children}
-    </Box>
-  );
-
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
       <QuestionForm
+        fields={fields}
+        questionFieldUI={QuestionFieldUI}
         initialValues={initialValues}
-        onSubmitCallback={handleSubmit}
-        onChangeCallback={handleFormChange}
-        onEndFormClickCallback={handleEndFormClick}
+        onSubmitCallback={console.log}
+        onEndFormCallback={console.log}
         {...schema}
-      >
-        {({
-          questionsToRender,
-          values,
-          errors,
-          allQuestions,
-          onEndFormClickCallback,
-        }) =>
-          questionsToRender.map((question, key) => (
-            <QuestionField
-              key={key}
-              question={question}
-              questions={allQuestions}
-              renderQuestion={generateQuestionFieldCard}
-              values={values}
-              errors={errors}
-              onEndFormClickCallback={onEndFormClickCallback}
-              renderLinkButtonField={(props) => (
-                <LinkButtonFieldWrapper {...props} />
-              )}
-              renderRadioGroupField={(props) => (
-                <RadioGroupFieldWrapper {...props} />
-              )}
-              renderTextInputField={(props) => (
-                <TextInputFieldWrapper {...props} />
-              )}
-              renderNextQuestionButtonField={(props) => (
-                <NextQuestionButtonFieldWrapper {...props} />
-              )}
-              renderButtonGroupField={(props) => (
-                <ButtonGroupFieldWrapper {...props} />
-              )}
-              renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-              renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-              renderSubmitButtonField={(props) => (
-                <SubmitButtonFieldWrapper {...props} />
-              )}
-              renderSectionBlockField={(props) => (
-                <SectionBlockFieldWrapper {...props} />
-              )}
-              renderFieldErrorMessage={(error) => (
-                <Text color="red">{error.message}</Text>
-              )}
-            />
-          ))
-        }
-      </QuestionForm>
+        questions={schema.questions.map((q) => ({ ...q, ui: true }))}
+      />
     </Flex>
   );
 };
