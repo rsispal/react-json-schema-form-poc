@@ -5,6 +5,7 @@ export interface PromptProps {
   continueButtonLabel: string;
   endFormButtonLabel: string;
   showEndFormButton: boolean;
+  isAcknowledged: boolean;
   onContinueClick: () => void;
   onEndFormClick: () => void;
   dataTestId?: string;

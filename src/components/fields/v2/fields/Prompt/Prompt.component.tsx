@@ -11,6 +11,7 @@ export const Prompt: FC<PromptProps> = ({
   endFormButtonLabel,
   showEndFormButton,
   dataTestId,
+  isAcknowledged,
   ...rest
 }) => (
   <Stack data-testid={dataTestId}>
