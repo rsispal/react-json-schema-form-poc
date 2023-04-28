@@ -19,6 +19,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^6.3.3",
     "lodash": "^4.17.21",
+    "prettier": "^2.8.8",
     "rc-field-form": "^1.26.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -32,9 +33,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test:interactive": "cypress open --component --browser chrome",
-    "test": "cypress run --component --browser chrome --headless",
-    "prepare": "husky install"
+    "test:interactive": "cypress open --component --browser electron",
+    "test": "cypress run --component --browser electron --headless",
+    "prepare": "husky install",
+    "lint:check": "prettier --check src"
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +61,7 @@
     "@cypress/webpack-dev-server": "^2.0.0",
     "@testing-library/cypress": "^8.0.3",
     "@types/lodash": "^4.14.182",
-    "cypress": "^10.3.1",
+    "cypress": "12.11.0",
     "husky": "^8.0.0"
   }
 }

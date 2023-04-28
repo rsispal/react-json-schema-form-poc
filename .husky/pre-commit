@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
-CI=true npm run build
+# prettier --check src && git add .
+
+yarn test
+CI=true yarn build
