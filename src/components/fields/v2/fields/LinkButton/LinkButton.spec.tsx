@@ -1,6 +1,6 @@
 import { LinkButtonProps } from "./LinkButton.types";
 import { LinkButton } from "./LinkButton.component";
-import { mountWithProps } from "../../cypress-component-wrapper";
+import { mountWithProps } from "../../../../cypress-component-wrapper";
 
 describe("<LinkButton /> Component", () => {
   it("Should render the label", () => {

@@ -1,6 +1,6 @@
 import { SubmitButtonProps } from "./SubmitButton.types";
 import { SubmitButton } from "./SubmitButton.component";
-import { mountWithProps } from "../../cypress-component-wrapper";
+import { mountWithProps } from "../../../../cypress-component-wrapper";
 
 describe("<SubmitButton /> Component", () => {
   it("Should render the label", () => {

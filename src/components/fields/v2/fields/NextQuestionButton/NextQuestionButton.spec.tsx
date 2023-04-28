@@ -1,6 +1,6 @@
 import { NextQuestionButtonProps } from "./NextQuestionButton.types";
 import { NextQuestionButton } from "./NextQuestionButton.component";
-import { mountWithProps } from "../../cypress-component-wrapper";
+import { mountWithProps } from "../../../../cypress-component-wrapper";
 
 describe("<NextQuestionButton /> Component", () => {
   it("Should render the label", () => {

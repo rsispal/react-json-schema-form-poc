@@ -1,6 +1,6 @@
 import { SectionBlockProps } from "./SectionBlock.types";
 import { SectionBlock } from "./SectionBlock.component";
-import { mountWithProps } from "../../cypress-component-wrapper";
+import { mountWithProps } from "../../../../cypress-component-wrapper";
 
 describe("<SectionBlock /> Component", () => {
   it("Should render the label", () => {
