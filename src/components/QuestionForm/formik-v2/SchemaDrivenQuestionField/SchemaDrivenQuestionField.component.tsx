@@ -1,9 +1,15 @@
 import React, { FC, isValidElement } from "react";
 import { useField, useFormikContext } from "formik";
-import { QuestionFormUtilities } from "../QuestionForm/QuestionForm.utilities";
-import { Question, QuestionFieldManagerProps, QuestionFieldProps, QuestionFormSubmission, WarningProperties } from "../types/";
+import { QuestionFormUtilities } from "../SchemaDrivenQuestionForm/SchemaDrivenQuestionForm.utilities";
+import {
+  Question,
+  SchemaDrivenQuestionFieldManagerProps,
+  SchemaDrivenQuestionFieldProps,
+  SchemaDrivenQuestionFormSubmission,
+  WarningProperties,
+} from "../types";
 
-export const QuestionField: FC<QuestionFieldProps> = ({
+export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   fields,
   question,
   questions,
@@ -16,7 +22,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
 }) => {
   const { type, name } = question;
   const [thisField, meta] = useField({ name });
-  const { values, errors } = useFormikContext<QuestionFormSubmission>();
+  const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
   const FieldComponent = fields[type];
   const WarningFieldComponent = fields["Warning"];
@@ -78,7 +84,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
   return <p style={{ color: "red", fontWeight: 800 }}>Unsupported field type "{type}"</p>;
 };
 
-export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
+export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManagerProps> = ({
   fields,
   questions,
   questionFieldUI,
@@ -86,7 +92,7 @@ export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
   onEndFormCallback,
   onResetFormCallback,
 }) => {
-  const { values, errors } = useFormikContext<QuestionFormSubmission>();
+  const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
   const _visibleQuestions = QuestionFormUtilities.getQuestions(questions, values, errors);
 
@@ -99,7 +105,7 @@ export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
       {questions
         .filter((q) => visibleQuestions.includes(q.name))
         .map((question, i, all) => (
-          <QuestionField
+          <SchemaDrivenQuestionField
             key={question.id}
             fields={fields}
             question={question}

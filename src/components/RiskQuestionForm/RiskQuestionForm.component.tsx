@@ -3,7 +3,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import React, { FC, ReactElement } from "react";
 
 /* Components */
-import { QuestionForm } from "../QuestionForm/formik-v2";
+import { SchemaDrivenQuestionForm } from "../QuestionForm/formik-v2";
 
 /* Field Wrappers */
 import LinkButtonFieldWrapper from "../fields/v2/field-wrappers/LinkButton";
@@ -17,11 +17,11 @@ import SubmitButtonFieldWrapper from "../fields/v2/field-wrappers/SubmitButton";
 import SectionBlockFieldWrapper from "components/fields/v2/field-wrappers/SectionBlock";
 
 /* Types */
-import { QuestionFormProps, QuestionFormSubmission } from "../QuestionForm/formik-v2/types";
+import { SchemaDrivenQuestionFormProps, SchemaDrivenQuestionFormSubmission } from "../QuestionForm/formik-v2/types";
 
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
-const fields: QuestionFormProps["fields"] = {
+const fields: SchemaDrivenQuestionFormProps["fields"] = {
   LinkButton: LinkButtonFieldWrapper,
   RadioGroup: RadioGroupFieldWrapper,
   TextInput: TextInputFieldWrapper,
@@ -40,7 +40,7 @@ const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({ chil
 );
 
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, schema, onSubmitCallback, onEndFormCallback }) => {
-  const handleSubmit = (values: QuestionFormSubmission) => {
+  const handleSubmit = (values: SchemaDrivenQuestionFormSubmission) => {
     console.log("*** SUBMITTED ***", {
       source: "ONLINE",
       guided_question: schema.miscellaneous.guided_question,
@@ -60,7 +60,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, sch
 
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
-      <QuestionForm
+      <SchemaDrivenQuestionForm
         fields={fields}
         questionFieldUI={QuestionFieldUI}
         initialValues={initialValues}

@@ -1,12 +1,12 @@
 import Schema, { Rules, Rule, ValidateError, ValidateFieldsError } from "async-validator";
 import { FormikErrors } from "formik";
-import { Question, QuestionFieldProperties, QuestionFormSubmission } from "../types";
+import { Question, QuestionFieldProperties, SchemaDrivenQuestionFormSubmission } from "../types";
 
 export const validate = async (
-  values: QuestionFormSubmission,
+  values: SchemaDrivenQuestionFormSubmission,
   questions: Question<QuestionFieldProperties>[]
-): Promise<FormikErrors<QuestionFormSubmission>> => {
-  let errors: FormikErrors<QuestionFormSubmission> = {};
+): Promise<FormikErrors<SchemaDrivenQuestionFormSubmission>> => {
+  let errors: FormikErrors<SchemaDrivenQuestionFormSubmission> = {};
 
   const questionNames = Object.keys(values);
 

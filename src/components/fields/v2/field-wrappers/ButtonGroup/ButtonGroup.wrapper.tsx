@@ -5,7 +5,7 @@ import {
   LinkButtonProperties,
   NextQuestionButtonProperties,
   Question,
-  QuestionFieldWrapperProps,
+  SchemaDrivenQuestionFieldWrapperProps,
   SubmitButtonProperties,
   SupportedFormField,
 } from "components/QuestionForm/formik-v2/types";
@@ -14,16 +14,10 @@ import LinkButtonFieldWrapper from "../LinkButton";
 import NextQuestionButtonFieldWrapper from "../NextQuestionButton";
 import SubmitButtonFieldWrapper from "../SubmitButton";
 
-export const ButtonGroupFieldWrapper: FC<
-  QuestionFieldWrapperProps<ButtonGroupProperties>
-> = ({ question }) => {
+export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<ButtonGroupProperties>> = ({ question }) => {
   return (
     <Stack data-testid={`${question.name}-button-group`}>
-      <Text
-        data-testid={`${question.name}-question-prompt-text`}
-        fontWeight={600}
-        fontSize="larger"
-      >
+      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
@@ -33,8 +27,7 @@ export const ButtonGroupFieldWrapper: FC<
         flexDirection="row"
         alignItems={"space-evenly"}
         justifyContent={"space-evenly"}
-        flexWrap="wrap"
-      >
+        flexWrap="wrap">
         {question.properties.buttons.map((btn, i) => {
           switch (btn.type) {
             case SupportedFormField.LinkButton: {

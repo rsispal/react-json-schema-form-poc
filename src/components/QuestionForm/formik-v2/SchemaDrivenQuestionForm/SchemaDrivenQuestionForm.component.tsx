@@ -3,11 +3,11 @@ import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
 /* Types */
-import { QuestionFormProps, QuestionFormSubmission } from "../types";
-import { validate } from "./QuestionForm.validation";
-import { QuestionFieldManager } from "../QuestionField/QuestionField.component";
+import { SchemaDrivenQuestionFormProps, SchemaDrivenQuestionFormSubmission } from "../types";
+import { validate } from "./SchemaDrivenQuestionForm.validation";
+import { SchemaDrivenQuestionFieldManager } from "../SchemaDrivenQuestionField/SchemaDrivenQuestionField.component";
 
-export const QuestionForm: FC<QuestionFormProps> = ({
+export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
   fields,
   initialValues,
   schemaVersionMajor,
@@ -18,10 +18,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   submitOnChange,
   questionFieldUI,
 }) => {
-  const handleSubmit = (values: QuestionFormSubmission, _formikHelpers: FormikHelpers<QuestionFormSubmission>) =>
-    onSubmitCallback(values);
+  const handleSubmit = (
+    values: SchemaDrivenQuestionFormSubmission,
+    _formikHelpers: FormikHelpers<SchemaDrivenQuestionFormSubmission>
+  ) => onSubmitCallback(values);
 
-  const handleValidation = (values: QuestionFormSubmission) => {
+  const handleValidation = (values: SchemaDrivenQuestionFormSubmission) => {
     const outcome = validate(values, questions);
     if (submitOnChange && Object.keys(outcome).length === 0) {
       onSubmitCallback(values);
@@ -35,7 +37,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const handleResetFormCallback = () => undefined; // Needed at all?
 
   return (
-    <Formik<QuestionFormSubmission>
+    <Formik<SchemaDrivenQuestionFormSubmission>
       onSubmit={handleSubmit}
       validateOnChange={true}
       validateOnBlur={false}
@@ -43,7 +45,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       validate={handleValidation}
       initialValues={initialValues ?? {}}>
       <Form name={formName} data-schemaversionmajor={schemaVersionMajor} data-schemaversionminor={schemaVersionMinor}>
-        <QuestionFieldManager
+        <SchemaDrivenQuestionFieldManager
           fields={fields}
           questions={questions}
           questionFieldUI={questionFieldUI}

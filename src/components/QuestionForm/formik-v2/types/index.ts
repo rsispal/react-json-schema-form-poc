@@ -89,15 +89,15 @@ export enum SupportedFormField {
   SectionBlock = "SectionBlock",
 }
 
-export type QuestionFormSubmission = Record<string, string | undefined>;
+export type SchemaDrivenQuestionFormSubmission = Record<string, string | undefined>;
 
-export interface QuestionFormProps extends QuestionSchema {
-  fields: Record<SupportedFormField, FunctionComponent<QuestionFieldWrapperProps<any>>>;
+export interface SchemaDrivenQuestionFormProps extends QuestionSchema {
+  fields: Record<SupportedFormField, FunctionComponent<SchemaDrivenQuestionFieldWrapperProps<any>>>;
   questionFieldUI?: FunctionComponent<any>;
-  initialValues?: QuestionFormSubmission;
+  initialValues?: SchemaDrivenQuestionFormSubmission;
   className?: string;
   submitOnChange?: boolean;
-  onSubmitCallback: (values: QuestionFormSubmission) => void;
+  onSubmitCallback: (values: SchemaDrivenQuestionFormSubmission) => void;
   onEndFormCallback: () => void;
 }
 
@@ -112,28 +112,28 @@ export type QuestionFieldProperties =
   | SubmitButtonProperties
   | SectionBlockProperties;
 
-export type QuestionFieldManagerProps = {
-  fields: QuestionFormProps["fields"];
+export type SchemaDrivenQuestionFieldManagerProps = {
+  fields: SchemaDrivenQuestionFormProps["fields"];
   questions: Question<QuestionFieldProperties>[];
-  questionFieldUI: QuestionFormProps["questionFieldUI"];
+  questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
   onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
   onResetFormCallback: () => void;
 };
 
-export type QuestionFieldProps = {
-  fields: QuestionFormProps["fields"];
+export type SchemaDrivenQuestionFieldProps = {
+  fields: SchemaDrivenQuestionFormProps["fields"];
   question: Question<QuestionFieldProperties>;
   questions: Question<QuestionFieldProperties>[];
   previousQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
   nextQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
-  questionFieldUI: QuestionFormProps["questionFieldUI"];
+  questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
   onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
   onResetFormCallback: () => void;
 };
 
-export type QuestionFieldWrapperProps<T> = {
+export type SchemaDrivenQuestionFieldWrapperProps<T> = {
   question: Question<T>;
   value: string | undefined;
   error?: string | undefined;

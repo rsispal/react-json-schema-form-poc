@@ -3,29 +3,22 @@ import { DynamicText } from "components/DynamicText";
 import {
   LinkButtonProperties,
   PreDefinedResponse,
-  QuestionFieldWrapperProps,
+  SchemaDrivenQuestionFieldWrapperProps,
 } from "components/QuestionForm/formik-v2/types";
 import { useField } from "formik";
 import { FC } from "react";
 import LinkButton from "../../fields/LinkButton";
 
-export const LinkButtonFieldWrapper: FC<
-  QuestionFieldWrapperProps<LinkButtonProperties>
-> = ({ question }) => {
+export const LinkButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<LinkButtonProperties>> = ({ question }) => {
   const [{ onChange }] = useField<string>({
     name: question.name,
   });
 
-  const handleClick = () =>
-    onChange(question.name)(PreDefinedResponse.SELECTED);
+  const handleClick = () => onChange(question.name)(PreDefinedResponse.SELECTED);
 
   return (
     <Stack>
-      <Text
-        data-testid={`${question.name}-question-prompt-text`}
-        fontWeight={600}
-        fontSize="larger"
-      >
+      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}

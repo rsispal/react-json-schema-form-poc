@@ -4,7 +4,7 @@ import {
   NextFieldTransition,
   Question,
   QuestionFieldProperties,
-  QuestionFormSubmission,
+  SchemaDrivenQuestionFormSubmission,
   SupportedFormField,
   WarningProperties,
 } from "../types";
@@ -15,7 +15,7 @@ export namespace QuestionFormUtilities {
 
   const doesAnErrorExistForQuestion = (
     question: Question<QuestionFieldProperties>,
-    errors: FormikErrors<QuestionFormSubmission>
+    errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
   ) => !!errors.hasOwnProperty(question.name);
 
   const evaluateValidTrueTransition = (
@@ -53,8 +53,8 @@ export namespace QuestionFormUtilities {
   export const getNextChildWarningForField = (
     question: Question<QuestionFieldProperties>,
     questions: Question<QuestionFieldProperties>[],
-    values: QuestionFormSubmission,
-    errors: FormikErrors<QuestionFormSubmission>
+    values: SchemaDrivenQuestionFormSubmission,
+    errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
   ) => {
     // Current Question "answer"
     const value = values[question.name];
@@ -104,8 +104,8 @@ export namespace QuestionFormUtilities {
 
   export const getQuestions = (
     questions: Question<QuestionFieldProperties>[],
-    values: QuestionFormSubmission,
-    errors: FormikErrors<QuestionFormSubmission>
+    values: SchemaDrivenQuestionFormSubmission,
+    errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
   ): Record<string, boolean> => {
     let questionState: Record<string, boolean> = {};
 

@@ -1,11 +1,18 @@
 import { Stack, Text } from "@chakra-ui/react";
 import { DynamicText } from "components/DynamicText";
-import { PreDefinedResponse, PromptProperties, QuestionFieldWrapperProps } from "components/QuestionForm/formik-v2/types";
+import {
+  PreDefinedResponse,
+  PromptProperties,
+  SchemaDrivenQuestionFieldWrapperProps,
+} from "components/QuestionForm/formik-v2/types";
 import { useField } from "formik";
 import { FC } from "react";
 import Prompt from "../../fields/Prompt";
 
-export const PromptFieldWrapper: FC<QuestionFieldWrapperProps<PromptProperties>> = ({ question, onEndFormCallback }) => {
+export const PromptFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<PromptProperties>> = ({
+  question,
+  onEndFormCallback,
+}) => {
   const [{ value, onChange }] = useField<string>({
     name: question.name,
   });

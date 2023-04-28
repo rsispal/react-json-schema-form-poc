@@ -3,15 +3,15 @@ import { DynamicText } from "components/DynamicText";
 import {
   NextQuestionButtonProperties,
   PreDefinedResponse,
-  QuestionFieldWrapperProps,
+  SchemaDrivenQuestionFieldWrapperProps,
 } from "components/QuestionForm/formik-v2/types";
 import { useField } from "formik";
 import { FC } from "react";
 import NextQuestionButton from "../../fields/NextQuestionButton";
 
-export const NextQuestionButtonFieldWrapper: FC<
-  QuestionFieldWrapperProps<NextQuestionButtonProperties>
-> = ({ question }) => {
+export const NextQuestionButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<NextQuestionButtonProperties>> = ({
+  question,
+}) => {
   const [, , helpers] = useField<string>({
     name: question.name,
   });
@@ -20,11 +20,7 @@ export const NextQuestionButtonFieldWrapper: FC<
 
   return (
     <Stack>
-      <Text
-        data-testid={`${question.name}-question-prompt-text`}
-        fontWeight={600}
-        fontSize="larger"
-      >
+      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
