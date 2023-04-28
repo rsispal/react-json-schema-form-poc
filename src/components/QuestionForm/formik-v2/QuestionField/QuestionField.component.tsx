@@ -1,33 +1,48 @@
-import { useField, useFormikContext } from "formik";
 import React, { FC, isValidElement } from "react";
+import { useField, useFormikContext } from "formik";
 import { QuestionFormUtilities } from "../QuestionForm/QuestionForm.utilities";
-import {
-  QuestionFieldManagerProps,
-  QuestionFieldProps,
-  QuestionFormSubmission,
-} from "../types/";
+import { Question, QuestionFieldManagerProps, QuestionFieldProps, QuestionFormSubmission, WarningProperties } from "../types/";
 
 export const QuestionField: FC<QuestionFieldProps> = ({
   fields,
   question,
-  previousQuestion,
-  nextQuestion,
+  questions,
+  previousQuestion, // TODO: determine if this prop is necessary?
+  nextQuestion, // TODO: determine if this prop is necessary?
   onEndFormCallback,
   onSubmitFormCallback,
   onResetFormCallback,
   questionFieldUI,
 }) => {
   const { type, name } = question;
+  const [thisField, meta] = useField({ name });
   const { values, errors } = useFormikContext<QuestionFormSubmission>();
-  const [thisField, meta, helpers] = useField({ name });
 
   const FieldComponent = fields[type];
+  const WarningFieldComponent = fields["Warning"];
 
   const QuestionFieldUIWrapper = questionFieldUI;
 
-  const renderFieldLevelWarnings = () => (
-    <>{meta.error && <p style={{ color: "red" }}>ERROR: {meta.error}</p>}</>
-  );
+  const renderFieldLevelErrors = () => <>{meta.error && <p style={{ color: "red" }}>ERROR: {meta.error}</p>}</>;
+
+  const renderFieldLevelWarnings = () => {
+    const applicableWarnings: Question<WarningProperties>[] = QuestionFormUtilities.getNextChildWarningForField(
+      question,
+      questions,
+      values,
+      errors
+    );
+    return applicableWarnings.map((w, i) => (
+      <WarningFieldComponent
+        key={w.id}
+        question={w}
+        value={thisField.value}
+        onEndFormCallback={onEndFormCallback}
+        onSubmitFormCallback={onSubmitFormCallback}
+        onResetFormCallback={onResetFormCallback}
+      />
+    ));
+  };
 
   const renderField = () => (
     <FieldComponent
@@ -47,6 +62,7 @@ export const QuestionField: FC<QuestionFieldProps> = ({
       return (
         <QuestionFieldUIWrapper>
           {field}
+          {renderFieldLevelErrors()}
           {renderFieldLevelWarnings()}
         </QuestionFieldUIWrapper>
       );
@@ -54,15 +70,12 @@ export const QuestionField: FC<QuestionFieldProps> = ({
     return (
       <>
         {field}
+        {renderFieldLevelErrors()}
         {renderFieldLevelWarnings()}
       </>
     );
   }
-  return (
-    <p style={{ color: "red", fontWeight: 800 }}>
-      Unsupported field type "{type}"
-    </p>
-  );
+  return <p style={{ color: "red", fontWeight: 800 }}>Unsupported field type "{type}"</p>;
 };
 
 export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
@@ -75,11 +88,7 @@ export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
 }) => {
   const { values, errors } = useFormikContext<QuestionFormSubmission>();
 
-  const _visibleQuestions = QuestionFormUtilities.getQuestions(
-    questions,
-    values,
-    errors
-  );
+  const _visibleQuestions = QuestionFormUtilities.getQuestions(questions, values, errors);
 
   const visibleQuestions = Object.keys(_visibleQuestions).filter(
     (k) => _visibleQuestions.hasOwnProperty(k) && _visibleQuestions[k] === true
@@ -94,6 +103,7 @@ export const QuestionFieldManager: FC<QuestionFieldManagerProps> = ({
             key={question.id}
             fields={fields}
             question={question}
+            questions={questions}
             previousQuestion={all[i - 1] ?? undefined}
             nextQuestion={all.at(i + 1) ?? undefined}
             questionFieldUI={questionFieldUI}

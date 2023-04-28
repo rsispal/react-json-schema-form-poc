@@ -1,18 +1,10 @@
 /* Libraries */
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
-
-/* Question Field */
-import QuestionField from "../QuestionField";
-
-/* Utilities */
-// import { QuestionFormUtilities } from "./QuestionForm.utilities";
 
 /* Types */
 import { QuestionFormProps, QuestionFormSubmission } from "../types";
-import { ValidateError } from "async-validator";
 import { validate } from "./QuestionForm.validation";
-import { QuestionFormUtilities } from "./QuestionForm.utilities";
 import { QuestionFieldManager } from "../QuestionField/QuestionField.component";
 
 export const QuestionForm: FC<QuestionFormProps> = ({
@@ -26,10 +18,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   submitOnChange,
   questionFieldUI,
 }) => {
-  const handleSubmit = (
-    values: QuestionFormSubmission,
-    _formikHelpers: FormikHelpers<QuestionFormSubmission>
-  ) => onSubmitCallback(values);
+  const handleSubmit = (values: QuestionFormSubmission, _formikHelpers: FormikHelpers<QuestionFormSubmission>) =>
+    onSubmitCallback(values);
 
   const handleValidation = (values: QuestionFormSubmission) => {
     const outcome = validate(values, questions);
@@ -49,20 +39,15 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       onSubmit={handleSubmit}
       validateOnChange={true}
       validateOnBlur={false}
-      validateOnMount={true}
+      validateOnMount={false}
       validate={handleValidation}
-      initialValues={initialValues ?? {}}
-    >
-      <Form
-        name={formName}
-        data-schemaversionmajor={schemaVersionMajor}
-        data-schemaversionminor={schemaVersionMinor}
-      >
+      initialValues={initialValues ?? {}}>
+      <Form name={formName} data-schemaversionmajor={schemaVersionMajor} data-schemaversionminor={schemaVersionMinor}>
         <QuestionFieldManager
           fields={fields}
           questions={questions}
           questionFieldUI={questionFieldUI}
-          onSubmitFormCallback={handleSubmitFormCallback}
+          onSubmitFormCallback={handleSubmitFormCallback} // Not needed right???
           onEndFormCallback={handleEndFormCallback}
           onResetFormCallback={handleResetFormCallback}
         />

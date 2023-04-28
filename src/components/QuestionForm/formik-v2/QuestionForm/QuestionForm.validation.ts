@@ -1,23 +1,31 @@
+import Schema, { Rules, Rule, ValidateError, ValidateFieldsError } from "async-validator";
 import { FormikErrors } from "formik";
-import {
-  Question,
-  QuestionFieldProperties,
-  QuestionFormSubmission,
-} from "../types";
+import { Question, QuestionFieldProperties, QuestionFormSubmission } from "../types";
 
-export const validate = (
+export const validate = async (
   values: QuestionFormSubmission,
   questions: Question<QuestionFieldProperties>[]
-): FormikErrors<QuestionFormSubmission> => {
-  let errors: FormikErrors<QuestionFormSubmission> = {
-    // Q1: "This is a test error for Q1",
-    // Q1_1_N: "This is a test error for Q1_1_N",
-    // Q1A: "This is a test error for Q1A",
-    // Q2: "This is a test error for Q2",
-    // Q3: "This is a test error for Q3",
-  };
+): Promise<FormikErrors<QuestionFormSubmission>> => {
+  let errors: FormikErrors<QuestionFormSubmission> = {};
 
-  // For each key k in values, check that the answer complies with the question type, or add error E as key-value in errors object
+  const questionNames = Object.keys(values);
+
+  const answeredQuestions = questions.filter((question) => questionNames.includes(question.name));
+
+  const validationRules: Rules = {};
+
+  answeredQuestions.forEach((question) => (validationRules[question.name] = (question.validation as Rule | undefined) ?? []));
+
+  const validator = new Schema(validationRules);
+  const formErrors: ValidateError[] = [];
+
+  await validator.validate(values).catch(({ errors }: { errors: ValidateError[] | null; fields: ValidateFieldsError }) => {
+    if (errors) {
+      formErrors.push(...errors);
+    }
+  });
+
+  formErrors.map((error) => (errors[error.field as string] = error.message));
 
   return errors;
 };
