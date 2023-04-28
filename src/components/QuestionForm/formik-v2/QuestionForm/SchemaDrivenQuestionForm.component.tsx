@@ -5,7 +5,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 /* Types */
 import { SchemaDrivenQuestionFormProps, SchemaDrivenQuestionFormSubmission } from "../types";
 import { validate } from "./SchemaDrivenQuestionForm.validation";
-import { SchemaDrivenQuestionFieldManager } from "../SchemaDrivenQuestionField/SchemaDrivenQuestionField.component";
+import { SchemaDrivenQuestionFieldManager } from "../QuestionField/SchemaDrivenQuestionField.component";
 
 export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
   fields,

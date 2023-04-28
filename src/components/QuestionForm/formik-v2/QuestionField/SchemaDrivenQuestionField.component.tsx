@@ -1,6 +1,6 @@
 import React, { FC, isValidElement } from "react";
 import { useField, useFormikContext } from "formik";
-import { QuestionFormUtilities } from "../SchemaDrivenQuestionForm/SchemaDrivenQuestionForm.utilities";
+import { QuestionFormUtilities } from "../QuestionForm/SchemaDrivenQuestionForm.utilities";
 import {
   Question,
   SchemaDrivenQuestionFieldManagerProps,
