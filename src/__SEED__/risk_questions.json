@@ -45,12 +45,7 @@
         ]
       },
       "warnings": [],
-      "validation": [
-        {
-          "required": true,
-          "message": "You must select an option"
-        }
-      ],
+      "validation": [],
       "next": [
         {
           "equals": "YES",

@@ -1,8 +1,4 @@
-import {
-  FunctionComponent,
-  HTMLAttributeAnchorTarget,
-  ReactElement,
-} from "react";
+import { FunctionComponent, HTMLAttributeAnchorTarget } from "react";
 import { Rule } from "async-validator";
 
 import { DynamicTextParagraph } from "../../../DynamicText/DynamicText.types";
@@ -96,10 +92,7 @@ export enum SupportedFormField {
 export type QuestionFormSubmission = Record<string, string | undefined>;
 
 export interface QuestionFormProps extends QuestionSchema {
-  fields: Record<
-    SupportedFormField,
-    FunctionComponent<QuestionFieldWrapperProps<any>>
-  >;
+  fields: Record<SupportedFormField, FunctionComponent<QuestionFieldWrapperProps<any>>>;
   questionFieldUI?: FunctionComponent<any>;
   initialValues?: QuestionFormSubmission;
   className?: string;
@@ -131,8 +124,9 @@ export type QuestionFieldManagerProps = {
 export type QuestionFieldProps = {
   fields: QuestionFormProps["fields"];
   question: Question<QuestionFieldProperties>;
-  previousQuestion: Question<QuestionFieldProperties> | undefined;
-  nextQuestion: Question<QuestionFieldProperties> | undefined;
+  questions: Question<QuestionFieldProperties>[];
+  previousQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
+  nextQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
   questionFieldUI: QuestionFormProps["questionFieldUI"];
   onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
@@ -173,9 +167,7 @@ export type NextQuestionButtonProperties = {
 };
 
 export type ButtonGroupProperties = {
-  buttons: Question<
-    LinkButtonProperties | NextQuestionButtonProperties | SubmitButtonProperties
-  >[];
+  buttons: Question<LinkButtonProperties | NextQuestionButtonProperties | SubmitButtonProperties>[];
 };
 
 export type PromptProperties = {

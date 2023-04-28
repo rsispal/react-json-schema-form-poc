@@ -17,7 +17,7 @@ import SubmitButtonFieldWrapper from "../fields/v2/field-wrappers/SubmitButton";
 import SectionBlockFieldWrapper from "components/fields/v2/field-wrappers/SectionBlock";
 
 /* Types */
-import { QuestionFormProps } from "../QuestionForm/formik-v2/types";
+import { QuestionFormProps, QuestionFormSubmission } from "../QuestionForm/formik-v2/types";
 
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
@@ -33,36 +33,39 @@ const fields: QuestionFormProps["fields"] = {
   SectionBlock: SectionBlockFieldWrapper,
 };
 
-const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({
-  children,
-}) => (
-  <Box
-    bg="white"
-    borderWidth="1px"
-    borderRadius="lg"
-    boxShadow="xl"
-    padding={6}
-    margin={6}
-    width={800}
-  >
+const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({ children }) => (
+  <Box bg="white" borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6} width={800}>
     {children}
   </Box>
 );
 
-export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
-  initialValues,
-  schema,
-  onSubmitCallback,
-  onEndFormCallback,
-}) => {
+export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, schema, onSubmitCallback, onEndFormCallback }) => {
+  const handleSubmit = (values: QuestionFormSubmission) => {
+    console.log("*** SUBMITTED ***", {
+      source: "ONLINE",
+      guided_question: schema.miscellaneous.guided_question,
+      answers: Object.entries(values).map(([k, v]: [string, string | undefined]) => ({ name: k, answer: v })),
+    });
+    onSubmitCallback({
+      source: "ONLINE",
+      guided_question: schema.miscellaneous.guided_question,
+      answers: Object.entries(values).map(([k, v]: [string, string | undefined]) => ({ name: k, answer: v })),
+    });
+  };
+
+  const handleEndForm = () => {
+    console.log("*** ENDED ***");
+    onEndFormCallback();
+  };
+
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
       <QuestionForm
         fields={fields}
         questionFieldUI={QuestionFieldUI}
         initialValues={initialValues}
-        onSubmitCallback={console.log}
-        onEndFormCallback={console.log}
+        onSubmitCallback={handleSubmit}
+        onEndFormCallback={handleEndForm}
         {...schema}
         questions={schema.questions.map((q) => ({ ...q, ui: true }))}
       />

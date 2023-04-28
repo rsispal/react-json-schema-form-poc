@@ -9,7 +9,7 @@ export interface RiskQuestionFormProps {
   schema: RiskQuestionFormSchema;
   initialValues?: Record<string, string | undefined>;
   onSubmitCallback: (results: RiskQuestionFormPayload) => void;
-  onEndFormCallback: (results: Record<string, string | undefined>) => void;
+  onEndFormCallback: () => void;
 }
 
 export type RiskQuestionFormPayload = {
