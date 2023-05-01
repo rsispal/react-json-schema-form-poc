@@ -16,8 +16,8 @@ import SubmitButtonFieldWrapper from "../SubmitButton";
 
 export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<ButtonGroupProperties>> = ({ question }) => {
   return (
-    <Stack data-testid={`${question.name}-button-group`}>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+    <Stack data-testid={`${question.id}-button-group`}>
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}

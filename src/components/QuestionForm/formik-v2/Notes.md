@@ -7,9 +7,8 @@ BACKLOG:
 
 REFINEMENTS
 
-- Phase out using .name, remove id and make name the id
-- Remove independent property from schema
-- Remove exclude property from schema
-- Refactor schemaversion schema properties into an enclosing version object. Also add revisionDate and revisionNotes
-- Question warnings: Change the `question` property in the warning transition to `warningQuestionId`
-- Ensure all question logic runs from `id` and not `name`. Phase out `name` with `description`
+- [ ] Ensure all question logic runs from `id` and not `name`
+- [x] Remove independent property from schema
+- [x] Remove exclude property from schema
+- [ ] Refactor schemaversion schema properties into an enclosing version object. Also add revisionDate and revisionNotes
+- [ ] Question warnings: Change the `question` property in the warning transition to `warningQuestionId`

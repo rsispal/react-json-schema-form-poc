@@ -14,14 +14,14 @@ export const PromptFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<Prompt
   onEndFormCallback,
 }) => {
   const [{ value, onChange }] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
 
-  const handleClick = () => onChange(question.name)(PreDefinedResponse.SELECTED);
+  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
 
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
@@ -29,7 +29,7 @@ export const PromptFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<Prompt
         onContinueClick={handleClick}
         onEndFormClick={onEndFormCallback}
         {...question.properties}
-        dataTestId={`${question.name}-prompt`}
+        dataTestId={`${question.id}-prompt`}
         isAcknowledged={value === PreDefinedResponse.SELECTED}
       />
     </Stack>

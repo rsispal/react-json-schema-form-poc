@@ -16,7 +16,7 @@ export namespace QuestionFormUtilities {
   const doesAnErrorExistForQuestion = (
     question: Question<QuestionFieldProperties>,
     errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
-  ) => !!errors.hasOwnProperty(question.name);
+  ) => !!errors.hasOwnProperty(question.id);
 
   const evaluateValidTrueTransition = (
     transition: NextFieldTransition,
@@ -57,7 +57,7 @@ export namespace QuestionFormUtilities {
     errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
   ) => {
     // Current Question "answer"
-    const value = values[question.name];
+    const value = values[question.id];
 
     // Evaluate the transitions for this question, and find all that are true (assuming not already evaluated)
     const anyErrorsForThisField = doesAnErrorExistForQuestion(question, errors);
@@ -70,20 +70,16 @@ export namespace QuestionFormUtilities {
 
       if (transition.hasOwnProperty("valid")) {
         if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
-          log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
+          log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
           // Transition expects valid value, value is present and no validation error
-          const warning = questions.filter((q) => q.name === transition.question).at(0) as
-            | Question<WarningProperties>
-            | undefined;
+          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
           return;
         }
         if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-          log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
+          log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
           // Transition expects invalid value and there _is_ a validation error
-          const warning = questions.filter((q) => q.name === transition.question).at(0) as
-            | Question<WarningProperties>
-            | undefined;
+          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
           return;
         }
@@ -92,13 +88,11 @@ export namespace QuestionFormUtilities {
       // Transition utilises equals condition
       if (transition.hasOwnProperty("equals")) {
         log(
-          `\t[TRANSITION ${question.name} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
+          `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
           value === transition.equals
         );
         if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
-          const warning = questions.filter((q) => q.name === transition.question).at(0) as
-            | Question<WarningProperties>
-            | undefined;
+          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
           return;
         }
@@ -120,7 +114,7 @@ export namespace QuestionFormUtilities {
     const childWarnings = getChildWarnings(questions);
 
     questions.forEach((question, position, all) => {
-      log(`[QUESTION ${question.name}] ${question.type}`);
+      log(`[QUESTION ${question.id}] ${question.type}`);
 
       const previousQuestion = all[position - 1] ?? undefined;
       const nextQuestion = all.at(position + 1) ?? undefined;
@@ -129,24 +123,24 @@ export namespace QuestionFormUtilities {
 
       // Render firstmost element
       if (isFirstQuestion && isQuestionOfType(question.type, SupportedFormField.SectionBlock)) {
-        questionState = markVisited(questionState, question.name);
+        questionState = markVisited(questionState, question.id);
         return true;
       }
       // Render the next field after the first SectionBlock
       if (isQuestionOfType(previousQuestion.type, SupportedFormField.SectionBlock) && position === 1) {
-        questionState = markVisited(questionState, question.name);
+        questionState = markVisited(questionState, question.id);
       }
 
       if (
         isQuestionOfType(question.type, SupportedFormField.SectionBlock) &&
-        isVisited(questionState, question.name) &&
+        isVisited(questionState, question.id) &&
         nextQuestion
       ) {
-        questionState = markVisited(questionState, nextQuestion.name);
+        questionState = markVisited(questionState, nextQuestion.id);
       }
 
       // Current Question "answer"
-      let value = values[question.name];
+      let value = values[question.id];
 
       // Evaluate the transitions for this question, and find all that are true (assuming not already evaluated)
       let anyErrorsForThisField = doesAnErrorExistForQuestion(question, errors);
@@ -160,7 +154,7 @@ export namespace QuestionFormUtilities {
         if (transition.hasOwnProperty("valid")) {
           if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
             // Transition expects valid value, value is present and no validation error
-            log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
+            log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
             questionState = markVisited(questionState, transition.question);
             if (!questionHasUnacknowledgedWarning && !values[transition.question]) {
               questionHasUnacknowledgedWarning = true;
@@ -168,7 +162,7 @@ export namespace QuestionFormUtilities {
             return;
           }
           if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-            log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
+            log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
             // Transition expects invalid value and there _is_ a validation error
             questionState = markVisited(questionState, transition.question);
             if (!questionHasUnacknowledgedWarning && !values[transition.question]) {
@@ -181,7 +175,7 @@ export namespace QuestionFormUtilities {
         // Transition utilises equals condition
         if (transition.hasOwnProperty("equals")) {
           log(
-            `\t[TRANSITION ${question.name} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
+            `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
             value === transition.equals
           );
           if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
@@ -202,12 +196,12 @@ export namespace QuestionFormUtilities {
           if (transition.hasOwnProperty("valid")) {
             if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
               // Transition expects valid value, value is present and no validation error
-              log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
+              log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
               questionState = markVisited(questionState, transition.question);
               return;
             }
             if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-              log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
+              log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
               // Transition expects invalid value and there _is_ a validation error
               questionState = markVisited(questionState, transition.question);
               return;
@@ -217,7 +211,7 @@ export namespace QuestionFormUtilities {
           // Transition utilises equals condition
           if (transition.hasOwnProperty("equals")) {
             log(
-              `\t[TRANSITION ${question.name} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
+              `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
               value === transition.equals
             );
             if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
@@ -231,21 +225,21 @@ export namespace QuestionFormUtilities {
       if (question.type === SupportedFormField.ButtonGroup) {
         (question.properties as ButtonGroupProperties).buttons.forEach((b) => {
           b.next?.forEach((transition) => {
-            log(`\t[BUTTON GROUP: ${question.name}] Evaluating ${b.name} > [${b.name} -> ${transition.question}] `, values);
+            log(`\t[BUTTON GROUP: ${question.id}] Evaluating ${b.id} > [${b.id} -> ${transition.question}] `, values);
 
-            value = values[b.name];
+            value = values[b.id];
             anyErrorsForThisField = doesAnErrorExistForQuestion(b, errors);
 
             // Transition utilises valid condition
             if (transition.hasOwnProperty("valid")) {
               if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
                 // Transition expects valid value, value is present and no validation error
-                log(`\t[TRANSITION ${b.name} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
+                log(`\t[TRANSITION ${b.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
                 questionState = markVisited(questionState, transition.question);
                 return;
               }
               if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-                log(`\t[TRANSITION ${b.name} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
+                log(`\t[TRANSITION ${b.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
                 // Transition expects invalid value and there _is_ a validation error
                 questionState = markVisited(questionState, transition.question);
                 return;
@@ -255,7 +249,7 @@ export namespace QuestionFormUtilities {
             // Transition utilises equals condition
             if (transition.hasOwnProperty("equals")) {
               log(
-                `\t[TRANSITION ${b.name} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
+                `\t[TRANSITION ${b.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
                 value === transition.equals
               );
               if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {

@@ -13,17 +13,9 @@ export type QuestionSchema = {
 
 export type Question<T> = {
   /**
-   * @property id {string} - a unique identifier for this question (for business reference, and used as React node key - uuidv4 recommended)
+   * @property id {string} - a _unique_ identifier for this question (for business reference)
    */
   id: string;
-  /**
-   * @property name {string} - the name of the field which the value will be stored against
-   */
-  name: string;
-  /**
-   * @property exclude {boolean} - hide the question from rendering independently (i.e. for rendering dependency-style questions)
-   */
-  exclude: boolean;
   /**
    * @property type {SupportedFormField} - the kind of field to generate
    */
@@ -31,7 +23,7 @@ export type Question<T> = {
   /**
    * @property ui {boolean} - wrap the question in the UI wrapper via the QuestionField renderQuestion prop
    */
-  ui?: boolean;
+  ui: boolean;
   /**
    * @property prompt {string} - question/prompt to show for this field (optional)
    */

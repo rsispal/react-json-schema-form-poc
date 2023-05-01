@@ -14,14 +14,14 @@ export const WarningFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<Warni
   onEndFormCallback,
 }) => {
   const [{ onChange }] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
 
-  const handleClick = () => onChange(question.name)(PreDefinedResponse.SELECTED);
+  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
 
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
@@ -29,7 +29,7 @@ export const WarningFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<Warni
         onContinueClick={handleClick}
         onEndFormClick={onEndFormCallback}
         {...question.properties}
-        dataTestId={`${question.name}-warning`}
+        dataTestId={`${question.id}-warning`}
       />
     </Stack>
   );

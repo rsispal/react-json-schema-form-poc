@@ -1,4 +1,4 @@
-import { QuestionSchema } from "../QuestionForm/formik/QuestionForm.types";
+import { QuestionSchema } from "../QuestionForm/formik-v2/types";
 
 export type RiskQuestionFormSchema = QuestionSchema & {
   miscellaneous: {

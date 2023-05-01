@@ -18,8 +18,8 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   onResetFormCallback,
   questionFieldUI,
 }) => {
-  const { type, name } = question;
-  const [thisField, meta] = useField({ name });
+  const { type, id } = question;
+  const [thisField, meta] = useField({ name: id });
   const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
   const FieldComponent = fields[type];
@@ -101,7 +101,7 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
   return (
     <>
       {questions
-        .filter((q) => visibleQuestions.includes(q.name))
+        .filter((q) => visibleQuestions.includes(q.id))
         .map((question) => (
           <SchemaDrivenQuestionField
             key={question.id}

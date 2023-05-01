@@ -7,11 +7,11 @@ import SubmitButton from "../../fields/SubmitButton";
 export const SubmitButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<SubmitButtonProperties>> = ({ question }) => {
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
-      <SubmitButton {...question.properties} dataTestId={`${question.name}-submit-button`} />
+      <SubmitButton {...question.properties} dataTestId={`${question.id}-submit-button`} />
     </Stack>
   );
 };

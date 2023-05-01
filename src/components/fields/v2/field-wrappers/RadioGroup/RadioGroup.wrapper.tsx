@@ -7,17 +7,17 @@ import RadioGroup from "../../fields/RadioGroup/";
 
 export const RadioGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<RadioGroupProperties>> = ({ question }) => {
   const [{ value, onChange }] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
 
-  const handleChange = (selected: string) => onChange(question.name)(selected);
+  const handleChange = (selected: string) => onChange(question.id)(selected);
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
-      <RadioGroup {...question.properties} value={value} onChange={handleChange} dataTestId={`${question.name}-radio-group`} />
+      <RadioGroup {...question.properties} value={value} onChange={handleChange} dataTestId={`${question.id}-radio-group`} />
     </Stack>
   );
 };

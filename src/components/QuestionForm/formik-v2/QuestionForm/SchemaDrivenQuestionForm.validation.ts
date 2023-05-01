@@ -10,11 +10,11 @@ export const validate = async (
 
   const questionNames = Object.keys(values);
 
-  const answeredQuestions = questions.filter((question) => questionNames.includes(question.name));
+  const answeredQuestions = questions.filter((question) => questionNames.includes(question.id));
 
   const validationRules: Rules = {};
 
-  answeredQuestions.forEach((question) => (validationRules[question.name] = (question.validation as Rule | undefined) ?? []));
+  answeredQuestions.forEach((question) => (validationRules[question.id] = (question.validation as Rule | undefined) ?? []));
 
   const validator = new Schema(validationRules);
   const validationErrors: ValidateError[] = [];

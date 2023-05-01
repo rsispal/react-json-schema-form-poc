@@ -3,5 +3,5 @@ import { FC } from "react";
 import SectionBlock from "../../fields/SectionBlock";
 
 export const SectionBlockFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<SectionBlockProperties>> = ({ question }) => (
-  <SectionBlock dataTestId={`${question.name}-section-block`} title={question.properties.title} description={undefined} />
+  <SectionBlock dataTestId={`${question.id}-section-block`} title={question.properties.title} description={undefined} />
 );

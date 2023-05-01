@@ -11,20 +11,20 @@ import LinkButton from "../../fields/LinkButton";
 
 export const LinkButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<LinkButtonProperties>> = ({ question }) => {
   const [{ onChange }] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
 
-  const handleClick = () => onChange(question.name)(PreDefinedResponse.SELECTED);
+  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
 
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
       <LinkButton
         onClickCallback={handleClick}
-        dataTestId={`${question.name}-link-button`}
+        dataTestId={`${question.id}-link-button`}
         label={question.properties.label}
         url={question.properties.url}
         target={question.properties.target}

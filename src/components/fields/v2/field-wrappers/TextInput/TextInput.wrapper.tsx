@@ -7,17 +7,17 @@ import TextInput from "../../fields/TextInput";
 
 export const TextInputFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<TextInputProperties>> = ({ question }) => {
   const [{ onChange }] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => onChange(question.name)(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => onChange(question.id)(e.target.value);
 
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
-      <TextInput onChange={handleChange} dataTestId={`${question.name}-text-input`} />
+      <TextInput onChange={handleChange} dataTestId={`${question.id}-text-input`} />
     </Stack>
   );
 };

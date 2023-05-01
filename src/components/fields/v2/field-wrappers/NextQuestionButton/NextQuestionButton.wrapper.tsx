@@ -13,21 +13,21 @@ export const NextQuestionButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapper
   question,
 }) => {
   const [, , helpers] = useField<string>({
-    name: question.name,
+    name: question.id,
   });
 
   const handleClick = () => helpers.setValue(PreDefinedResponse.SELECTED);
 
   return (
     <Stack>
-      <Text data-testid={`${question.name}-question-prompt-text`} fontWeight={600} fontSize="larger">
+      <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
         {question.prompt}
       </Text>
       {question.description && <DynamicText data={question.description} />}
       <NextQuestionButton
         {...question.properties}
         onClickCallback={handleClick}
-        dataTestId={`${question.name}-next-question-button`}
+        dataTestId={`${question.id}-next-question-button`}
       />
     </Stack>
   );
