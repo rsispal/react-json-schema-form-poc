@@ -140,10 +140,10 @@ export namespace QuestionFormUtilities {
       }
 
       // Current Question "answer"
-      const value = values[question.name];
+      let value = values[question.name];
 
       // Evaluate the transitions for this question, and find all that are true (assuming not already evaluated)
-      const anyErrorsForThisField = doesAnErrorExistForQuestion(question, errors);
+      let anyErrorsForThisField = doesAnErrorExistForQuestion(question, errors);
 
       //  Check for any unacknowledged warnings, then make them visible
       let questionHasUnacknowledgedWarning = false;
@@ -227,8 +227,8 @@ export namespace QuestionFormUtilities {
           b.next?.forEach((transition) => {
             log(`\t[BUTTON GROUP: ${question.name}] Evaluating ${b.name} > [${b.name} -> ${transition.question}] `, values);
 
-            const value = values[b.name];
-            const anyErrorsForThisField = doesAnErrorExistForQuestion(b, errors);
+            value = values[b.name];
+            anyErrorsForThisField = doesAnErrorExistForQuestion(b, errors);
 
             // Transition utilises valid condition
             if (transition.hasOwnProperty("valid")) {

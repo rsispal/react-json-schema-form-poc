@@ -8,5 +8,7 @@ BACKLOG:
 REFINEMENTS
 
 - Remove independent property from schema
+- Remove exclude property from schema
+- Refactor schemaversion schema properties into an enclosing version object. Also add revisionDate and revisionNotes
 - Question warnings: Change the `question` property in the warning transition to `warningQuestionId`
 - Ensure all question logic runs from `id` and not `name`. Phase out `name` with `description`

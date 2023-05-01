@@ -6,7 +6,7 @@ export const validate = async (
   values: SchemaDrivenQuestionFormSubmission,
   questions: Question<QuestionFieldProperties>[]
 ): Promise<FormikErrors<SchemaDrivenQuestionFormSubmission>> => {
-  let errors: FormikErrors<SchemaDrivenQuestionFormSubmission> = {};
+  let formErrors: FormikErrors<SchemaDrivenQuestionFormSubmission> = {};
 
   const questionNames = Object.keys(values);
 
@@ -17,15 +17,15 @@ export const validate = async (
   answeredQuestions.forEach((question) => (validationRules[question.name] = (question.validation as Rule | undefined) ?? []));
 
   const validator = new Schema(validationRules);
-  const formErrors: ValidateError[] = [];
+  const validationErrors: ValidateError[] = [];
 
   await validator.validate(values).catch(({ errors }: { errors: ValidateError[] | null; fields: ValidateFieldsError }) => {
     if (errors) {
-      formErrors.push(...errors);
+      validationErrors.push(...errors);
     }
   });
 
-  formErrors.map((error) => (errors[error.field as string] = error.message));
+  validationErrors.map((error) => (formErrors[error.field as string] = error.message));
 
-  return errors;
+  return formErrors;
 };

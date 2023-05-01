@@ -125,8 +125,6 @@ export type SchemaDrivenQuestionFieldProps = {
   fields: SchemaDrivenQuestionFormProps["fields"];
   question: Question<QuestionFieldProperties>;
   questions: Question<QuestionFieldProperties>[];
-  previousQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
-  nextQuestion: Question<QuestionFieldProperties> | undefined; // TODO: determine if this prop is necessary?
   questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
   onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;

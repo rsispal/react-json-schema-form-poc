@@ -13,8 +13,6 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   fields,
   question,
   questions,
-  previousQuestion, // TODO: determine if this prop is necessary?
-  nextQuestion, // TODO: determine if this prop is necessary?
   onEndFormCallback,
   onSubmitFormCallback,
   onResetFormCallback,
@@ -104,14 +102,12 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
     <>
       {questions
         .filter((q) => visibleQuestions.includes(q.name))
-        .map((question, i, all) => (
+        .map((question) => (
           <SchemaDrivenQuestionField
             key={question.id}
             fields={fields}
             question={question}
             questions={questions}
-            previousQuestion={all[i - 1] ?? undefined}
-            nextQuestion={all.at(i + 1) ?? undefined}
             questionFieldUI={questionFieldUI}
             onSubmitFormCallback={onSubmitFormCallback}
             onEndFormCallback={onEndFormCallback}
