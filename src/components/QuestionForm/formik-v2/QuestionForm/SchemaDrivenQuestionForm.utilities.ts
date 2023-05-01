@@ -72,14 +72,18 @@ export namespace QuestionFormUtilities {
         if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
           log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
           // Transition expects valid value, value is present and no validation error
-          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
+          const warning = questions.filter((q) => q.name === transition.question).at(0) as
+            | Question<WarningProperties>
+            | undefined;
           warning && warnings.push(warning);
           return;
         }
         if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
           log(`\t[TRANSITION ${question.name} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
           // Transition expects invalid value and there _is_ a validation error
-          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
+          const warning = questions.filter((q) => q.name === transition.question).at(0) as
+            | Question<WarningProperties>
+            | undefined;
           warning && warnings.push(warning);
           return;
         }
@@ -92,7 +96,9 @@ export namespace QuestionFormUtilities {
           value === transition.equals
         );
         if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
-          const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
+          const warning = questions.filter((q) => q.name === transition.question).at(0) as
+            | Question<WarningProperties>
+            | undefined;
           warning && warnings.push(warning);
           return;
         }

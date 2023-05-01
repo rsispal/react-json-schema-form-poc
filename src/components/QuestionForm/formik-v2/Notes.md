@@ -7,6 +7,7 @@ BACKLOG:
 
 REFINEMENTS
 
+- Phase out using .name, remove id and make name the id
 - Remove independent property from schema
 - Remove exclude property from schema
 - Refactor schemaversion schema properties into an enclosing version object. Also add revisionDate and revisionNotes
