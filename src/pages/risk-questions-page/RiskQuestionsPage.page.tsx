@@ -15,10 +15,7 @@ import { PageLayout } from "../../layout/page/Page.layout";
 
 /* Types */
 import { RiskQuestionsPageProps } from "./RiskQuestionsPage.types";
-import {
-  RiskQuestionFormPayload,
-  RiskQuestionFormSchema,
-} from "../../components/RiskQuestionForm/RiskQuestionForm.types";
+import { RiskQuestionFormPayload, RiskQuestionFormSchema } from "../../components/RiskQuestionForm/RiskQuestionForm.types";
 
 export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
   const [submission, setSubmission] = useState<RiskQuestionFormPayload>();
@@ -37,8 +34,7 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
         fontSize: "0.5em",
         marginLeft: 2,
       }}
-      goBackRoute={Routes.ROUTE__HOME}
-    >
+      goBackRoute={Routes.ROUTE__HOME}>
       <RiskQuestionForm
         schema={SeedQuestions as unknown as RiskQuestionFormSchema}
         onEndFormCallback={() => undefined}
@@ -48,10 +44,7 @@ export const RiskQuestionsPage: FC<RiskQuestionsPageProps> = () => {
         <Heading>BackOffice Results Preview</Heading>
 
         {submission?.answers && (
-          <BackOfficeQuestionResults
-            schema={SeedQuestions as RiskQuestionFormSchema}
-            answers={submission.answers}
-          />
+          <BackOfficeQuestionResults schema={SeedQuestions as unknown as RiskQuestionFormSchema} answers={submission.answers} />
         )}
       </Box>
       <Box paddingTop={20}>

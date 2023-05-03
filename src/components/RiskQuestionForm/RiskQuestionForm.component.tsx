@@ -67,7 +67,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, sch
         onSubmitCallback={handleSubmit}
         onEndFormCallback={handleEndForm}
         {...schema}
-        questions={schema.questions}
+        questions={schema.questions.map((q) => ({ ...q, ui: true }))}
       />
     </Flex>
   );

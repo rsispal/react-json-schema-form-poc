@@ -4,6 +4,7 @@ import {
   NextFieldTransition,
   Question,
   QuestionFieldProperties,
+  RadioGroupProperties,
   SchemaDrivenQuestionFormSubmission,
   SupportedFormField,
   WarningProperties,
@@ -263,8 +264,9 @@ export namespace QuestionFormUtilities {
     });
 
     const response: Record<string, boolean> = {};
-
+    // Build the key-value object of Questions to render
     for (const [k, v] of Object.entries(questionState)) {
+      // Ensure we don't showw any unvisited warnings
       if (!childWarnings.includes(k)) {
         response[k] = v;
       }
@@ -272,4 +274,15 @@ export namespace QuestionFormUtilities {
 
     return response;
   };
+
+  // BACKOFFICE METHODS
+  export const getRadioGroupOptionForQuestionByValue = (question: Question<QuestionFieldProperties>, currentValue: string) => {
+    if (question.type === SupportedFormField.RadioGroup) {
+      return (question.properties as RadioGroupProperties).options.filter((entry) => entry.value === currentValue).at(0);
+    }
+    return undefined;
+  };
+
+  export const getQuestionById = (questions: Question<QuestionFieldProperties>[], id: string) =>
+    questions.filter((q) => q.id === id).at(0);
 }
