@@ -2,10 +2,14 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
+/* Components */
+import { SchemaDrivenQuestionFieldManager } from "../QuestionField/SchemaDrivenQuestionField.component";
+
+/* Validation */
+import { validate } from "./SchemaDrivenQuestionForm.validation";
+
 /* Types */
 import { SchemaDrivenQuestionFormProps, SchemaDrivenQuestionFormSubmission } from "../types";
-import { validate } from "./SchemaDrivenQuestionForm.validation";
-import { SchemaDrivenQuestionFieldManager } from "../QuestionField/SchemaDrivenQuestionField.component";
 
 export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
   fields,
@@ -33,8 +37,9 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
 
   // Field-level callbacks (TODO: figure out whether these need to be surfaced here, or can be implemented in QuestionField directly via useFormikContext hook?)
   const handleSubmitFormCallback = () => undefined;
-  const handleEndFormCallback = () => undefined;
   const handleResetFormCallback = () => undefined; // Needed at all?
+
+  const handleEndFormCallback = () => console.log("End form");
 
   return (
     <Formik<SchemaDrivenQuestionFormSubmission>
@@ -49,9 +54,9 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
           fields={fields}
           questions={questions}
           questionFieldUI={questionFieldUI}
-          onSubmitFormCallback={handleSubmitFormCallback} // Not needed right???
+          onSubmitFormCallback={handleSubmitFormCallback} // TODO: as above, determine whether these are used or even required
           onEndFormCallback={handleEndFormCallback}
-          onResetFormCallback={handleResetFormCallback}
+          onResetFormCallback={handleResetFormCallback} // TODO: as above, determine whether these are used or even required
         />
       </Form>
     </Formik>

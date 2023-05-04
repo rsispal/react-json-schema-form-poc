@@ -11,9 +11,6 @@ import {
 } from "../types";
 
 export namespace QuestionFormUtilities {
-  const loggingEnabled = false;
-  const log = loggingEnabled ? console.log : function () {};
-
   const doesAnErrorExistForQuestion = (
     question: Question<QuestionFieldProperties>,
     errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
@@ -39,18 +36,6 @@ export namespace QuestionFormUtilities {
     return (transition.equals === value && !anyErrorsForThisField) || false;
   };
 
-  const isQuestionOfType = (actual: SupportedFormField, expected: SupportedFormField) => actual === expected;
-
-  const isVisited = (visited: Record<string, boolean>, key: string) => visited[key] && visited[key] === true;
-
-  const markVisited = (values: Record<string, boolean>, key: string) => ({ ...values, [key]: true });
-
-  const getChildWarnings = (questions: Question<QuestionFieldProperties>[]) => {
-    return questions
-      .filter((q) => q.type !== SupportedFormField.Warning)
-      .flatMap((q) => q.warnings?.map((w) => w.question) ?? []);
-  };
-
   export const getNextChildWarningForField = (
     question: Question<QuestionFieldProperties>,
     questions: Question<QuestionFieldProperties>[],
@@ -68,17 +53,14 @@ export namespace QuestionFormUtilities {
     //  Check for any unacknowledged warnings, then make them visible
     question.warnings?.forEach((transition) => {
       // Transition utilises valid condition
-
       if (transition.hasOwnProperty("valid")) {
         if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
-          log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
           // Transition expects valid value, value is present and no validation error
           const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
           return;
         }
         if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-          log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
           // Transition expects invalid value and there _is_ a validation error
           const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
@@ -88,10 +70,6 @@ export namespace QuestionFormUtilities {
 
       // Transition utilises equals condition
       if (transition.hasOwnProperty("equals")) {
-        log(
-          `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
-          value === transition.equals
-        );
         if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
           const warning = questions.filter((q) => q.id === transition.question).at(0) as Question<WarningProperties> | undefined;
           warning && warnings.push(warning);
@@ -103,176 +81,90 @@ export namespace QuestionFormUtilities {
     return warnings;
   };
 
-  export const getQuestions = (
+  // RECURSIVE METHOD
+  export const getQuestionsToRender = (
     questions: Question<QuestionFieldProperties>[],
     values: SchemaDrivenQuestionFormSubmission,
     errors: FormikErrors<SchemaDrivenQuestionFormSubmission>
-  ): Record<string, boolean> => {
-    let questionState: Record<string, boolean> = {};
+  ): Question<QuestionFieldProperties>[] => {
+    const questionsToRender: Question<QuestionFieldProperties>[] = [];
+    const warningsToRender: Question<QuestionFieldProperties>[] = [];
 
-    log("STATE CHANGE", { values, errors });
+    questionsToRender.push(questions.at(0)!);
 
-    const childWarnings = getChildWarnings(questions);
+    const checkTransition = (transition: NextFieldTransition, questionId: string): boolean => {
+      const value = values[questionId];
+      const error = errors[questionId];
 
-    questions.forEach((question, position, all) => {
-      log(`[QUESTION ${question.id}] ${question.type}`);
-
-      const previousQuestion = all[position - 1] ?? undefined;
-      const nextQuestion = all.at(position + 1) ?? undefined;
-
-      const isFirstQuestion = position < 1 && !!question && !previousQuestion && !!nextQuestion;
-
-      // Render firstmost element
-      if (isFirstQuestion && isQuestionOfType(question.type, SupportedFormField.SectionBlock)) {
-        questionState = markVisited(questionState, question.id);
-        return true;
-      }
-      // Render the next field after the first SectionBlock
-      if (isQuestionOfType(previousQuestion.type, SupportedFormField.SectionBlock) && position === 1) {
-        questionState = markVisited(questionState, question.id);
-      }
-
-      if (
-        isQuestionOfType(question.type, SupportedFormField.SectionBlock) &&
-        isVisited(questionState, question.id) &&
-        nextQuestion
-      ) {
-        questionState = markVisited(questionState, nextQuestion.id);
-      }
-
-      // Current Question "answer"
-      let value = values[question.id];
-
-      // Evaluate the transitions for this question, and find all that are true (assuming not already evaluated)
-      let anyErrorsForThisField = doesAnErrorExistForQuestion(question, errors);
-
-      //  Check for any unacknowledged warnings, then make them visible
-      let questionHasUnacknowledgedWarning = false;
-
-      question.warnings?.forEach((transition) => {
-        // Transition utilises valid condition
-
-        if (transition.hasOwnProperty("valid")) {
-          if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
-            // Transition expects valid value, value is present and no validation error
-            log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
-            questionState = markVisited(questionState, transition.question);
-            if (!questionHasUnacknowledgedWarning && !values[transition.question]) {
-              questionHasUnacknowledgedWarning = true;
-            }
-            return;
+      if (transition.equals !== undefined) {
+        if (Array.isArray(transition.equals)) {
+          if (!transition.equals.includes(value!)) {
+            return false;
           }
-          if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-            log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
-            // Transition expects invalid value and there _is_ a validation error
-            questionState = markVisited(questionState, transition.question);
-            if (!questionHasUnacknowledgedWarning && !values[transition.question]) {
-              questionHasUnacknowledgedWarning = true;
-            }
-            return;
-          }
+        } else if (transition.equals !== value) {
+          return false;
         }
+      }
 
-        // Transition utilises equals condition
-        if (transition.hasOwnProperty("equals")) {
-          log(
-            `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
-            value === transition.equals
-          );
-          if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
-            questionState = markVisited(questionState, transition.question);
-            if (!questionHasUnacknowledgedWarning && !values[transition.question]) {
-              questionHasUnacknowledgedWarning = true;
+      if (transition.valid !== undefined) {
+        if (transition.valid && error) {
+          return false;
+        } else if (!transition.valid && !error) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    const findNextQuestion = (question: Question<QuestionFieldProperties>) => {
+      // Handle next transitions
+      question.next?.forEach((transition) => {
+        if (checkTransition(transition, question.id)) {
+          const nextQuestion = questions.find((q) => q.id === transition.question);
+          if (nextQuestion) {
+            if (questionsToRender.findIndex((q) => q.id === nextQuestion.id)) {
+              questionsToRender.push(nextQuestion);
+              findNextQuestion(nextQuestion);
             }
-            return;
           }
         }
       });
 
-      log(`\tQuestion has any unacknowledged warning?:${questionHasUnacknowledgedWarning ? "YES" : "NO"}`);
-
-      !questionHasUnacknowledgedWarning &&
-        question.next?.forEach((transition) => {
-          // Transition utilises valid condition
-          if (transition.hasOwnProperty("valid")) {
-            if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
-              // Transition expects valid value, value is present and no validation error
-              log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
-              questionState = markVisited(questionState, transition.question);
-              return;
-            }
-            if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-              log(`\t[TRANSITION ${question.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
-              // Transition expects invalid value and there _is_ a validation error
-              questionState = markVisited(questionState, transition.question);
-              return;
-            }
-          }
-
-          // Transition utilises equals condition
-          if (transition.hasOwnProperty("equals")) {
-            log(
-              `\t[TRANSITION ${question.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
-              value === transition.equals
-            );
-            if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
-              questionState = markVisited(questionState, transition.question);
-              return;
+      // Handle warning transitions
+      if (question.warnings) {
+        question.warnings.forEach((transition) => {
+          if (checkTransition(transition, question.id)) {
+            const warningQuestion = questions.find((q) => q.id === transition.question);
+            if (warningQuestion) {
+              if (warningsToRender.findIndex((q) => q.id === warningQuestion.id)) {
+                warningsToRender.push(warningQuestion);
+                findNextQuestion(warningQuestion);
+              }
             }
           }
         });
-
-      // Evaluate button group
+      }
+      // Handle next transitions for ButtonGroup Question type (these contain child Question entries for each button)
       if (question.type === SupportedFormField.ButtonGroup) {
-        (question.properties as ButtonGroupProperties).buttons.forEach((b) => {
-          b.next?.forEach((transition) => {
-            log(`\t[BUTTON GROUP: ${question.id}] Evaluating ${b.id} > [${b.id} -> ${transition.question}] `, values);
-
-            value = values[b.id];
-            anyErrorsForThisField = doesAnErrorExistForQuestion(b, errors);
-
-            // Transition utilises valid condition
-            if (transition.hasOwnProperty("valid")) {
-              if (evaluateValidTrueTransition(transition, value, anyErrorsForThisField)) {
-                // Transition expects valid value, value is present and no validation error
-                log(`\t[TRANSITION ${b.id} -> ${transition.question}]: VALID=YES`, value && !anyErrorsForThisField);
-                questionState = markVisited(questionState, transition.question);
-                return;
-              }
-              if (evaluateValidFalseTransition(transition, anyErrorsForThisField)) {
-                log(`\t[TRANSITION ${b.id} -> ${transition.question}]: VALID=NO`, anyErrorsForThisField);
-                // Transition expects invalid value and there _is_ a validation error
-                questionState = markVisited(questionState, transition.question);
-                return;
-              }
-            }
-
-            // Transition utilises equals condition
-            if (transition.hasOwnProperty("equals")) {
-              log(
-                `\t[TRANSITION ${b.id} -> ${transition.question}]: EQUALS: "${transition.equals}" (value: "${value}")`,
-                value === transition.equals
-              );
-              if (evaluateEqualsTransition(transition, value, anyErrorsForThisField)) {
-                questionState = markVisited(questionState, transition.question);
-                return;
+        (question as Question<ButtonGroupProperties>).properties.buttons.forEach((buttonQuestion) => {
+          buttonQuestion.next!.forEach((transition) => {
+            if (checkTransition(transition, buttonQuestion.id)) {
+              const nextQuestion = questions.find((q) => q.id === transition.question);
+              if (nextQuestion) {
+                if (questionsToRender.findIndex((q) => q.id === nextQuestion.id)) {
+                  questionsToRender.push(nextQuestion);
+                  findNextQuestion(nextQuestion);
+                }
               }
             }
           });
         });
       }
-    });
+    };
 
-    const response: Record<string, boolean> = {};
-    // Build the key-value object of Questions to render
-    for (const [k, v] of Object.entries(questionState)) {
-      // Ensure we don't showw any unvisited warnings
-      if (!childWarnings.includes(k)) {
-        response[k] = v;
-      }
-    }
-
-    return response;
+    findNextQuestion(questionsToRender[0]);
+    return questionsToRender;
   };
 
   // BACKOFFICE METHODS

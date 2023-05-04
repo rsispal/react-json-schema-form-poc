@@ -455,10 +455,6 @@
         {
           "equals": "YES",
           "question": "Q4"
-        },
-        {
-          "equals": "NO",
-          "question": "Q4"
         }
       ]
     },
@@ -518,10 +514,6 @@
       "next": [
         {
           "equals": "YES",
-          "question": "Q5"
-        },
-        {
-          "equals": "NO",
           "question": "Q5"
         }
       ]
@@ -590,10 +582,6 @@
           "question": "Q6"
         },
         {
-          "equals": "NO",
-          "question": "Q6"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q6"
         }
@@ -656,10 +644,6 @@
         {
           "equals": "YES",
           "question": "Q7"
-        },
-        {
-          "equals": "NO",
-          "question": "Q7"
         }
       ]
     },
@@ -719,10 +703,6 @@
       "next": [
         {
           "equals": "YES",
-          "question": "Q8"
-        },
-        {
-          "equals": "NO",
           "question": "Q8"
         }
       ]
@@ -784,10 +764,6 @@
         {
           "equals": "YES",
           "question": "Q9"
-        },
-        {
-          "equals": "NO",
-          "question": "Q9"
         }
       ]
     },
@@ -847,10 +823,6 @@
       "next": [
         {
           "equals": "YES",
-          "question": "Q10"
-        },
-        {
-          "equals": "NO",
           "question": "Q10"
         }
       ]
@@ -928,10 +900,6 @@
           "question": "Q11"
         },
         {
-          "equals": "NO",
-          "question": "Q11"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q11"
         }
@@ -999,10 +967,6 @@
           "question": "Q12"
         },
         {
-          "equals": "NO",
-          "question": "Q12"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q12"
         }
@@ -1029,7 +993,12 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q12"
+        }
+      ]
     },
 
     {
@@ -1060,10 +1029,6 @@
         {
           "equals": "YES",
           "question": "Q13"
-        },
-        {
-          "equals": "NO",
-          "question": "Q13"
         }
       ]
     },
@@ -1088,7 +1053,12 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q13"
+        }
+      ]
     },
 
     {
@@ -1122,10 +1092,6 @@
       "next": [
         {
           "equals": "YES",
-          "question": "Q14"
-        },
-        {
-          "equals": "NO",
           "question": "Q14"
         },
         {
@@ -1165,7 +1131,12 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q14"
+        }
+      ]
     },
 
     {
@@ -1199,10 +1170,6 @@
       "next": [
         {
           "equals": "YES",
-          "question": "Q15"
-        },
-        {
-          "equals": "NO",
           "question": "Q15"
         },
         {
@@ -1242,7 +1209,12 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q15"
+        }
+      ]
     },
 
     {
@@ -1273,10 +1245,6 @@
         {
           "equals": "YES",
           "question": "Form_Submit"
-        },
-        {
-          "equals": "NO",
-          "question": "Form_Submit"
         }
       ]
     },
@@ -1301,7 +1269,12 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Form_Submit"
+        }
+      ]
     },
     {
       "id": "Form_Submit",

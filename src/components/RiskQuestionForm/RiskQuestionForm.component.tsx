@@ -34,7 +34,7 @@ const fields: SchemaDrivenQuestionFormProps["fields"] = {
 };
 
 const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({ children }) => (
-  <Box bg="white" borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} margin={6} width={800}>
+  <Box bg="white" borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} marginTop={6} marginBottom={6} width={800}>
     {children}
   </Box>
 );
@@ -60,15 +60,17 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, sch
 
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
-      <SchemaDrivenQuestionForm
-        fields={fields}
-        questionFieldUI={QuestionFieldUI}
-        initialValues={initialValues}
-        onSubmitCallback={handleSubmit}
-        onEndFormCallback={handleEndForm}
-        {...schema}
-        questions={schema.questions.map((q) => ({ ...q, ui: true }))}
-      />
+      <Box borderRadius="lg" width={800}>
+        <SchemaDrivenQuestionForm
+          fields={fields}
+          questionFieldUI={QuestionFieldUI}
+          initialValues={initialValues}
+          onSubmitCallback={handleSubmit}
+          onEndFormCallback={handleEndForm}
+          {...schema}
+          questions={schema.questions}
+        />
+      </Box>
     </Flex>
   );
 };

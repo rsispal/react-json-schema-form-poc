@@ -1,5 +1,5 @@
-import React, { FC, isValidElement } from "react";
-import { useField, useFormikContext } from "formik";
+import React, { createElement, FC, isValidElement, useMemo } from "react";
+import { FieldMetaProps, useField, useFormikContext } from "formik";
 import { QuestionFormUtilities } from "../QuestionForm/SchemaDrivenQuestionForm.utilities";
 import {
   Question,
@@ -8,6 +8,8 @@ import {
   SchemaDrivenQuestionFormSubmission,
   WarningProperties,
 } from "../types";
+
+const FieldLevelError: FC<FieldMetaProps<string>> = ({ error }) => <>{error && <p style={{ color: "red" }}>ERROR: {error}</p>}</>;
 
 export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   fields,
@@ -24,10 +26,7 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
 
   const FieldComponent = fields[type];
   const WarningFieldComponent = fields["Warning"];
-
   const QuestionFieldUIWrapper = questionFieldUI;
-
-  const renderFieldLevelErrors = () => <>{meta.error && <p style={{ color: "red" }}>ERROR: {meta.error}</p>}</>;
 
   const renderFieldLevelWarnings = () => {
     const applicableWarnings: Question<WarningProperties>[] = QuestionFormUtilities.getNextChildWarningForField(
@@ -48,38 +47,31 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
     ));
   };
 
-  const renderField = () => (
-    <FieldComponent
-      question={question}
-      value={thisField.value}
-      error={meta.error}
-      onEndFormCallback={onEndFormCallback}
-      onSubmitFormCallback={onSubmitFormCallback}
-      onResetFormCallback={onResetFormCallback}
-    />
+  const renderContent = () => (
+    <>
+      <FieldComponent
+        question={question}
+        value={thisField.value}
+        error={meta.error}
+        onEndFormCallback={onEndFormCallback}
+        onSubmitFormCallback={onSubmitFormCallback}
+        onResetFormCallback={onResetFormCallback}
+      />
+      <FieldLevelError {...meta} />
+      {renderFieldLevelWarnings()}
+    </>
   );
-
-  const field = renderField();
-
-  if (isValidElement(field)) {
+  if (!!FieldComponent && isValidElement(createElement(FieldComponent))) {
     if (question.ui && QuestionFieldUIWrapper) {
-      return (
-        <QuestionFieldUIWrapper>
-          {field}
-          {renderFieldLevelErrors()}
-          {renderFieldLevelWarnings()}
-        </QuestionFieldUIWrapper>
-      );
+      return <QuestionFieldUIWrapper>{renderContent()}</QuestionFieldUIWrapper>;
     }
-    return (
-      <>
-        {field}
-        {renderFieldLevelErrors()}
-        {renderFieldLevelWarnings()}
-      </>
-    );
+    return <>{renderContent()}</>;
   }
-  return <p style={{ color: "red", fontWeight: 800 }}>Unsupported field type "{type}"</p>;
+  return (
+    <p style={{ color: "red", fontWeight: 800 }}>
+      Unsupported field type "{type}". Check component map for matching element and schema for errors.
+    </p>
+  );
 };
 
 export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManagerProps> = ({
@@ -92,28 +84,24 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
 }) => {
   const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
-  const _visibleQuestions = QuestionFormUtilities.getQuestions(questions, values, errors);
-
-  const visibleQuestions = Object.keys(_visibleQuestions).filter(
-    (k) => _visibleQuestions.hasOwnProperty(k) && _visibleQuestions[k] === true
-  );
-
   return (
     <>
-      {questions
-        .filter((q) => visibleQuestions.includes(q.id))
-        .map((question) => (
-          <SchemaDrivenQuestionField
-            key={question.id}
-            fields={fields}
-            question={question}
-            questions={questions}
-            questionFieldUI={questionFieldUI}
-            onSubmitFormCallback={onSubmitFormCallback}
-            onEndFormCallback={onEndFormCallback}
-            onResetFormCallback={onResetFormCallback}
-          />
-        ))}
+      {useMemo(
+        () =>
+          QuestionFormUtilities.getQuestionsToRender(questions, values, errors).map((question) => (
+            <SchemaDrivenQuestionField
+              key={question.id}
+              fields={fields}
+              question={question}
+              questions={questions}
+              questionFieldUI={questionFieldUI}
+              onSubmitFormCallback={onSubmitFormCallback}
+              onEndFormCallback={onEndFormCallback}
+              onResetFormCallback={onResetFormCallback}
+            />
+          )),
+        [questions, values, errors, fields, onEndFormCallback, onSubmitFormCallback, onResetFormCallback, questionFieldUI]
+      )}
     </>
   );
 };
