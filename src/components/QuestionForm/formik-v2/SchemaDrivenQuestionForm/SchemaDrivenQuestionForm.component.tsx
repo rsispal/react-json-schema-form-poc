@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
 /* Components */
-import { SchemaDrivenQuestionFieldManager } from "../QuestionField/SchemaDrivenQuestionField.component";
+import { SchemaDrivenQuestionFieldManager } from "../SchemaDrivenQuestionField/SchemaDrivenQuestionField.component";
 
 /* Validation */
 import { validate } from "./SchemaDrivenQuestionForm.validation";

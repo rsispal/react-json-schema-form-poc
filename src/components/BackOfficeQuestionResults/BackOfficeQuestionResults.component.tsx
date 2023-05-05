@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Table, TableCaption, Tbody, Td, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 
-import { QuestionFormUtilities } from "../QuestionForm/formik-v2/QuestionForm/SchemaDrivenQuestionForm.utilities";
+import { QuestionFormUtilities } from "../QuestionForm/formik-v2/SchemaDrivenQuestionForm/SchemaDrivenQuestionForm.utilities";
 
 import { BackOfficeQuestionResultsProps } from "./BackOfficeQuestionResults.types";
 import {
