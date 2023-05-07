@@ -16,8 +16,6 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   question,
   questions,
   onEndFormCallback,
-  onSubmitFormCallback,
-  onResetFormCallback,
   questionFieldUI,
 }) => {
   const { type, id } = question;
@@ -36,27 +34,13 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
       errors
     );
     return applicableWarnings.map((w, i) => (
-      <WarningFieldComponent
-        key={w.id}
-        question={w}
-        value={thisField.value}
-        onEndFormCallback={onEndFormCallback}
-        onSubmitFormCallback={onSubmitFormCallback}
-        onResetFormCallback={onResetFormCallback}
-      />
+      <WarningFieldComponent key={w.id} question={w} value={thisField.value} onEndFormCallback={onEndFormCallback} />
     ));
   };
 
   const renderContent = () => (
     <>
-      <FieldComponent
-        question={question}
-        value={thisField.value}
-        error={meta.error}
-        onEndFormCallback={onEndFormCallback}
-        onSubmitFormCallback={onSubmitFormCallback}
-        onResetFormCallback={onResetFormCallback}
-      />
+      <FieldComponent question={question} value={thisField.value} error={meta.error} onEndFormCallback={onEndFormCallback} />
       <FieldLevelError {...meta} />
       {renderFieldLevelWarnings()}
     </>
@@ -78,9 +62,7 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
   fields,
   questions,
   questionFieldUI,
-  onSubmitFormCallback,
   onEndFormCallback,
-  onResetFormCallback,
 }) => {
   const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
@@ -95,12 +77,10 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
               question={question}
               questions={questions}
               questionFieldUI={questionFieldUI}
-              onSubmitFormCallback={onSubmitFormCallback}
               onEndFormCallback={onEndFormCallback}
-              onResetFormCallback={onResetFormCallback}
             />
           )),
-        [questions, values, errors, fields, onEndFormCallback, onSubmitFormCallback, onResetFormCallback, questionFieldUI]
+        [questions, values, errors, fields, questionFieldUI, onEndFormCallback]
       )}
     </>
   );

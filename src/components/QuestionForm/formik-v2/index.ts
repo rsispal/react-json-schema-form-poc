@@ -1,1 +1,1 @@
-export { SchemaDrivenQuestionForm } from "./SchemaDrivenQuestionForm/SchemaDrivenQuestionForm.component";
+export { SchemaDrivenQuestionForm } from "./SchemaDrivenQuestionForm";

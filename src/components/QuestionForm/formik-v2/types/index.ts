@@ -108,9 +108,7 @@ export type SchemaDrivenQuestionFieldManagerProps = {
   fields: SchemaDrivenQuestionFormProps["fields"];
   questions: Question<QuestionFieldProperties>[];
   questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
-  onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
-  onResetFormCallback: () => void;
 };
 
 export type SchemaDrivenQuestionFieldProps = {
@@ -118,18 +116,14 @@ export type SchemaDrivenQuestionFieldProps = {
   question: Question<QuestionFieldProperties>;
   questions: Question<QuestionFieldProperties>[];
   questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
-  onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
-  onResetFormCallback: () => void;
 };
 
 export type SchemaDrivenQuestionFieldWrapperProps<T> = {
   question: Question<T>;
   value: string | undefined;
   error?: string | undefined;
-  onSubmitFormCallback: () => void;
   onEndFormCallback: () => void;
-  onResetFormCallback: () => void;
 };
 
 export type RadioGroupProperties = {

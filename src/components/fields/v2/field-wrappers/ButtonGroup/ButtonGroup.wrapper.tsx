@@ -14,7 +14,10 @@ import LinkButtonFieldWrapper from "../LinkButton";
 import NextQuestionButtonFieldWrapper from "../NextQuestionButton";
 import SubmitButtonFieldWrapper from "../SubmitButton";
 
-export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<ButtonGroupProperties>> = ({ question }) => {
+export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<ButtonGroupProperties>> = ({
+  question,
+  onEndFormCallback,
+}) => {
   return (
     <Stack data-testid={`${question.id}-button-group`}>
       <Text data-testid={`${question.id}-question-prompt-text`} fontWeight={600} fontSize="larger">
@@ -36,15 +39,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   key={i}
                   question={btn as Question<LinkButtonProperties>}
                   value={undefined}
-                  onSubmitFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onEndFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onResetFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
+                  onEndFormCallback={onEndFormCallback}
                 />
               );
             }
@@ -54,15 +49,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   key={i}
                   question={btn as Question<NextQuestionButtonProperties>}
                   value={undefined}
-                  onSubmitFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onEndFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onResetFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
+                  onEndFormCallback={onEndFormCallback}
                 />
               );
             }
@@ -72,15 +59,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   key={i}
                   question={btn as Question<SubmitButtonProperties>}
                   value={undefined}
-                  onSubmitFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onEndFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onResetFormCallback={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
+                  onEndFormCallback={onEndFormCallback}
                 />
               );
             }

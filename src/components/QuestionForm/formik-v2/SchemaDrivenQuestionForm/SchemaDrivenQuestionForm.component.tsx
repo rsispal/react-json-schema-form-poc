@@ -18,9 +18,10 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
   schemaVersionMinor,
   formName,
   questions,
-  onSubmitCallback,
   submitOnChange,
   questionFieldUI,
+  onSubmitCallback,
+  onEndFormCallback,
 }) => {
   const handleSubmit = (
     values: SchemaDrivenQuestionFormSubmission,
@@ -35,12 +36,6 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
     return outcome;
   };
 
-  // Field-level callbacks (TODO: figure out whether these need to be surfaced here, or can be implemented in QuestionField directly via useFormikContext hook?)
-  const handleSubmitFormCallback = () => undefined;
-  const handleResetFormCallback = () => undefined; // Needed at all?
-
-  const handleEndFormCallback = () => console.log("End form");
-
   return (
     <Formik<SchemaDrivenQuestionFormSubmission>
       onSubmit={handleSubmit}
@@ -54,9 +49,7 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
           fields={fields}
           questions={questions}
           questionFieldUI={questionFieldUI}
-          onSubmitFormCallback={handleSubmitFormCallback} // TODO: as above, determine whether these are used or even required
-          onEndFormCallback={handleEndFormCallback}
-          onResetFormCallback={handleResetFormCallback} // TODO: as above, determine whether these are used or even required
+          onEndFormCallback={onEndFormCallback}
         />
       </Form>
     </Formik>

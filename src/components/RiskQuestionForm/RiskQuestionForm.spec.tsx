@@ -254,7 +254,7 @@ describe("<RiskQuestionForm /> Page", () => {
     onSubmitCallback = cy.stub();
     onEndFormCallback = cy.stub();
     mountWithProps<RiskQuestionFormProps>(RiskQuestionForm, {
-      schema: RiskQuestionsSchema as RiskQuestionFormProps["schema"],
+      schema: RiskQuestionsSchema as unknown as RiskQuestionFormProps["schema"],
       onSubmitCallback,
       onEndFormCallback,
     });

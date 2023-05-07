@@ -81,6 +81,9 @@ export namespace QuestionFormUtilities {
     return warnings;
   };
 
+  const questionArrayContains = (a: Question<QuestionFieldProperties>[], q: Question<QuestionFieldProperties>) =>
+    a.findIndex((_q) => _q.id === q.id) > -1;
+
   // RECURSIVE METHOD
   export const getQuestionsToRender = (
     questions: Question<QuestionFieldProperties>[],
@@ -96,19 +99,26 @@ export namespace QuestionFormUtilities {
       const value = values[questionId];
       const error = errors[questionId];
 
+      // Transition: EQUALS:
       if (transition.equals !== undefined) {
+        // array
         if (Array.isArray(transition.equals)) {
+          // Array value - field value isn't present in array of expected values
           if (!transition.equals.includes(value!)) {
             return false;
           }
+          // Single value - field doesn't equal required value
         } else if (transition.equals !== value) {
           return false;
         }
       }
 
+      // Transition: VALID:
       if (transition.valid !== undefined) {
+        // Valid = true transition, but field has error
         if (transition.valid && error) {
           return false;
+          // Valid = false transition, but field has no error
         } else if (!transition.valid && !error) {
           return false;
         }
@@ -123,7 +133,7 @@ export namespace QuestionFormUtilities {
         if (checkTransition(transition, question.id)) {
           const nextQuestion = questions.find((q) => q.id === transition.question);
           if (nextQuestion) {
-            if (questionsToRender.findIndex((q) => q.id === nextQuestion.id)) {
+            if (!questionArrayContains(questionsToRender, nextQuestion)) {
               questionsToRender.push(nextQuestion);
               findNextQuestion(nextQuestion);
             }
@@ -137,7 +147,7 @@ export namespace QuestionFormUtilities {
           if (checkTransition(transition, question.id)) {
             const warningQuestion = questions.find((q) => q.id === transition.question);
             if (warningQuestion) {
-              if (warningsToRender.findIndex((q) => q.id === warningQuestion.id)) {
+              if (!questionArrayContains(warningsToRender, warningQuestion)) {
                 warningsToRender.push(warningQuestion);
                 findNextQuestion(warningQuestion);
               }
@@ -145,6 +155,7 @@ export namespace QuestionFormUtilities {
           }
         });
       }
+
       // Handle next transitions for ButtonGroup Question type (these contain child Question entries for each button)
       if (question.type === SupportedFormField.ButtonGroup) {
         (question as Question<ButtonGroupProperties>).properties.buttons.forEach((buttonQuestion) => {
@@ -152,7 +163,7 @@ export namespace QuestionFormUtilities {
             if (checkTransition(transition, buttonQuestion.id)) {
               const nextQuestion = questions.find((q) => q.id === transition.question);
               if (nextQuestion) {
-                if (questionsToRender.findIndex((q) => q.id === nextQuestion.id)) {
+                if (!questionArrayContains(questionsToRender, nextQuestion)) {
                   questionsToRender.push(nextQuestion);
                   findNextQuestion(nextQuestion);
                 }
