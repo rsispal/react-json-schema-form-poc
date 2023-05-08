@@ -22,6 +22,7 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
   questionFieldUI,
   onSubmitCallback,
   onEndFormCallback,
+  onAnswerCallback,
 }) => {
   const handleSubmit = (
     values: SchemaDrivenQuestionFormSubmission,
@@ -50,6 +51,7 @@ export const SchemaDrivenQuestionForm: FC<SchemaDrivenQuestionFormProps> = ({
           questions={questions}
           questionFieldUI={questionFieldUI}
           onEndFormCallback={onEndFormCallback}
+          onAnswerCallback={onAnswerCallback}
         />
       </Form>
     </Formik>

@@ -5,11 +5,17 @@ import { useField } from "formik";
 import { ChangeEvent, FC } from "react";
 import TextInput from "../../fields/TextInput";
 
-export const TextInputFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<TextInputProperties>> = ({ question }) => {
+export const TextInputFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<TextInputProperties>> = ({
+  question,
+  onAnswerCallback,
+}) => {
   const [{ onChange }] = useField<string>({
     name: question.id,
   });
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => onChange(question.id)(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onAnswerCallback(question, e.target.value);
+    onChange(question.id)(e.target.value);
+  };
 
   return (
     <Stack>

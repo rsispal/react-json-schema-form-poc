@@ -11,12 +11,16 @@ import NextQuestionButton from "../../fields/NextQuestionButton";
 
 export const NextQuestionButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<NextQuestionButtonProperties>> = ({
   question,
+  onAnswerCallback,
 }) => {
   const [, , helpers] = useField<string>({
     name: question.id,
   });
 
-  const handleClick = () => helpers.setValue(PreDefinedResponse.SELECTED);
+  const handleClick = () => {
+    onAnswerCallback(question, PreDefinedResponse.SELECTED);
+    helpers.setValue(PreDefinedResponse.SELECTED);
+  };
 
   return (
     <Stack>

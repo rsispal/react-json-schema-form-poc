@@ -17,6 +17,7 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
   questions,
   onEndFormCallback,
   questionFieldUI,
+  onAnswerCallback,
 }) => {
   const { type, id } = question;
   const [thisField, meta] = useField({ name: id });
@@ -34,13 +35,25 @@ export const SchemaDrivenQuestionField: FC<SchemaDrivenQuestionFieldProps> = ({
       errors
     );
     return applicableWarnings.map((w, i) => (
-      <WarningFieldComponent key={w.id} question={w} value={thisField.value} onEndFormCallback={onEndFormCallback} />
+      <WarningFieldComponent
+        key={w.id}
+        question={w}
+        value={thisField.value}
+        onEndFormCallback={onEndFormCallback}
+        onAnswerCallback={onAnswerCallback}
+      />
     ));
   };
 
   const renderContent = () => (
     <>
-      <FieldComponent question={question} value={thisField.value} error={meta.error} onEndFormCallback={onEndFormCallback} />
+      <FieldComponent
+        question={question}
+        value={thisField.value}
+        error={meta.error}
+        onEndFormCallback={onEndFormCallback}
+        onAnswerCallback={onAnswerCallback}
+      />
       <FieldLevelError {...meta} />
       {renderFieldLevelWarnings()}
     </>
@@ -63,6 +76,7 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
   questions,
   questionFieldUI,
   onEndFormCallback,
+  onAnswerCallback,
 }) => {
   const { values, errors } = useFormikContext<SchemaDrivenQuestionFormSubmission>();
 
@@ -78,9 +92,10 @@ export const SchemaDrivenQuestionFieldManager: FC<SchemaDrivenQuestionFieldManag
               questions={questions}
               questionFieldUI={questionFieldUI}
               onEndFormCallback={onEndFormCallback}
+              onAnswerCallback={onAnswerCallback}
             />
           )),
-        [questions, values, errors, fields, questionFieldUI, onEndFormCallback]
+        [questions, values, errors, fields, questionFieldUI, onEndFormCallback, onAnswerCallback]
       )}
     </>
   );

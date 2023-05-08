@@ -9,12 +9,18 @@ import { useField } from "formik";
 import { FC } from "react";
 import LinkButton from "../../fields/LinkButton";
 
-export const LinkButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<LinkButtonProperties>> = ({ question }) => {
+export const LinkButtonFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<LinkButtonProperties>> = ({
+  question,
+  onAnswerCallback,
+}) => {
   const [{ onChange }] = useField<string>({
     name: question.id,
   });
 
-  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
+  const handleClick = () => {
+    onAnswerCallback(question, PreDefinedResponse.SELECTED);
+    onChange(question.id)(PreDefinedResponse.SELECTED);
+  };
 
   return (
     <Stack>

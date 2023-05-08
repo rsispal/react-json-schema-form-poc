@@ -17,6 +17,7 @@ import SubmitButtonFieldWrapper from "../SubmitButton";
 export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<ButtonGroupProperties>> = ({
   question,
   onEndFormCallback,
+  onAnswerCallback,
 }) => {
   return (
     <Stack data-testid={`${question.id}-button-group`}>
@@ -40,6 +41,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   question={btn as Question<LinkButtonProperties>}
                   value={undefined}
                   onEndFormCallback={onEndFormCallback}
+                  onAnswerCallback={onAnswerCallback}
                 />
               );
             }
@@ -50,6 +52,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   question={btn as Question<NextQuestionButtonProperties>}
                   value={undefined}
                   onEndFormCallback={onEndFormCallback}
+                  onAnswerCallback={onAnswerCallback}
                 />
               );
             }
@@ -60,6 +63,7 @@ export const ButtonGroupFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<B
                   question={btn as Question<SubmitButtonProperties>}
                   value={undefined}
                   onEndFormCallback={onEndFormCallback}
+                  onAnswerCallback={onAnswerCallback}
                 />
               );
             }

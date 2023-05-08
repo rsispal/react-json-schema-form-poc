@@ -1,6 +1,6 @@
 /* Libraries */
 import { Box, Flex } from "@chakra-ui/react";
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useState } from "react";
 
 /* Components */
 import { SchemaDrivenQuestionForm } from "../QuestionForm/formik-v2";
@@ -17,7 +17,13 @@ import SubmitButtonFieldWrapper from "../fields/v2/field-wrappers/SubmitButton";
 import SectionBlockFieldWrapper from "components/fields/v2/field-wrappers/SectionBlock";
 
 /* Types */
-import { SchemaDrivenQuestionFormProps, SchemaDrivenQuestionFormSubmission } from "../QuestionForm/formik-v2/types";
+import {
+  Question,
+  QuestionFieldProperties,
+  SchemaDrivenQuestionFormProps,
+  SchemaDrivenQuestionFormSubmission,
+  SupportedFormField,
+} from "../QuestionForm/formik-v2/types";
 
 import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
@@ -39,7 +45,20 @@ const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({ chil
   </Box>
 );
 
+function useRiskQuestionAnalytics() {
+  const [logged, setLogged] = useState<{ [k: string]: boolean }>({});
+
+  const logtoAnalyticsOnce = (question: Question<QuestionFieldProperties>, value: string | undefined) => {
+    if (question.type === SupportedFormField.RadioGroup && value === "NO" && !logged[question.id]) {
+      console.log(`Logging ${question.id} to analytics`);
+      setLogged({ ...logged, [question.id]: true });
+    }
+  };
+  return { logtoAnalyticsOnce };
+}
+
 export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, schema, onSubmitCallback, onEndFormCallback }) => {
+  const { logtoAnalyticsOnce } = useRiskQuestionAnalytics();
   const handleSubmit = (values: SchemaDrivenQuestionFormSubmission) => {
     console.log("*** SUBMITTED ***", {
       source: "ONLINE",
@@ -67,6 +86,7 @@ export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, sch
           initialValues={initialValues}
           onSubmitCallback={handleSubmit}
           onEndFormCallback={handleEndForm}
+          onAnswerCallback={logtoAnalyticsOnce}
           {...schema}
           questions={schema.questions}
         />

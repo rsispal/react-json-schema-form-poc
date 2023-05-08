@@ -91,6 +91,7 @@ export interface SchemaDrivenQuestionFormProps extends QuestionSchema {
   submitOnChange?: boolean;
   onSubmitCallback: (values: SchemaDrivenQuestionFormSubmission) => void;
   onEndFormCallback: () => void;
+  onAnswerCallback: (question: Question<QuestionFieldProperties>, value: string | undefined) => void;
 }
 
 export type QuestionFieldProperties =
@@ -109,6 +110,7 @@ export type SchemaDrivenQuestionFieldManagerProps = {
   questions: Question<QuestionFieldProperties>[];
   questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
   onEndFormCallback: () => void;
+  onAnswerCallback: (question: Question<QuestionFieldProperties>, value: string | undefined) => void;
 };
 
 export type SchemaDrivenQuestionFieldProps = {
@@ -117,6 +119,7 @@ export type SchemaDrivenQuestionFieldProps = {
   questions: Question<QuestionFieldProperties>[];
   questionFieldUI: SchemaDrivenQuestionFormProps["questionFieldUI"];
   onEndFormCallback: () => void;
+  onAnswerCallback: (question: Question<QuestionFieldProperties>, value: string | undefined) => void;
 };
 
 export type SchemaDrivenQuestionFieldWrapperProps<T> = {
@@ -124,6 +127,7 @@ export type SchemaDrivenQuestionFieldWrapperProps<T> = {
   value: string | undefined;
   error?: string | undefined;
   onEndFormCallback: () => void;
+  onAnswerCallback: (question: Question<QuestionFieldProperties>, value: string | undefined) => void;
 };
 
 export type RadioGroupProperties = {

@@ -12,12 +12,16 @@ import Warning from "../../fields/Warning";
 export const WarningFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<WarningProperties>> = ({
   question,
   onEndFormCallback,
+  onAnswerCallback,
 }) => {
   const [{ onChange }] = useField<string>({
     name: question.id,
   });
 
-  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
+  const handleClick = () => {
+    onAnswerCallback(question, PreDefinedResponse.SELECTED);
+    onChange(question.id)(PreDefinedResponse.SELECTED);
+  };
 
   return (
     <Stack>

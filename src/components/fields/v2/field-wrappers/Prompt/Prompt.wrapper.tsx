@@ -12,12 +12,16 @@ import Prompt from "../../fields/Prompt";
 export const PromptFieldWrapper: FC<SchemaDrivenQuestionFieldWrapperProps<PromptProperties>> = ({
   question,
   onEndFormCallback,
+  onAnswerCallback,
 }) => {
   const [{ value, onChange }] = useField<string>({
     name: question.id,
   });
 
-  const handleClick = () => onChange(question.id)(PreDefinedResponse.SELECTED);
+  const handleClick = () => {
+    onAnswerCallback(question, PreDefinedResponse.SELECTED);
+    onChange(question.id)(PreDefinedResponse.SELECTED);
+  };
 
   return (
     <Stack>

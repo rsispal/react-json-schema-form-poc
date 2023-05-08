@@ -74,14 +74,17 @@ export const QuestionFormTestUtilities = {
 describe("<SchemaDrivenQuestionForm /> Tests (Version 2 Implementation - Formik)", () => {
   let onSubmitCallback: typeof cy.stub;
   let onEndFormCallback: typeof cy.stub;
+  let onAnswerCallback: typeof cy.stub;
 
   beforeEach(() => {
     onSubmitCallback = cy.stub();
     onEndFormCallback = cy.stub();
+    onAnswerCallback = cy.stub();
     mountWithProps<SchemaDrivenQuestionFormProps>(SchemaDrivenQuestionForm, {
       ...(SeedQuestions as unknown as QuestionSchema),
       onSubmitCallback,
       onEndFormCallback,
+      onAnswerCallback,
       questionFieldUI: ({ children }) => (
         <Box bg="white" margin={4} p={4} w={200} maxW={200} boxShadow="xl">
           {children}
