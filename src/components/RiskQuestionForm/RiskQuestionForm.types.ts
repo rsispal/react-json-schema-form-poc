@@ -1,4 +1,4 @@
-import { QuestionSchema } from "../QuestionForm/formik/QuestionForm.types";
+import { QuestionSchema } from "../QuestionForm/formik-v2/types";
 
 export type RiskQuestionFormSchema = QuestionSchema & {
   miscellaneous: {
@@ -9,7 +9,7 @@ export interface RiskQuestionFormProps {
   schema: RiskQuestionFormSchema;
   initialValues?: Record<string, string | undefined>;
   onSubmitCallback: (results: RiskQuestionFormPayload) => void;
-  onEndFormCallback: (results: Record<string, string | undefined>) => void;
+  onEndFormCallback: () => void;
 }
 
 export type RiskQuestionFormPayload = {

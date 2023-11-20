@@ -1,17 +1,7 @@
 import { FC } from "react";
-import {
-  Box,
-  Table,
-  TableCaption,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Table, TableCaption, Tbody, Td, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 
-import { QuestionFormUtilities } from "../QuestionForm/rc-field-form/QuestionForm.utilities";
+import { QuestionFormUtilities } from "../QuestionForm/formik-v2/SchemaDrivenQuestionForm/SchemaDrivenQuestionForm.utilities";
 
 import { BackOfficeQuestionResultsProps } from "./BackOfficeQuestionResults.types";
 import {
@@ -22,13 +12,10 @@ import {
   QuestionFieldProperties,
   SupportedFormField,
   WarningProperties,
-} from "../QuestionForm/rc-field-form/QuestionForm.types";
+} from "../QuestionForm/formik-v2/types";
 import { DynamicText } from "../DynamicText";
 
-export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
-  answers = [],
-  schema,
-}) => {
+export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({ answers = [], schema }) => {
   const tableBg = useColorModeValue("white", "gray.700");
 
   const getQuestionType = (question: Question<QuestionFieldProperties>) => {
@@ -80,9 +67,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
 
       case SupportedFormField.Prompt:
       case SupportedFormField.Warning: {
-        const data = (
-          question.properties as WarningProperties | PromptProperties
-        ).prompt;
+        const data = (question.properties as WarningProperties | PromptProperties).prompt;
         return <DynamicText data={data} />;
       }
       default: {
@@ -91,33 +76,22 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
     }
   };
 
-  const getAnswer = (
-    question: Question<QuestionFieldProperties>,
-    answers: BackOfficeQuestionResultsProps["answers"]
-  ) => {
-    const filtered = answers?.filter((a) => a.name === question.name).at(0);
+  const getAnswer = (question: Question<QuestionFieldProperties>, answers: BackOfficeQuestionResultsProps["answers"]) => {
+    const filtered = answers?.filter((a) => a.name === question.id).at(0);
     if (filtered) {
       switch (question.type) {
         case SupportedFormField.RadioGroup: {
           const currentAnswer = (filtered.answer as string) ?? "";
-          const option =
-            QuestionFormUtilities.getRadioGroupOptionForQuestionByValue(
-              question,
-              currentAnswer
-            );
+          const option = QuestionFormUtilities.getRadioGroupOptionForQuestionByValue(question, currentAnswer);
 
           return option?.label;
         }
         case SupportedFormField.LinkButton: {
-          return filtered.answer === "SELECTED"
-            ? "Link clicked"
-            : "Link not clicked";
+          return filtered.answer === "SELECTED" ? "Link clicked" : "Link not clicked";
         }
         case SupportedFormField.Prompt:
         case SupportedFormField.Warning: {
-          return filtered.answer === "SELECTED"
-            ? "User acknowledged"
-            : "User didn't acknowledge";
+          return filtered.answer === "SELECTED" ? "User acknowledged" : "User didn't acknowledge";
         }
         default: {
           return filtered.answer;
@@ -130,13 +104,12 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
     question: Question<QuestionFieldProperties>,
     answers: BackOfficeQuestionResultsProps["answers"]
   ) => {
-    const name = question.name;
     const type = getQuestionType(question);
     const prompt = getQuestionPrompt(question);
     const answer = getAnswer(question, answers);
     return (
-      <Tr key={name}>
-        <Td>{name}</Td>
+      <Tr key={question.id}>
+        <Td>{question.id}</Td>
         <Td>{type}</Td>
         <Td>{prompt}</Td>
         <Td>{answer}</Td>
@@ -158,10 +131,7 @@ export const BackOfficeQuestionResults: FC<BackOfficeQuestionResultsProps> = ({
         </Thead>
         <Tbody>
           {answers.map(({ name, answer }) => {
-            const question = QuestionFormUtilities.getQuestionByName(
-              schema.questions,
-              name
-            );
+            const question = QuestionFormUtilities.getQuestionById(schema.questions, name);
 
             if (question) {
               return renderQuestionAndAnswer(question, answers);

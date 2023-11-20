@@ -1,141 +1,96 @@
 /* Libraries */
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import React, { FC, ReactElement, useState } from "react";
 
 /* Components */
-import { QuestionField } from "components/QuestionForm/formik/QuestionField";
-import { QuestionForm } from "../QuestionForm/formik";
-import { QuestionFormUtilities } from "../QuestionForm/formik/QuestionForm.utilities";
+import { SchemaDrivenQuestionForm } from "../QuestionForm/formik-v2";
 
-import { ButtonGroupFieldWrapper } from "../QuestionForm/formik/field-wrappers/ButtonGroup";
-import { LinkButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/LinkButton";
-import { NextQuestionButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/NextQuestionButton";
-import { PromptFieldWrapper } from "../QuestionForm/formik/field-wrappers/Prompt";
-import { RadioGroupFieldWrapper } from "../QuestionForm/formik/field-wrappers/RadioGroup";
-import { SubmitButtonFieldWrapper } from "../QuestionForm/formik/field-wrappers/SubmitButton";
-import { TextInputFieldWrapper } from "../QuestionForm/formik/field-wrappers/TextInput";
-import { WarningFieldWrapper } from "../QuestionForm/formik/field-wrappers/Warning";
-import { SectionBlockFieldWrapper } from "components/QuestionForm/formik/field-wrappers/SectionBlock";
+/* Field Wrappers */
+import LinkButtonFieldWrapper from "../fields/v2/field-wrappers/LinkButton";
+import RadioGroupFieldWrapper from "../fields/v2/field-wrappers/RadioGroup";
+import TextInputFieldWrapper from "../fields/v2/field-wrappers/TextInput";
+import NextQuestionButtonFieldWrapper from "../fields/v2/field-wrappers/NextQuestionButton";
+import ButtonGroupFieldWrapper from "../fields/v2/field-wrappers/ButtonGroup";
+import PromptFieldWrapper from "../fields/v2/field-wrappers/Prompt";
+import WarningFieldWrapper from "../fields/v2/field-wrappers/Warning";
+import SubmitButtonFieldWrapper from "../fields/v2/field-wrappers/SubmitButton";
+import SectionBlockFieldWrapper from "components/fields/v2/field-wrappers/SectionBlock";
 
 /* Types */
 import {
-  RiskQuestionFormPayload,
-  RiskQuestionFormProps,
-} from "./RiskQuestionForm.types";
+  Question,
+  QuestionFieldProperties,
+  SchemaDrivenQuestionFormProps,
+  SchemaDrivenQuestionFormSubmission,
+  SupportedFormField,
+} from "../QuestionForm/formik-v2/types";
 
-export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({
-  initialValues,
-  schema,
-  onSubmitCallback,
-  onEndFormCallback,
-}) => {
-  const [values, setValues] = useState<Record<string, string | undefined>>({});
+import { RiskQuestionFormProps } from "./RiskQuestionForm.types";
 
-  const handleSubmit = (answers: Record<string, string | undefined>) => {
-    const payload: RiskQuestionFormPayload = {
-      source: "ONLINE",
-      guided_question: schema.miscellaneous.guided_question,
-      answers: QuestionFormUtilities.transformAnswers(answers),
-    };
-    console.log("[RiskQuestionForm] Submit", payload);
-    onSubmitCallback(payload);
-  };
-  const handleFormChange = (answers: Record<string, string | undefined>) =>
-    setValues(answers);
+const fields: SchemaDrivenQuestionFormProps["fields"] = {
+  LinkButton: LinkButtonFieldWrapper,
+  RadioGroup: RadioGroupFieldWrapper,
+  TextInput: TextInputFieldWrapper,
+  NextQuestionButton: NextQuestionButtonFieldWrapper,
+  ButtonGroup: ButtonGroupFieldWrapper,
+  Prompt: PromptFieldWrapper,
+  Warning: WarningFieldWrapper,
+  SubmitButton: SubmitButtonFieldWrapper,
+  SectionBlock: SectionBlockFieldWrapper,
+};
 
-  const handleEndFormClick = () => {
-    console.log("[RiskQuestionForm] End", {});
-    onEndFormCallback(values);
-  };
+const QuestionFieldUI: FC<{ children: ReactElement | ReactElement[] }> = ({ children }) => (
+  <Box bg="white" borderWidth="1px" borderRadius="lg" boxShadow="xl" padding={6} marginTop={6} marginBottom={6} width={800}>
+    {children}
+  </Box>
+);
 
-  const handleSpecificCondition = (
-    values: Record<string, string | undefined>
-  ) => {
-    const isQ1AnsweredAsYes = values["Q1"] === "YES";
-    const isQ1_1_YLinkClicked = values["Q1_1_Y"];
-    if (isQ1AnsweredAsYes && isQ1_1_YLinkClicked) {
-      console.log(
-        "User has gone to pensionwise via link. Submitting form answers"
-      );
-      handleSubmit(values);
+function useRiskQuestionAnalytics() {
+  const [logged, setLogged] = useState<{ [k: string]: boolean }>({});
+
+  const logtoAnalyticsOnce = (question: Question<QuestionFieldProperties>, value: string | undefined) => {
+    if (question.type === SupportedFormField.RadioGroup && value === "NO" && !logged[question.id]) {
+      console.log(`Logging ${question.id} to analytics`);
+      setLogged({ ...logged, [question.id]: true });
     }
   };
+  return { logtoAnalyticsOnce };
+}
 
-  useEffect(() => {
-    handleSpecificCondition(values);
-    // onChangeCallback && onChangeCallback(values);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
+export const RiskQuestionForm: FC<RiskQuestionFormProps> = ({ initialValues, schema, onSubmitCallback, onEndFormCallback }) => {
+  const { logtoAnalyticsOnce } = useRiskQuestionAnalytics();
+  const handleSubmit = (values: SchemaDrivenQuestionFormSubmission) => {
+    console.log("*** SUBMITTED ***", {
+      source: "ONLINE",
+      guided_question: schema.miscellaneous.guided_question,
+      answers: Object.entries(values).map(([k, v]: [string, string | undefined]) => ({ name: k, answer: v })),
+    });
+    onSubmitCallback({
+      source: "ONLINE",
+      guided_question: schema.miscellaneous.guided_question,
+      answers: Object.entries(values).map(([k, v]: [string, string | undefined]) => ({ name: k, answer: v })),
+    });
+  };
 
-  const generateQuestionFieldCard = (children: ReactElement) => (
-    <Box
-      bg="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      boxShadow="xl"
-      padding={6}
-      margin={6}
-      width={800}
-    >
-      {children}
-    </Box>
-  );
+  const handleEndForm = () => {
+    console.log("*** ENDED ***");
+    onEndFormCallback();
+  };
 
   return (
     <Flex flex={1} flexDir="column" alignItems="center">
-      <QuestionForm
-        initialValues={initialValues}
-        onSubmitCallback={handleSubmit}
-        onChangeCallback={handleFormChange}
-        onEndFormClickCallback={handleEndFormClick}
-        {...schema}
-      >
-        {({
-          questionsToRender,
-          values,
-          errors,
-          allQuestions,
-          onEndFormClickCallback,
-        }) =>
-          questionsToRender.map((question, key) => (
-            <QuestionField
-              key={key}
-              question={question}
-              questions={allQuestions}
-              renderQuestion={generateQuestionFieldCard}
-              values={values}
-              errors={errors}
-              onEndFormClickCallback={onEndFormClickCallback}
-              renderLinkButtonField={(props) => (
-                <LinkButtonFieldWrapper {...props} />
-              )}
-              renderRadioGroupField={(props) => (
-                <RadioGroupFieldWrapper {...props} />
-              )}
-              renderTextInputField={(props) => (
-                <TextInputFieldWrapper {...props} />
-              )}
-              renderNextQuestionButtonField={(props) => (
-                <NextQuestionButtonFieldWrapper {...props} />
-              )}
-              renderButtonGroupField={(props) => (
-                <ButtonGroupFieldWrapper {...props} />
-              )}
-              renderPromptField={(props) => <PromptFieldWrapper {...props} />}
-              renderWarningField={(props) => <WarningFieldWrapper {...props} />}
-              renderSubmitButtonField={(props) => (
-                <SubmitButtonFieldWrapper {...props} />
-              )}
-              renderSectionBlockField={(props) => (
-                <SectionBlockFieldWrapper {...props} />
-              )}
-              renderFieldErrorMessage={(error) => (
-                <Text color="red">{error.message}</Text>
-              )}
-            />
-          ))
-        }
-      </QuestionForm>
+      <Box borderRadius="lg" width={800}>
+        <SchemaDrivenQuestionForm
+          fields={fields}
+          questionFieldUI={QuestionFieldUI}
+          initialValues={initialValues}
+          onSubmitCallback={handleSubmit}
+          onEndFormCallback={handleEndForm}
+          onAnswerCallback={logtoAnalyticsOnce}
+          {...schema}
+          questions={schema.questions}
+        />
+      </Box>
     </Flex>
   );
 };

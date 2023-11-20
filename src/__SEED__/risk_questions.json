@@ -1,15 +1,18 @@
 {
-  "schemaVersionMajor": 2,
-  "schemaVersionMinor": 0,
+  "version": {
+    "schemaVersionMajor": 2,
+    "schemaVersionMinor": 1,
+    "revisionDate": "",
+    "revisionNotes": ""
+  },
   "formName": "Risk Form",
   "miscellaneous": {
-    "guided_question": "Q1"
+    "guided_question": "Q1",
+    "guided_question_2": "Q2"
   },
   "questions": [
     {
       "id": "UnderstandingYourOptionsSectionBlock",
-      "name": "UnderstandingYourOptionsSectionBlock",
-      "exclude": false,
       "type": "SectionBlock",
       "ui": false,
       "prompt": "",
@@ -27,9 +30,8 @@
     },
     {
       "id": "Q1",
-      "name": "Q1",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Do you want guidance from Pension Wise?",
       "properties": {
         "disabled": false,
@@ -65,9 +67,8 @@
 
     {
       "id": "Q1_1_Y",
-      "name": "Q1_1_Y",
-      "exclude": true,
       "type": "LinkButton",
+      "ui": true,
       "prompt": "",
       "properties": {
         "disabled": false,
@@ -83,9 +84,8 @@
 
     {
       "id": "Q1_1_N",
-      "name": "Q1_1_N",
-      "exclude": true,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Please tell us more",
       "properties": {
         "disabled": false,
@@ -123,9 +123,8 @@
 
     {
       "id": "Q1A",
-      "name": "Q1A",
-      "exclude": true,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have your circumstances changed since you had Pension Wise guidance?",
       "description": [
         {
@@ -175,9 +174,8 @@
 
     {
       "id": "Q1A_ButtonGroup",
-      "name": "Q1A_ButtonGroup",
-      "exclude": true,
       "type": "ButtonGroup",
+      "ui": true,
       "properties": {
         "buttons": [
           {
@@ -222,9 +220,8 @@
 
     {
       "id": "Q2",
-      "name": "Q2",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have you received personal advice from a regulated Financial Adviser?",
       "description": [
         {
@@ -237,7 +234,7 @@
             {
               "type": "url",
               "url": "https://www.moneyhelper.org.uk/en/getting-help-and-advice/financial-advisers",
-              "label": "Money Helper website",
+              "label": "MoneyHelper website",
               "target": "_parent"
             }
           ]
@@ -271,8 +268,6 @@
 
     {
       "id": "Q2Yes_Prompt",
-      "name": "Q2Yes_Prompt",
-      "exclude": true,
       "type": "Prompt",
       "ui": false,
       "properties": {
@@ -287,7 +282,8 @@
               {
                 "type": "url",
                 "label": "Pension Wise",
-                "url": "https://www.pensionwise.gov.uk/"
+                "url": "https://www.pensionwise.gov.uk/",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -296,7 +292,8 @@
               {
                 "type": "url",
                 "label": "personal advice",
-                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
+                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -320,9 +317,8 @@
 
     {
       "id": "Q2_1_N",
-      "name": "Q2_1_N",
-      "exclude": true,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Would you like to learn more about HL's Advice Service?",
       "properties": {
         "disabled": false,
@@ -351,8 +347,6 @@
     },
     {
       "id": "Q2_1_N_No_Prompt",
-      "name": "Q2_1_N_No_Prompt",
-      "exclude": true,
       "type": "Prompt",
       "ui": false,
       "properties": {
@@ -367,7 +361,8 @@
               {
                 "type": "url",
                 "label": "Pension Wise",
-                "url": "https://www.pensionwise.gov.uk/"
+                "url": "https://www.pensionwise.gov.uk/",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -376,7 +371,8 @@
               {
                 "type": "url",
                 "label": "personal advice",
-                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown"
+                "url": "https://www.hl.co.uk/financial-advice/moving-a-pension-into-drawdown",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -400,9 +396,8 @@
 
     {
       "id": "Q2_1_N_HLAdviceLink",
-      "name": "Q2_1_N_HLAdviceLink",
-      "exclude": true,
       "type": "LinkButton",
+      "ui": true,
       "prompt": "",
       "properties": {
         "disabled": false,
@@ -415,8 +410,6 @@
     },
     {
       "id": "YourCircumstancesSectionBlock",
-      "name": "YourCircumstancesSectionBlock",
-      "exclude": false,
       "type": "SectionBlock",
       "ui": false,
       "prompt": "",
@@ -435,9 +428,8 @@
 
     {
       "id": "Q3",
-      "name": "Q3",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Are you happy to take responsibility for your retirement income, including where you invest, and will you review these regularly?",
       "properties": {
         "disabled": false,
@@ -463,18 +455,13 @@
         {
           "equals": "YES",
           "question": "Q4"
-        },
-        {
-          "equals": "NO",
-          "question": "Q4"
         }
       ]
     },
     {
       "id": "Q3_Warning",
-      "name": "Q3_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -502,9 +489,8 @@
 
     {
       "id": "Q4",
-      "name": "Q4",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Do you understand you could run out of money earlier than planned in drawdown, if things don't go the way you want?",
       "properties": {
         "disabled": false,
@@ -529,19 +515,14 @@
         {
           "equals": "YES",
           "question": "Q5"
-        },
-        {
-          "equals": "NO",
-          "question": "Q5"
         }
       ]
     },
 
     {
       "id": "Q4_Warning",
-      "name": "Q4_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -569,9 +550,8 @@
 
     {
       "id": "Q5",
-      "name": "Q5",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "If you intend to draw income, do you understand how this might be generated from investments and why drawing from capital carries additional risks?",
       "properties": {
         "disabled": false,
@@ -602,10 +582,6 @@
           "question": "Q6"
         },
         {
-          "equals": "NO",
-          "question": "Q6"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q6"
         }
@@ -613,9 +589,8 @@
     },
     {
       "id": "Q5_Warning",
-      "name": "Q5_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -643,9 +618,8 @@
 
     {
       "id": "Q6",
-      "name": "Q6",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "In poor market conditions, could you afford to limit your withdrawals to reflect the performance of your chosen investments?",
       "properties": {
         "disabled": false,
@@ -670,18 +644,13 @@
         {
           "equals": "YES",
           "question": "Q7"
-        },
-        {
-          "equals": "NO",
-          "question": "Q7"
         }
       ]
     },
     {
       "id": "Q6_Warning",
-      "name": "Q6_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -709,9 +678,8 @@
 
     {
       "id": "Q7",
-      "name": "Q7",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Do you understand the tax treatment of income withdrawals?",
       "properties": {
         "disabled": false,
@@ -736,18 +704,13 @@
         {
           "equals": "YES",
           "question": "Q8"
-        },
-        {
-          "equals": "NO",
-          "question": "Q8"
         }
       ]
     },
     {
       "id": "Q7_Warning",
-      "name": "Q7_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -775,9 +738,8 @@
 
     {
       "id": "Q8",
-      "name": "Q8",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have you shopped around to compare your retirement options and the services available from different providers?",
       "properties": {
         "disabled": false,
@@ -802,18 +764,13 @@
         {
           "equals": "YES",
           "question": "Q9"
-        },
-        {
-          "equals": "NO",
-          "question": "Q9"
         }
       ]
     },
     {
       "id": "Q8_Warning",
-      "name": "Q8_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -841,9 +798,8 @@
 
     {
       "id": "Q9",
-      "name": "Q9",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have you considered how charges might affect your drawdown plan or any other retirement options you've considered?",
       "properties": {
         "disabled": false,
@@ -868,18 +824,13 @@
         {
           "equals": "YES",
           "question": "Q10"
-        },
-        {
-          "equals": "NO",
-          "question": "Q10"
         }
       ]
     },
     {
       "id": "Q9_Warning",
-      "name": "Q9_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -892,7 +843,8 @@
               {
                 "type": "url",
                 "url": "https://www.hl.co.uk/__data/assets/pdf_file/0015/37122/Online-Ts-and-Cs.pdf",
-                "label": "Terms and Conditions"
+                "label": "Terms and Conditions",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -916,10 +868,9 @@
 
     {
       "id": "Q10",
-      "name": "Q10",
-      "exclude": false,
       "type": "RadioGroup",
-      "prompt": "If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £4,000 each tax year?",
+      "ui": true,
+      "prompt": "If you intend to make further contributions to your money-purchase pensions (including your SIPP), will they total less than £10,000 each tax year?",
       "properties": {
         "disabled": false,
         "options": [
@@ -949,10 +900,6 @@
           "question": "Q11"
         },
         {
-          "equals": "NO",
-          "question": "Q11"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q11"
         }
@@ -960,9 +907,8 @@
     },
     {
       "id": "Q10_Warning",
-      "name": "Q10_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -970,7 +916,7 @@
             "content": [
               {
                 "type": "text",
-                "value": "If you're still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £4,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don't flexibly access benefits elsewhere, this restriction won't apply. If you're still unsure don't continue. Seek personal advice or guidance."
+                "value": "If you're still paying into pensions, flexibly accessing pension benefits (which includes starting to take a taxable income from flexi-access drawdown) could restrict how much you can pay in without incurring a tax charge. Future contributions to money purchase pensions, such as SIPPs and other personal pensions, could be restricted to a maximum allowance of £10,000 each tax year. This is known as the Money Purchase Annual Allowance (MPAA). This allowance figure includes employer contributions and any tax relief received or due on the contributions made. Contributions over this limit will be subject to a tax charge. If you only hold Capped Drawdown and don't flexibly access benefits elsewhere, this restriction won't apply. If you're still unsure don't continue. Seek personal advice or guidance."
               }
             ]
           }
@@ -989,9 +935,8 @@
     },
     {
       "id": "Q11",
-      "name": "Q11",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have you checked you're not giving up valuable benefits or guarantees, or will need to pay high exit penalties by transferring your pension?",
       "properties": {
         "disabled": false,
@@ -1022,10 +967,6 @@
           "question": "Q12"
         },
         {
-          "equals": "NO",
-          "question": "Q12"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q12"
         }
@@ -1033,9 +974,8 @@
     },
     {
       "id": "Q11_Warning",
-      "name": "Q11_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -1053,14 +993,18 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q12"
+        }
+      ]
     },
 
     {
       "id": "Q12",
-      "name": "Q12",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Have you considered the effects of inflation (i.e. rising prices) on your plans?",
       "properties": {
         "disabled": false,
@@ -1085,18 +1029,13 @@
         {
           "equals": "YES",
           "question": "Q13"
-        },
-        {
-          "equals": "NO",
-          "question": "Q13"
         }
       ]
     },
     {
       "id": "Q12_Warning",
-      "name": "Q12_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -1114,14 +1053,18 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q13"
+        }
+      ]
     },
 
     {
       "id": "Q13",
-      "name": "Q13",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Do you understand how taking your pension could affect any means-tested state benefits you receive?",
       "properties": {
         "disabled": false,
@@ -1152,10 +1095,6 @@
           "question": "Q14"
         },
         {
-          "equals": "NO",
-          "question": "Q14"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q14"
         }
@@ -1163,9 +1102,8 @@
     },
     {
       "id": "Q13_Warning",
-      "name": "Q13_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -1178,7 +1116,8 @@
               {
                 "type": "url",
                 "url": "https://www.gov.uk/benefits-calculators",
-                "label": "gov.uk/benefits-calculators"
+                "label": "gov.uk/benefits-calculators",
+                "target": "_blank"
               },
               {
                 "type": "text",
@@ -1192,14 +1131,18 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q14"
+        }
+      ]
     },
 
     {
       "id": "Q14",
-      "name": "Q14",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Do you understand the implications of taking money from your pension where you have debt (e.g. loans, mortgages, credit cards)?",
       "properties": {
         "disabled": false,
@@ -1230,10 +1173,6 @@
           "question": "Q15"
         },
         {
-          "equals": "NO",
-          "question": "Q15"
-        },
-        {
           "equals": "NOT_APPLICABLE",
           "question": "Q15"
         }
@@ -1241,9 +1180,8 @@
     },
     {
       "id": "Q14_Warning",
-      "name": "Q14_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -1256,7 +1194,7 @@
               {
                 "type": "url",
                 "url": "https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt",
-                "label": "Money Helper service",
+                "label": "MoneyHelper service",
                 "target": "_parent"
               },
               {
@@ -1271,14 +1209,18 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Q15"
+        }
+      ]
     },
 
     {
       "id": "Q15",
-      "name": "Q15",
-      "exclude": false,
       "type": "RadioGroup",
+      "ui": true,
       "prompt": "Are you aware that investment scams exist which target people who've withdrawn, or plan to withdraw, money from their pension?",
       "properties": {
         "disabled": false,
@@ -1303,18 +1245,13 @@
         {
           "equals": "YES",
           "question": "Form_Submit"
-        },
-        {
-          "equals": "NO",
-          "question": "Form_Submit"
         }
       ]
     },
     {
       "id": "Q15_Warning",
-      "name": "Q15_Warning",
-      "exclude": true,
       "type": "Warning",
+      "ui": true,
       "properties": {
         "prompt": [
           {
@@ -1332,13 +1269,15 @@
         "showEndFormButton": true
       },
       "warnings": [],
-      "next": []
+      "next": [
+        {
+          "equals": "SELECTED",
+          "question": "Form_Submit"
+        }
+      ]
     },
-
     {
       "id": "Form_Submit",
-      "name": "Form_Submit",
-      "exclude": true,
       "type": "SubmitButton",
       "ui": false,
       "prompt": "",
